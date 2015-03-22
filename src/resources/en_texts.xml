@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Texts>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="1">
+    <Text>New Game</Text>
+  </RS>
+  <RS ID="2">
+    <Text>Quit</Text>
+  </RS>
+  <RS ID="3">
+    <Text>Player choices</Text>
+  </RS>
+  <RS ID="4">
+    <Text>Press the number of choice [0..9]</Text>
+  </RS>
+  <RS ID="5">
+    <Text>Location: %s</Text>
+  </RS>
+  <RS ID="6">
+    <Text>Layer generation</Text>
+  </RS>
+  <RS ID="7">
+    <Text>City generation</Text>
+  </RS>
+  <RS ID="8">
+    <Text>Districts generation</Text>
+  </RS>
+  <RS ID="9">
+    <Text>Streets generation</Text>
+  </RS>
+  <RS ID="10">
+    <Text>Buildings populate</Text>
+  </RS>
+  <RS ID="11">
+    <Text>District's buildings generation</Text>
+  </RS>
+  <RS ID="12">
+    <Text>Cellars generation</Text>
+  </RS>
+  <RS ID="13">
+    <Text>Dungeons generation</Text>
+  </RS>
+  <RS ID="14">
+    <Text>He is %s years old. </Text>
+  </RS>
+  <RS ID="15">
+    <Text>She is %s years old. </Text>
+  </RS>
+  <RS ID="16">
+    <Text>He has %s hair and %s eyes. </Text>
+  </RS>
+  <RS ID="17">
+    <Text>She has %s hair and %s eyes. </Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+  <RS ID="0">
+    <Text>{reserved}</Text>
+  </RS>
+</Texts>
