@@ -36,7 +36,14 @@ public class BaseMap extends CustomMap
     @Override
     public Movements getTileMovements(short tileID)
     {
-        return new Movements();
+        Movements moves = new Movements();
+        
+        TileID tid = TileID.forValue(tileID);
+        if (tid != null && !tid.Flags.contains(TileFlags.tfBarrier)) {
+            moves.include(Movements.mkWalk);
+        }
+        
+        return moves;
     }
 
     @Override

@@ -149,10 +149,12 @@ public final class Game extends GameSpace implements IEventListener
         int ctX = AuxUtils.getRandom(mw - ctW);
         int ctY = AuxUtils.getRandom(mh - ctH);
         
-        progressController.setStage(Locale.getStr(RS.rs_DungeonsGeneration), 100);
-        //this.fDungeonsMap.initDungeon(this.fDungeonsMap.getAreaRect().clone(), null, false);
+        Rect cityArea = new Rect(ctX, ctY, ctX + ctW, ctY + ctH);
         
-        this.fCity = new City(this, fPlainMap, new Rect(ctX, ctY, ctX + ctW, ctY + ctH));
+        progressController.setStage(Locale.getStr(RS.rs_DungeonsGeneration), 100);
+        //this.fDungeonsMap.initDungeon(cityArea.clone(), null, false);
+        
+        this.fCity = new City(this, fPlainMap, cityArea);
         CityGenerator civFactory = new CityGenerator(fPlainMap, this.fCity, progressController);
         civFactory.buildCity();
         
@@ -197,18 +199,31 @@ public final class Game extends GameSpace implements IEventListener
             privArea = bld.getArea();
         }
         
-        Point stpt = bld.getFreeTile(bld.getArea());
-        this.fCellarsMap.initDungeon(privArea.clone(), null, true);
+        privArea = privArea.clone();
+        this.fCellarsMap.initDungeon(privArea, null, true);
 
-        Stairs stairs = new Stairs(this, this.fPlainMap, stpt.X, stpt.Y);
-        stairs.setDescending(true);
-        this.fPlainMap.getFeatures().add(stairs);
-        stairs.render();
+        this.genStairway(this.fPlainMap, this.fCellarsMap, privArea);
+        //this.genStairway(this.fCellarsMap, this.fDungeonsMap, privArea);
+    }
 
-        stairs = new Stairs(this, this.fCellarsMap, stpt.X, stpt.Y);
-        stairs.setDescending(false);
-        this.fCellarsMap.getFeatures().add(stairs);
-        stairs.render();
+    private void genStairway(IMap map1, IMap map2, Rect area)
+    {
+        Point src = map1.searchFreeLocation(area);
+        Point dst = map2.searchFreeLocation(area);
+        
+        if (src != null && dst != null) {
+            Stairs stairs = new Stairs(this, map1, src, dst);
+            stairs.setDescending(true);
+            map1.getFeatures().add(stairs);
+            stairs.render();
+
+            stairs = new Stairs(this, map2, dst, src);
+            stairs.setDescending(false);
+            map2.getFeatures().add(stairs);
+            stairs.render();
+        } else {
+            Logger.write("Game.genStairway(): null");
+        }
     }
     
     public final GameTime getTime()

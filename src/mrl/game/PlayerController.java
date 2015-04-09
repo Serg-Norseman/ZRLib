@@ -48,12 +48,10 @@ import mrl.maps.city.City;
 public final class PlayerController
 {
     private Human fPlayer;
-    
-    private List<Point> Path = new ArrayList<>();
+    private List<Point> fPath = new ArrayList<>();
+    private final Rect fViewport;
     
     public boolean CircularFOV = false;
-
-    private final Rect fViewport;
     
     public PlayerController()
     {
@@ -79,31 +77,31 @@ public final class PlayerController
         Room room = AuxUtils.getRandomItem(privHouse.getRooms());
         Rect rt = (room != null) ? room.getInnerArea() : privHouse.getArea();
         Point pt = AuxUtils.getRandomPoint(rt);
-        this.setPos(pt.X, pt.Y);
+        this.moveTo(pt.X, pt.Y);
     }
 
     public final void setPath(List<Point> path)
     {
         synchronized (PlayerController.class) {
-            this.Path = path;
+            this.fPath = path;
         }
     }
     
     public final void clearPath()
     {
         synchronized (PlayerController.class) {
-            this.Path = null;
+            this.fPath = null;
         }
     }
     
     public final Point getPathStep()
     {
         synchronized (PlayerController.class) {
-            if (this.Path != null && this.Path.size() > 0) {
-                Point pt = this.Path.get(0);
-                this.Path.remove(0);
+            if (this.fPath != null && this.fPath.size() > 0) {
+                Point pt = this.fPath.get(0);
+                this.fPath.remove(0);
                 
-                if (this.Path.isEmpty()) {
+                if (this.fPath.isEmpty()) {
                     PathSearch.clear(this.fPlayer.getMap());
                 }
                 
@@ -193,11 +191,6 @@ public final class PlayerController
         }
     }
 
-    public void setPos(int posX, int posY)
-    {
-        this.fPlayer.moveTo(posX, posY);
-    }
-    
     public void moveTo(int newX, int newY)
     {
         int posX = this.fPlayer.getPosX();
@@ -205,7 +198,7 @@ public final class PlayerController
         int dir = (this.CircularFOV) ? 0 : Directions.getDirByCoords(posX, posY, newX, newY);
 
         if (!this.fPlayer.getMap().isBarrier(newX, newY)) {
-            this.setPos(newX, newY);
+            this.fPlayer.setPos(newX, newY);
             posX = newX;
             posY = newY;
         }

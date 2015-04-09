@@ -19,6 +19,7 @@ package mrl.maps.buildings.features;
 
 import java.util.List;
 import jzrlib.core.GameSpace;
+import jzrlib.core.Point;
 import jzrlib.core.action.ActionList;
 import jzrlib.core.action.IAction;
 import jzrlib.map.IMap;
@@ -34,12 +35,25 @@ import mrl.maps.TileID;
 public final class Stairs extends BuildingFeature
 {
     private boolean fIsDesc = false;
+    private Point fDestination;
 
-    public Stairs(GameSpace space, Object owner, int x, int y)
+    public Stairs(GameSpace space, Object owner, int x, int y, int tx, int ty)
     {
         super(space, owner, x, y);
+        this.fDestination = new Point(tx, ty);
     }
 
+    public Stairs(GameSpace space, Object owner, Point src, Point dest)
+    {
+        super(space, owner, src.X, src.Y);
+        this.fDestination = dest;
+    }
+
+    public final Point getDestination()
+    {
+        return this.fDestination;
+    }
+    
     @Override
     public final TileID getTileID()
     {
@@ -77,7 +91,7 @@ public final class Stairs extends BuildingFeature
             @Override
             public void execute(Object invoker)
             {
-                ((Human) invoker).descend();
+                ((Human) invoker).descend(fDestination);
             }
         }
 
@@ -86,7 +100,7 @@ public final class Stairs extends BuildingFeature
             @Override
             public void execute(Object invoker)
             {
-                ((Human) invoker).ascend();
+                ((Human) invoker).ascend(fDestination);
             }
         }
  
