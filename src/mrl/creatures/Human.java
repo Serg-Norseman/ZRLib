@@ -23,7 +23,9 @@ import java.util.List;
 import jzrlib.common.CreatureSex;
 import jzrlib.core.GameSpace;
 import jzrlib.core.IEquippedCreature;
+import jzrlib.core.Point;
 import jzrlib.core.body.AbstractBody;
+import jzrlib.map.IMap;
 import mrl.core.Locale;
 import mrl.core.RS;
 import mrl.creatures.body.HumanBody;
@@ -231,6 +233,38 @@ public class Human extends Creature implements IEquippedCreature
         super.moveTo(newX, newY);
 
         body.adjustAttribute("stamina", -0.5f);
+    }
+    
+    public void ascend(Point target)
+    {
+        IMap map = this.getMap();
+        if (map == this.getSpace().getPlainMap()) {
+            //
+        }
+        if (map == this.getSpace().getCellarsMap()) {
+            this.setMap(this.getSpace().getPlainMap());
+            this.moveTo(target.X, target.Y);
+        }
+        if (map == this.getSpace().getDungeonsMap()) {
+            this.setMap(this.getSpace().getCellarsMap());
+            this.moveTo(target.X, target.Y);
+        }
+    }
+    
+    public void descend(Point target)
+    {
+        IMap map = this.getMap();
+        if (map == this.getSpace().getPlainMap()) {
+            this.setMap(this.getSpace().getCellarsMap());
+            this.moveTo(target.X, target.Y);
+        }
+        if (map == this.getSpace().getCellarsMap()) {
+            this.setMap(this.getSpace().getDungeonsMap());
+            this.moveTo(target.X, target.Y);
+        }
+        if (map == this.getSpace().getDungeonsMap()) {
+            //
+        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="Social stuff">

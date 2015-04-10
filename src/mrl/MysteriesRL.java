@@ -24,9 +24,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import jzrlib.jterm.JTerminal;
+import jzrlib.utils.Logger;
 import mrl.core.GlobalData;
 import mrl.core.Locale;
 import mrl.views.MainView;
@@ -55,6 +58,8 @@ public final class MysteriesRL extends JFrame
         this.pack();
         this.setLocationRelativeTo(null);
         this.setTitle(GlobalData.MRL_NAME);
+        
+        Logger.init(getAppPath() + "MysteriesRL.log");
 
         this.fLocale = new Locale();
         
@@ -153,6 +158,26 @@ public final class MysteriesRL extends JFrame
             {
             }
         });
+    }
+    
+    public static String getAppPath()
+    {
+        String applicationDir = MysteriesRL.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
+        String result = applicationDir;
+        if (result.endsWith("classes/")) {
+            result = result + "../../";
+        } else if (result.endsWith("/MysteriesRL.jar")) {
+            result = result.substring(0, result.indexOf("/MysteriesRL.jar"));
+        }
+
+        File file = new File(result);
+        try {
+            result = file.getCanonicalPath() + "\\";
+        } catch (IOException ex) {
+        }
+
+        return result;
     }
 
     public static void main(String[] args)

@@ -88,7 +88,7 @@ public final class Window extends BuildingFeature
         if (!fIsBroken) {
             ActionList<MapFeature> list = new ActionList();
             list.setOwner(this);
-            list.addAction(new ActionBreak(), "Break");
+            list.addAction(new ActionBreak(), "Break window");
 
             return list.getList();
         } else {

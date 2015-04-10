@@ -51,7 +51,7 @@ public final class Stove extends BuildingFeature
 
         ActionList<MapFeature> list = new ActionList();
         list.setOwner(this);
-        list.addAction(new ActionCook(), "Cook");
+        list.addAction(new ActionCook(), "Cook in stove");
 
         return list.getList();
     }

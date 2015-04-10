@@ -26,6 +26,7 @@ import jzrlib.core.GameEntity;
 import jzrlib.core.LocatedEntity;
 import jzrlib.core.Point;
 import jzrlib.core.Rect;
+import jzrlib.core.action.IAction;
 import jzrlib.core.action.IActor;
 import jzrlib.map.AbstractMap;
 import jzrlib.map.FOV;
@@ -52,6 +53,8 @@ public final class PlayerController
     private final Rect fViewport;
     
     public boolean CircularFOV = false;
+    
+    public List<IAction> AvailableActions = null;
     
     public PlayerController()
     {
@@ -204,31 +207,38 @@ public final class PlayerController
         }
         
         FOV.FOV_Start((AbstractMap) this.fPlayer.getMap(), posX, posY, this.fPlayer.getFovRadius(), dir, this.getViewport());
+        
+        this.postMove();
     }
     
-    public IActor getNearFeature()
+    private void postMove()
     {
+        this.AvailableActions = this.getNearFeature();
+    }
+    
+    public List<IAction> getNearFeature()
+    {
+        List<IAction> result = new ArrayList<>();
+
         int px = this.fPlayer.getPosX();
         int py = this.fPlayer.getPosY();
-        
         Rect rt = new Rect(px - 1, py - 1, px + 1, py + 1);
+
         ExtList<LocatedEntity> list = ListByArea(((Layer) this.fPlayer.getMap()).getFeatures(), rt);
-        
+        for (int i = 0; i < list.getCount(); i++) {
+            LocatedEntity entity = list.get(i);
+            if (entity instanceof IActor) {
+                List<IAction> featActions = ((IActor) entity).getActionsList();
+                result.addAll(featActions);
+            }
+        }
+
         /*int i = list.indexOf(this.fPlayer);
         if (i >= 0) {
             list.extract(fPlayer)
         }*/
-        
-        if (list.getCount() > 0) {
-            int idx = AuxUtils.getRandom(list.getCount());
-            LocatedEntity entity = list.get(idx);
-            if (entity instanceof IActor) {
-                return (IActor) entity;
-            }
-            return null;
-        } else {
-            return null;
-        }
+
+        return result;
     }
 
     public static final ExtList<LocatedEntity> ListByArea(EntityList list, Rect rect)

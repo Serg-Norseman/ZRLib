@@ -17,11 +17,14 @@
  */
 package mrl.maps;
 
+import java.util.List;
 import jzrlib.core.CreatureEntity;
 import jzrlib.core.LocatedEntity;
 import jzrlib.core.LocatedEntityList;
 import jzrlib.core.Point;
 import jzrlib.core.Rect;
+import jzrlib.external.bsp.BSPNode;
+import jzrlib.external.bsp.BSPTree;
 import jzrlib.map.AbstractMap;
 import jzrlib.map.BaseTile;
 import jzrlib.map.IMap;
@@ -60,7 +63,7 @@ public class Layer extends BaseMap
         }
     }
     
-    public final void initLayer(IProgressController progressController)
+    public final void initPlainLayer(IProgressController progressController)
     {
         int lakes = AuxUtils.getBoundedRnd(15, 25);
 
@@ -140,6 +143,25 @@ public class Layer extends BaseMap
                     }
                 }
             }
+        }
+    }
+
+    public final void initDungeonLayer(Rect area, IProgressController progressController)
+    {
+        progressController.setStage(Locale.getStr(RS.rs_DungeonsGeneration), 100);
+        area.inflate(50, 50);
+
+        // generate the tree of nodes
+        BSPTree tree = new BSPTree(area, 100, 200, true, null, null);
+
+        // create list of zones
+        List<BSPNode> leaves = tree.getLeaves();
+        for (BSPNode node : leaves) {
+            Rect nodeArea = new Rect(node.x1, node.y1, node.x2, node.y2);
+
+            this.initDungeon(nodeArea, null, false);
+            
+            progressController.complete(0);
         }
     }
 

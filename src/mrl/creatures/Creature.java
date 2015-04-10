@@ -19,7 +19,6 @@ package mrl.creatures;
 
 import jzrlib.core.CreatureEntity;
 import jzrlib.core.GameSpace;
-import jzrlib.core.Point;
 import jzrlib.map.IMap;
 import mrl.core.ITerminalEntity;
 import mrl.game.Game;
@@ -62,38 +61,6 @@ public abstract class Creature extends CreatureEntity implements ITerminalEntity
 
         if (value != null) {
             ((Layer) value).getCreatures().add(this);
-        }
-    }
-    
-    public void ascend(Point target)
-    {
-        IMap map = this.getMap();
-        if (map == this.getSpace().getPlainMap()) {
-            //
-        }
-        if (map == this.getSpace().getCellarsMap()) {
-            this.setMap(this.getSpace().getPlainMap());
-            this.moveTo(target.X, target.Y);
-        }
-        if (map == this.getSpace().getDungeonsMap()) {
-            this.setMap(this.getSpace().getCellarsMap());
-            this.moveTo(target.X, target.Y);
-        }
-    }
-    
-    public void descend(Point target)
-    {
-        IMap map = this.getMap();
-        if (map == this.getSpace().getPlainMap()) {
-            this.setMap(this.getSpace().getCellarsMap());
-            this.moveTo(target.X, target.Y);
-        }
-        if (map == this.getSpace().getCellarsMap()) {
-            this.setMap(this.getSpace().getDungeonsMap());
-            this.moveTo(target.X, target.Y);
-        }
-        if (map == this.getSpace().getDungeonsMap()) {
-            //
         }
     }
 

@@ -1,8 +1,6 @@
 /*
- *  "NorseWorld: Ragnarok", a roguelike game for PCs.
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
- *
- *  This file is part of "NorseWorld: Ragnarok".
+ *  "MysteriesRL", Java Roguelike game.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

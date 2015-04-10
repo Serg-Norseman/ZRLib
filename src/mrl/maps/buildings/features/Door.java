@@ -112,12 +112,12 @@ public final class Door extends BuildingFeature
         ActionList<MapFeature> list = new ActionList();
         list.setOwner(this);
         if (!Opened) {
-            list.addAction(new ActionOpen(), "Open");
+            list.addAction(new ActionOpen(), "Open door");
         } else {
-            list.addAction(new ActionClose(), "Close");
+            list.addAction(new ActionClose(), "Close door");
         }
 
-        list.addAction(new ActionBreak(), "Break");
+        list.addAction(new ActionBreak(), "Break door");
 
         return list.getList();
     }

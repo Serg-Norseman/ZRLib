@@ -35,7 +35,7 @@ import mrl.maps.TileID;
 public final class Stairs extends BuildingFeature
 {
     private boolean fIsDesc = false;
-    private Point fDestination;
+    private final Point fDestination;
 
     public Stairs(GameSpace space, Object owner, int x, int y, int tx, int ty)
     {
@@ -79,14 +79,7 @@ public final class Stairs extends BuildingFeature
     @Override
     public List<IAction> getActionsList()
     {
-        class ActionChangeLayer extends BaseEntityAction
-        {
-            protected void changeLayer(int layerFromID, int layerToID)
-            {
-            }
-        }
-
-        class ActionDescend extends ActionChangeLayer
+        class ActionDescend extends BaseEntityAction
         {
             @Override
             public void execute(Object invoker)
@@ -95,7 +88,7 @@ public final class Stairs extends BuildingFeature
             }
         }
 
-        class ActionAscend extends ActionChangeLayer
+        class ActionAscend extends BaseEntityAction
         {
             @Override
             public void execute(Object invoker)

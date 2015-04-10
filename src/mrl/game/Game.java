@@ -18,8 +18,6 @@
 package mrl.game;
 
 import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import jzrlib.common.DayTime;
@@ -75,8 +73,6 @@ public final class Game extends GameSpace implements IEventListener
     {
         super(owner);
         
-        Logger.init(getAppPath() + "MysteriesRL.log");
-        
         this.fPlainMap = new Layer(false, "plain");
         this.fCellarsMap = new Layer(true, "cellars");
         this.fDungeonsMap = new Layer(true, "dungeons");
@@ -87,26 +83,6 @@ public final class Game extends GameSpace implements IEventListener
         this.fTime = new GameTime();
         
         ScheduledEventManager.subscribe(this);
-    }
-    
-    public static String getAppPath()
-    {
-        String applicationDir = Game.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
-        String result = applicationDir;
-        if (result.endsWith("classes/")) {
-            result = result + "../../../";
-        } else if (result.endsWith("/MysteriesRL.jar")) {
-            result = result.substring(0, result.indexOf("/MysteriesRL.jar"));
-        }
-
-        File file = new File(result);
-        try {
-            result = file.getCanonicalPath() + "\\";
-        } catch (IOException ex) {
-        }
-
-        return result;
     }
 
     public final IMap getPlainMap()
@@ -138,7 +114,7 @@ public final class Game extends GameSpace implements IEventListener
     {
         this.fTime.set(1890, 07, 01, 12, 00, 00);
 
-        this.fPlainMap.initLayer(progressController);
+        this.fPlainMap.initPlainLayer(progressController);
 
         int mw = fPlainMap.getWidth();
         int mh = fPlainMap.getHeight();
@@ -151,8 +127,7 @@ public final class Game extends GameSpace implements IEventListener
         
         Rect cityArea = new Rect(ctX, ctY, ctX + ctW, ctY + ctH);
         
-        progressController.setStage(Locale.getStr(RS.rs_DungeonsGeneration), 100);
-        //this.fDungeonsMap.initDungeon(cityArea.clone(), null, false);
+        this.fDungeonsMap.initDungeonLayer(cityArea.clone(), progressController);
         
         this.fCity = new City(this, fPlainMap, cityArea);
         CityGenerator civFactory = new CityGenerator(fPlainMap, this.fCity, progressController);
@@ -203,7 +178,7 @@ public final class Game extends GameSpace implements IEventListener
         this.fCellarsMap.initDungeon(privArea, null, true);
 
         this.genStairway(this.fPlainMap, this.fCellarsMap, privArea);
-        //this.genStairway(this.fCellarsMap, this.fDungeonsMap, privArea);
+        this.genStairway(this.fCellarsMap, this.fDungeonsMap, privArea);
     }
 
     private void genStairway(IMap map1, IMap map2, Rect area)

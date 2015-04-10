@@ -24,7 +24,6 @@ import java.util.List;
 import jzrlib.core.Point;
 import jzrlib.core.Rect;
 import jzrlib.core.action.IAction;
-import jzrlib.core.action.IActor;
 import jzrlib.external.ColorUtil;
 import jzrlib.jterm.JTerminal;
 import jzrlib.map.BaseTile;
@@ -51,7 +50,6 @@ public final class GameView extends SubView
     private Rect fMapRect = new Rect();
     private Point fMouseClick = new Point();
     private int fTick;
-    private IActor fActionsEntity = null;
 
     public GameView(BaseView ownerView, JTerminal terminal)
     {
@@ -103,20 +101,25 @@ public final class GameView extends SubView
 
         //this.drawStat(105, 159, 13, "Carry Weight: " + String.valueOf(stats.getCarryWeight()), Color.white);
 
-        if (this.fActionsEntity != null) {
+        this.drawAvailableActions(gameSpace.getPlayerController());
+
+        //this.fTerminal.write(105, 73, "Dark: " + String.valueOf(darkness), Color.white);
+    }
+
+    private void drawAvailableActions(PlayerController playerCtl)
+    {
+        List<IAction> actions = playerCtl.AvailableActions;
+        if (actions != null) {
             int top = 50;
             int idx = 0;
-            List<IAction> actions = this.fActionsEntity.getActionsList();
             for (IAction action : actions) {
                 char key = (char) ('A' + idx++);
                 this.drawText(105, top, "[" + key + "] " + action.getName(), Color.white);
                 top += 2;
             }
         }
-
-        //this.fTerminal.write(105, 73, "Dark: " + String.valueOf(darkness), Color.white);
     }
-
+    
     private void drawMessages(Game gameSpace)
     {
         List<Message> messages = gameSpace.getMessages();
@@ -294,13 +297,12 @@ public final class GameView extends SubView
                 break;
 
             case ' ':
-                this.fActionsEntity = playerCtl.getNearFeature();
                 break;
 
             default:
-                if (this.fActionsEntity != null) {
+                List<IAction> actions = playerCtl.AvailableActions;
+                if (actions != null) {
                     int idx = 0;
-                    List<IAction> actions = this.fActionsEntity.getActionsList();
                     for (IAction action : actions) {
                         char key = (char) ('A' + idx++);
                         if (e.getKeyChar() == key) {

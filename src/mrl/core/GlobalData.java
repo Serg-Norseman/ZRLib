@@ -27,7 +27,7 @@ import java.awt.event.KeyEvent;
 public class GlobalData
 {
     public static final String MRL_NAME = "The MysteriesRL";
-    public static final String MRL_VER = "v0.0.4";
+    public static final String MRL_VER = "v0.0.5";
     public static final String MRL_DEV_TIME = "2015";
     public static final String MRL_COPYRIGHT = "Copyright (c) " + MRL_DEV_TIME + " by Serg V. Zhdanovskih";
     

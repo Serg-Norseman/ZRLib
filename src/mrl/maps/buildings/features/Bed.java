@@ -51,7 +51,7 @@ public final class Bed extends BuildingFeature
 
         ActionList<MapFeature> list = new ActionList();
         list.setOwner(this);
-        list.addAction(new ActionSleep(), "Sleep");
+        list.addAction(new ActionSleep(), "Sleep on bed");
 
         return list.getList();
     }
