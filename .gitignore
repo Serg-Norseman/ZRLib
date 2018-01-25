@@ -1,0 +1,8 @@
+**/.vs/
+*.suo
+*.userprefs
+*.DotSettings.user
+
+/project/bin/
+/project/obj/
+

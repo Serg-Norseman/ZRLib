@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{DA3CB263-9751-421B-8AE5-2915D3E26096}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>ZRLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>ZRLib</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SDL2-CS">
+      <HintPath>.\SDL2-CS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Core\Action\ActionList.cs" />
+    <Compile Include="Core\Action\IAction.cs" />
+    <Compile Include="Core\Action\IActor.cs" />
+    <Compile Include="Core\AreaEntity.cs" />
+    <Compile Include="Core\AuxUtils.cs" />
+    <Compile Include="Core\BaseEntity.cs" />
+    <Compile Include="Core\BaseLocale.cs" />
+    <Compile Include="Core\Body\AbstractBody.cs" />
+    <Compile Include="Core\Body\Bodypart.cs" />
+    <Compile Include="Core\Brain\BrainEntity.cs" />
+    <Compile Include="Core\Brain\Emitter.cs" />
+    <Compile Include="Core\Brain\EmitterList.cs" />
+    <Compile Include="Core\Brain\GoalEntity.cs" />
+    <Compile Include="Core\BytesSet.cs" />
+    <Compile Include="Core\CreatureEntity.cs" />
+    <Compile Include="Core\CreatureSex.cs" />
+    <Compile Include="Core\Directions.cs" />
+    <Compile Include="Core\EntityList.cs" />
+    <Compile Include="Core\Event.cs" />
+    <Compile Include="Core\EventManager.cs" />
+    <Compile Include="Core\LocatedEvent.cs" />
+    <Compile Include="Core\Parser.cs" />
+    <Compile Include="Core\ScheduledEventManager.cs" />
+    <Compile Include="Core\FileVersion.cs" />
+    <Compile Include="Core\FlagSet.cs" />
+    <Compile Include="Core\GameEntity.cs" />
+    <Compile Include="Core\GameSpace.cs" />
+    <Compile Include="Core\GameTime.cs" />
+    <Compile Include="Core\INotifyEvent.cs" />
+    <Compile Include="Core\LocatedEntity.cs" />
+    <Compile Include="Core\LocatedEntityList.cs" />
+    <Compile Include="Core\Logger.cs" />
+    <Compile Include="Core\MNXRange.cs" />
+    <Compile Include="Core\Movements.cs" />
+    <Compile Include="Core\SerializablesManager.cs" />
+    <Compile Include="Core\StreamUtils.cs" />
+    <Compile Include="Engine\BaseImage.cs" />
+    <Compile Include="Engine\BaseScreen.cs" />
+    <Compile Include="Engine\BaseSystem.cs" />
+    <Compile Include="Engine\EventArgs.cs" />
+    <Compile Include="Engine\Font.cs" />
+    <Compile Include="Engine\HotKey.cs" />
+    <Compile Include="Engine\IMainWindow.cs" />
+    <Compile Include="Engine\IsoViewer.cs" />
+    <Compile Include="Engine\KeyEventArgs.cs" />
+    <Compile Include="Engine\KeyPressEventArgs.cs" />
+    <Compile Include="Engine\Keys.cs" />
+    <Compile Include="Engine\MapViewer.cs" />
+    <Compile Include="Engine\MouseEventArgs.cs" />
+    <Compile Include="Engine\MouseMoveEventArgs.cs" />
+    <Compile Include="Engine\MouseWheelEventArgs.cs" />
+    <Compile Include="Engine\ResourceManager.cs" />
+    <Compile Include="External\BSP\BSPNode.cs" />
+    <Compile Include="External\BSP\BSPTree.cs" />
+    <Compile Include="External\BSP\NodeSide.cs" />
+    <Compile Include="External\FMOD\fmod.cs" />
+    <Compile Include="External\FMOD\fmod_errors.cs" />
+    <Compile Include="External\MarkovChains\CharChain.cs" />
+    <Compile Include="External\MarkovChains\MarkovChain.cs" />
+    <Compile Include="External\MarkovChains\StringChain.cs" />
+    <Compile Include="External\PQG\QNode.cs" />
+    <Compile Include="External\PQG\QObject.cs" />
+    <Compile Include="External\PQG\QuestBuilder.cs" />
+    <Compile Include="Engine\SDL2\SDL2Image.cs" />
+    <Compile Include="Engine\SDL2\SDL2Screen.cs" />
+    <Compile Include="Engine\SDL2\SDL2System.cs" />
+    <Compile Include="Grammar\Grammar.cs" />
+    <Compile Include="Grammar\SpeechSign.cs" />
+    <Compile Include="Terminal\Terminal.cs" />
+    <Compile Include="Map\AbstractMap.cs" />
+    <Compile Include="Map\AStar.cs" />
+    <Compile Include="Map\BaseTile.cs" />
+    <Compile Include="Map\Builders\BaseBuilder.cs" />
+    <Compile Include="Map\Builders\CaveBuilder.cs" />
+    <Compile Include="Map\Builders\RoadBuilder.cs" />
+    <Compile Include="Map\CustomMap.cs" />
+    <Compile Include="Map\Dungeons\Alt1Room.cs" />
+    <Compile Include="Map\Dungeons\Alt2Room.cs" />
+    <Compile Include="Map\Dungeons\Alt3Room.cs" />
+    <Compile Include="Map\Dungeons\Alt4Room.cs" />
+    <Compile Include="Map\Dungeons\Alt5Room.cs" />
+    <Compile Include="Map\Dungeons\AreaType.cs" />
+    <Compile Include="Map\Dungeons\CrossroadRoom.cs" />
+    <Compile Include="Map\Dungeons\CryptRoom.cs" />
+    <Compile Include="Map\Dungeons\CustomStaticArea.cs" />
+    <Compile Include="Map\Dungeons\CylindricityRoom.cs" />
+    <Compile Include="Map\Dungeons\DungeonArea.cs" />
+    <Compile Include="Map\Dungeons\DungeonBuilder.cs" />
+    <Compile Include="Map\Dungeons\DungeonException.cs" />
+    <Compile Include="Map\Dungeons\DungeonMark.cs" />
+    <Compile Include="Map\Dungeons\FaithRoom.cs" />
+    <Compile Include="Map\Dungeons\GenevaWheelRoom.cs" />
+    <Compile Include="Map\Dungeons\LinearCorridor.cs" />
+    <Compile Include="Map\Dungeons\MonasticCellsRoom.cs" />
+    <Compile Include="Map\Dungeons\QuadrantCorridor.cs" />
+    <Compile Include="Map\Dungeons\QuakeIIArena.cs" />
+    <Compile Include="Map\Dungeons\RectangularRoom.cs" />
+    <Compile Include="Map\Dungeons\RoseRoom.cs" />
+    <Compile Include="Map\Dungeons\SpiderRoom.cs" />
+    <Compile Include="Map\Dungeons\StarRoom.cs" />
+    <Compile Include="Map\Dungeons\StaticArea.cs" />
+    <Compile Include="Map\Dungeons\TempleRoom.cs" />
+    <Compile Include="Map\FOV.cs" />
+    <Compile Include="Map\IMap.cs" />
+    <Compile Include="Map\MapUtils.cs" />
+    <Compile Include="Map\PathSearch.cs" />
+    <Compile Include="Map\TileType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BSLib\BSLib\BSLib.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\cp437_10x10.png" />
+    <EmbeddedResource Include="Resources\cp437_12x12.png" />
+    <EmbeddedResource Include="Resources\cp437_8x8.png" />
+    <EmbeddedResource Include="Resources\cp866_8x8.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
