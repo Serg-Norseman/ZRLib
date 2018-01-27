@@ -312,6 +312,7 @@ namespace ZRLib.Map
         public const int TSL_FORE_EXT = 3;
         public const int TSL_FOG = 4;
 
+        // FIXME: NWR dup
         public static int GetAdjacentMagic(IMap map, int x, int y, int def, int check, int select)
         {
             int magic = 0;
@@ -326,10 +327,10 @@ namespace ZRLib.Map
                 } else {
                     switch (select) {
                         case TSL_BACK:
-                            tid = AuxUtils.GetShortLo(tile.Background);
+                            tid = tile.BackBase;
                             break;
                         case TSL_FORE:
-                            tid = AuxUtils.GetShortLo(tile.Foreground);
+                            tid = tile.ForeBase;
                             break;
                         case TSL_BACK_EXT:
                             tid = AuxUtils.GetShortLo(tile.BackgroundExt);

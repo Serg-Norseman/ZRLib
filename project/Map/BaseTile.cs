@@ -113,42 +113,32 @@ namespace ZRLib.Map
 
         public byte BackBase
         {
-            get { return AuxUtils.GetShortLo(Background); }
+            get { return (byte)(Background & 0xff); }
         }
 
         public byte BackVar
         {
-            get { return AuxUtils.GetShortHi(Background); }
-        }
-
-        public int Back
-        {
-            set { Background = (ushort)value; }
+            get { return (byte)((Background >> 8) & 0xff); }
         }
 
         public void SetBack(int _base, int _var)
         {
-            Background = AuxUtils.FitShort(_base, _var);
+            Background = GetVarID((byte)_base, (byte)_var);
         }
 
         public byte ForeBase
         {
-            get { return AuxUtils.GetShortLo(Foreground); }
+            get { return (byte)(Foreground & 0xff); }
         }
 
         public byte ForeVar
         {
-            get { return AuxUtils.GetShortHi(Foreground); }
-        }
-
-        public int Fore
-        {
-            set { Foreground = (ushort)value; }
+            get { return (byte)((Foreground >> 8) & 0xff); }
         }
 
         public void SetFore(int _base, int _var)
         {
-            Foreground = AuxUtils.FitShort(_base, _var);
+            Foreground = GetVarID((byte)_base, (byte)_var);
         }
     }
 }

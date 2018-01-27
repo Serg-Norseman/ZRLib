@@ -147,7 +147,7 @@ namespace ZRLib.Engine
                         }
                     }
 
-                    fImageFile = AuxUtils.ChangeExtension(fileName, ".tga");
+                    fImageFile = Path.ChangeExtension(fileName, ".tga");
 
                     fImage = fScreen.CreateImage();
                     fImage.PaletteMode = true;

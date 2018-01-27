@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BSLib;
 
 namespace ZRLib.Core
@@ -216,16 +215,6 @@ namespace ZRLib.Core
             return RandomHelper.GetRandom(101) < percent;
         }
 
-        public static string ChangeExtension(string originalName, string newExtension)
-        {
-            int lastDot = originalName.LastIndexOf('.');
-            if (lastDot != -1) {
-                return originalName.Substring(0, lastDot) + newExtension;
-            } else {
-                return originalName + newExtension;
-            }
-        }
-
         public static int CalcDistanceToArea(ExtPoint p, ExtRect a)
         {
             int result;
@@ -414,24 +403,6 @@ namespace ZRLib.Core
             return ExtPointF.Empty;
         }
 
-        public static short GetUByte(sbyte val)
-        {
-            short result = (short)(val & 0xff);
-            return result;
-        }
-
-        public static ushort FitShort(byte lo, byte hi)
-        {
-            ushort result = (ushort)(((hi & 0xFF) << 8) | (lo & 0xFF));
-            return result;
-        }
-
-        public static ushort FitShort(int lo, int hi)
-        {
-            ushort result = (ushort)(((hi & 0xFF) << 8) | (lo & 0xFF));
-            return result;
-        }
-
         public static byte GetShortLo(ushort val)
         {
             return (byte)(val & 0xff);
@@ -441,46 +412,5 @@ namespace ZRLib.Core
         {
             return (byte)((val >> 8) & 0xff);
         }
-
-        public static bool HasFlag(int testValue, int flag)
-        {
-            return (testValue & flag) > 0;
-        }
-
-
-        /// <summary>
-        /// Make an even blend between two colors.
-        /// </summary>
-        /// <param name="c1"> First color to blend. </param>
-        /// <param name="c2"> Second color to blend. </param>
-        /// <returns> Blended color. </returns>
-        /*public static Color Blend(Color color1, Color color2, float ratio = 0.5f)
-        {
-            return Color.FromArgb(GfxHelper.Blend(color1.ToArgb(), color2.ToArgb(), ratio));
-        }*/
-
-        /// <summary>
-        /// Make a color darker.
-        /// </summary>
-        /// <param name="color"> Color to make darker. </param>
-        /// <param name="fraction"> Darkness fraction. </param>
-        /// <returns> Darker color. </returns>
-        /*public static Color Darker(Color color, float fraction)
-        {
-            int rgb = color.ToArgb();
-            return Color.FromArgb(GfxHelper.Darker(rgb, fraction));
-        }*/
-
-        /// <summary>
-        /// Make a color lighter.
-        /// </summary>
-        /// <param name="color"> Color to make lighter. </param>
-        /// <param name="fraction"> Darkness fraction. </param>
-        /// <returns> Lighter color. </returns>
-        /*public static Color Lighter(Color color, float fraction)
-        {
-            int rgb = color.ToArgb();
-            return Color.FromArgb(GfxHelper.Lighter(rgb, fraction));
-        }*/
     }
 }
