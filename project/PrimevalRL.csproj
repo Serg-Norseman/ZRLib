@@ -45,6 +45,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlSerializer">
+      <HintPath>YamlSerializer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Creatures\CustomBody.cs" />
@@ -52,10 +55,10 @@
     <Compile Include="Game\CrimeRecord.cs" />
     <Compile Include="Game\MRLData.cs" />
     <Compile Include="Game\SocialController.cs" />
+    <Compile Include="Game\YamlHelper.cs" />
     <Compile Include="Maps\City.cs" />
     <Compile Include="Maps\CityRegion.cs" />
     <Compile Include="Maps\District.cs" />
-    <Compile Include="Maps\Prosperity.cs" />
     <Compile Include="Maps\Street.cs" />
     <Compile Include="PrimevalRL.cs">
       <SubType>Form</SubType>
@@ -90,7 +93,6 @@
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemsFactory.cs" />
     <Compile Include="Items\ItemsList.cs" />
-    <Compile Include="Maps\Axis.cs" />
     <Compile Include="Maps\BaseMap.cs" />
     <Compile Include="Maps\Buildings\Building.cs" />
     <Compile Include="Maps\Buildings\Features\Bed.cs" />
@@ -125,7 +127,6 @@
     <EmbeddedResource Include="resources\namegen\surnames.csv" />
     <EmbeddedResource Include="resources\ru_texts.xml" />
     <EmbeddedResource Include="resources\startup.txt" />
-    <EmbeddedResource Include="resources\startup2.txt" />
     <None Include="SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

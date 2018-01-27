@@ -17,12 +17,10 @@
  */
 
 using System;
-using System.Collections.Generic;
 using BSLib;
 using PrimevalRL.Creatures;
 using PrimevalRL.Game;
 using ZRLib.Core;
-using ZRLib.External.BSP;
 using ZRLib.Map;
 using ZRLib.Map.Dungeons;
 

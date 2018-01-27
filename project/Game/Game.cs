@@ -35,7 +35,6 @@ namespace PrimevalRL.Game
     {
         private readonly Layer fPlainMap;
         private readonly Layer fCellarsMap;
-        private readonly Layer fDungeonsMap;
 
         private readonly IList<TextMessage> fMessages;
         private readonly PlayerController fPlayerController;
@@ -50,7 +49,6 @@ namespace PrimevalRL.Game
         {
             fPlainMap = new Layer(false, "plain");
             fCellarsMap = new Layer(true, "cellars");
-            fDungeonsMap = new Layer(true, "dungeons");
 
             fMinimap = null;
             fMessages = new List<TextMessage>();
@@ -68,11 +66,6 @@ namespace PrimevalRL.Game
         public IMap CellarsMap
         {
             get { return fCellarsMap; }
-        }
-
-        public IMap DungeonsMap
-        {
-            get { return fDungeonsMap; }
         }
 
         public City City

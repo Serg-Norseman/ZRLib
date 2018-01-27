@@ -1,5 +1,5 @@
 
-The MysteriesRL, v0.0.4, Copyright (c) 2015 by Serg V. Zhdanovskih  
+The PrimevalRL, v0.5.0, Copyright (c) 2015 by Serg V. Zhdanovskih  
 ==================================================================
 
 === Keys ===

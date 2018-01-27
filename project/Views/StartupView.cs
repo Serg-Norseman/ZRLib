@@ -29,7 +29,7 @@ namespace PrimevalRL.Views
 {
     public sealed class StartupView : SubView, IProgressController
     {
-        private int SV_COL = 0x008080;
+        private const int SV_COL = 0x008080;
 
         private string[] fTitle;
         private readonly ChoicesArea fChoicesArea;
@@ -52,16 +52,15 @@ namespace PrimevalRL.Views
 
         private void ParseTitle()
         {
-            fTitle = new string[36];
+            fTitle = new string[42];
 
             try {
                 Assembly assembly = typeof(StartupView).Assembly;
                 int i = 0;
-                using (Stream book_names = assembly.GetManifestResourceStream("resources.startup.txt")) {
-                    using (StreamReader strd = new StreamReader(book_names, Encoding.GetEncoding(1251))) {
-                        while (strd.Peek() != -1) {
-                            string ns = strd.ReadLine().Trim();
-                            fTitle[i] = ns;
+                using (Stream stm = assembly.GetManifestResourceStream("resources.startup.txt")) {
+                    using (StreamReader reader = new StreamReader(stm, Encoding.GetEncoding(866))) {
+                        while (reader.Peek() != -1) {
+                            fTitle[i] = reader.ReadLine().Trim();
                             i++;
                         }
                     }
@@ -78,21 +77,20 @@ namespace PrimevalRL.Views
             fTerminal.Clear();
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
+            int maxw = 0;
             for (int i = 0; i < fTitle.Length; i++) {
-                string line = fTitle[i];
-                if (line != null) {
-                    for (int x = 0; x < line.Length; x++) {
-                        char chr = line[x];
-                        chr = (chr != '.') ? (char)177 : ' ';
-                        fTerminal.Write(1 + x, 1 + i, chr);
-                    }
-                }
+                maxw = Math.Max(maxw, fTitle[i].Length);
+            }
+            int offset = (fTerminal.TermWidth - maxw) / 2;
+
+            for (int i = 0; i < fTitle.Length; i++) {
+                fTerminal.Write(offset, 2 + i, fTitle[i]);
             }
 
             fTerminal.TextForeground = Colors.AliceBlue;
             int top = fTitle.Length;
-            fTerminal.WriteCenter(1, 158, top + 1, MRLData.MRL_VER);
-            fTerminal.WriteCenter(1, 158, top + 3, MRLData.MRL_COPYRIGHT);
+            fTerminal.WriteCenter(1, 158, top + 4, MRLData.MRL_VER);
+            fTerminal.WriteCenter(1, 158, top + 6, MRLData.MRL_COPYRIGHT);
 
             if (fMenuMode) {
                 fChoicesArea.Draw();

@@ -30,6 +30,13 @@ namespace PrimevalRL.Maps
         dtGraveyard
     }
 
+    public enum Prosperity
+    {
+        pPoor,
+        pGood,
+        pLux
+    }
+
     public sealed class District : CityRegion
     {
         private static int LastNum = 0;

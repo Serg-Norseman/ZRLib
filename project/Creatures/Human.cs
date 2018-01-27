@@ -232,10 +232,6 @@ namespace PrimevalRL.Creatures
                 Map = Space.PlainMap;
                 MoveTo(target.X, target.Y);
             }
-            if (map == Space.DungeonsMap) {
-                Map = Space.CellarsMap;
-                MoveTo(target.X, target.Y);
-            }
         }
 
         public virtual void Descend(ExtPoint target)
@@ -244,13 +240,6 @@ namespace PrimevalRL.Creatures
             if (map == Space.PlainMap) {
                 Map = Space.CellarsMap;
                 MoveTo(target.X, target.Y);
-            }
-            if (map == Space.CellarsMap) {
-                Map = Space.DungeonsMap;
-                MoveTo(target.X, target.Y);
-            }
-            if (map == Space.DungeonsMap) {
-                //
             }
         }
 

@@ -22,6 +22,13 @@ using ZRLib.External.BSP;
 
 namespace PrimevalRL.Maps
 {
+    public enum Axis
+    {
+        axNone,
+        axHorz,
+        axVert
+    }
+
     public static class MMapUtils
     {
         public static Axis GetTilesLineAxis(IMap map, int x, int y, int tileId)
