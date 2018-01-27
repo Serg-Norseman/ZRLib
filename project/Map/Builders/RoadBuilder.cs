@@ -17,7 +17,7 @@
  *     the winding road stays within the map.
  *
  *  Java/C# translation.
- *  Copyright (C) 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  Copyright (C) 2014 by Serg V. Zhdanovskih.
  */
 
 using System;

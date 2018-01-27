@@ -1,6 +1,6 @@
 /*
  *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,17 +17,13 @@
  */
 
 using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
 using BSLib;
 using ZRLib.Core;
+using ZRLib.Engine;
+using ZRLib.Engine.sdl2;
 
-namespace ZRLib.Terminal
+namespace ZRLib.Engine
 {
     public delegate void ICharTransformer(int x, int y, TermChar data);
 
@@ -36,22 +32,16 @@ namespace ZRLib.Terminal
         public char Character;
         public int Foreground;
         public int Background;
-
-        public char PrevCharacter;
-        public int PrevForeground;
-        public int PrevBackground;
     }
 
     /// <summary>
     /// This simulates a ASCII terminal display.
     /// </summary>
-    public sealed class Terminal : UserControl
+    public class Terminal : BaseObject, IMainWindow
     {
-        private Bitmap fBufferImage;
-        private bool fBufferChanged;
-        private Color fCurrentBackground;
-        private Color fCurrentForeground;
-        private Image fFontImage;
+        private int fCurrentBackground;
+        private int fCurrentForeground;
+        private BaseImage fFontImage;
         private int fFontCols;
         private int fCharHeight;
         private int fCharWidth;
@@ -59,8 +49,8 @@ namespace ZRLib.Terminal
         private readonly int fTermHeight;
         private readonly int fTermWidth;
         private int fSize;
+        private BaseSystem fSystem;
         private int fTermCursor = 0;
-
 
         public int CharHeight
         {
@@ -92,20 +82,30 @@ namespace ZRLib.Terminal
             get { return fTermCursor / fTermWidth; }
         }
 
-        public Color TextBackground
+        public int TextBackground
         {
             get { return fCurrentBackground; }
             set { fCurrentBackground = value; }
         }
 
-        public Color TextForeground
+        public int TextForeground
         {
             get { return fCurrentForeground; }
             set { fCurrentForeground = value; }
         }
 
+        public BaseSystem System
+        {
+            get { return fSystem; }
+        }
 
-        public Terminal(int width, int height)
+        public BaseScreen Screen
+        {
+            get { return fSystem.Screen; }
+        }
+
+
+        public Terminal(int width, int height, string fontName, int fontCols, int charWidth, int charHeight)
         {
             if (width < 1) {
                 throw new ArgumentException("width " + width + " must be greater than 0.");
@@ -115,10 +115,8 @@ namespace ZRLib.Terminal
                 throw new ArgumentException("height " + height + " must be greater than 0.");
             }
 
-            LoadGlyphs("cp866_8x8.png", 32, 8, 8);
-
-            fCurrentBackground = Color.Black;
-            fCurrentForeground = Color.LightGray;
+            fCurrentBackground = Colors.Black;
+            fCurrentForeground = Colors.LightGray;
             fSize = height * width;
             fTermWidth = width;
             fTermHeight = height;
@@ -128,9 +126,7 @@ namespace ZRLib.Terminal
                 fTermBuffer[i] = new TermChar();
             }
 
-            Size = new Size(fCharWidth * fTermWidth, fCharHeight * fTermHeight);
-            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-
+            LoadGlyphs(fontName, fontCols, charWidth, charHeight);
             Clear();
         }
 
@@ -141,46 +137,27 @@ namespace ZRLib.Terminal
                 fCharWidth = charWidth;
                 fCharHeight = charHeight;
 
-                Assembly assembly = typeof(Terminal).Assembly;
+                int winWidth = fCharWidth * fTermWidth;
+                int winHeight = fCharHeight * fTermHeight;
+                fSystem = new SDL2System(this, winWidth, winHeight, false);
+
+                fFontImage = fSystem.Screen.CreateImage();
+                fFontImage.LoadFromFile(fontName, Colors.None);
+                /*Assembly assembly = typeof(Terminal).Assembly;
                 using (Stream stmImage = assembly.GetManifestResourceStream("Resources." + fontName)) {
-                    fFontImage = Image.FromStream(stmImage);
-                }
+                    fFontImage = new SDL2Image(fSystem.Screen); //fsc Image.FromStream(stmImage);
+                    //((SDL2Image)fFontImage).Type = "PNG";
+                    fFontImage.LoadFromStream(stmImage, Colors.None);
+                }*/
             } catch (Exception e) {
                 Logger.Write("loadGlyphs(): " + e.Message);
             }
         }
 
-        protected override void OnResize(EventArgs e)
-        {
-            RecreateBuffer();
-            base.OnResize(e);
-        }
-
-        private void RecreateBuffer()
-        {
-            if (Width != 0 && Height != 0) {
-                fBufferImage = new Bitmap(Width, Height, PixelFormat.Format32bppRgb);
-                fBufferChanged = true;
-            }
-        }
-
-        private void InternalPaint(Graphics maingfx)
+        private void InternalPaint(BaseScreen gfx)
         {
             try {
-                Graphics gfx = Graphics.FromImage(fBufferImage);
-                gfx.SmoothingMode = SmoothingMode.None;
-
-                ColorMap[] colorMap = new ColorMap[2];
-                colorMap[0] = new ColorMap();
-                colorMap[0].OldColor = Color.White;
-                colorMap[0].NewColor = fCurrentForeground;
-                colorMap[1] = new ColorMap();
-                colorMap[1].OldColor = Color.Black;
-                colorMap[1].NewColor = fCurrentBackground;
-                ImageAttributes attr = new ImageAttributes();
-                attr.SetRemapTable(colorMap);
-
-                Rectangle destRect = new Rectangle(0, 0, fCharWidth, fCharHeight);
+                int dx, dy;
                 int prevbg = 0, prevfg = 0;
                 for (int y = 0; y < fTermHeight; y++) {
                     for (int x = 0; x < fTermWidth; x++) {
@@ -189,20 +166,9 @@ namespace ZRLib.Terminal
                         int bg = tmc.Background;
                         int fg = tmc.Foreground;
 
-                        if ((tmc.PrevCharacter != tmc.Character) ||
-                            (tmc.PrevBackground != bg) || (tmc.PrevForeground != fg) ||
-                            fBufferChanged) {
-                            tmc.PrevBackground = bg;
-                            tmc.PrevForeground = fg;
-                            tmc.PrevCharacter = tmc.Character;
-                        } else {
-                            continue;
-                        }
-
                         if ((prevbg != bg) || (prevfg != fg)) {
-                            colorMap[0].NewColor = Color.FromArgb(fg);
-                            colorMap[1].NewColor = Color.FromArgb(bg);
-                            attr.SetRemapTable(colorMap);
+                            fFontImage.ReplaceColor(0, bg);
+                            fFontImage.ReplaceColor(1, fg);
 
                             prevbg = bg;
                             prevfg = fg;
@@ -210,51 +176,69 @@ namespace ZRLib.Terminal
 
                         int sx = (tmc.Character % fFontCols) * fCharWidth;
                         int sy = (tmc.Character / fFontCols) * fCharHeight;
-                        destRect.X = x * fCharWidth;
-                        destRect.Y = y * fCharHeight;
-                        gfx.DrawImage(fFontImage, destRect, sx, sy, fCharWidth, fCharHeight, GraphicsUnit.Pixel, attr, null, IntPtr.Zero);
+                        dx = x * fCharWidth;
+                        dy = y * fCharHeight;
+                        gfx.DrawImage(dx, dy, sx, sy, fCharWidth, fCharHeight, fFontImage, 255);
                     }
                 }
-
-                maingfx.DrawImage(fBufferImage, 0, 0);
             } catch (Exception ex) {
-                Logger.Write("OnPaint(): " + ex.Message);
+                Logger.Write("Terminal.InternalPaint(): " + ex.Message);
             }
         }
 
-        private object gfxLock = new object();
-
-        protected override void OnPaint(PaintEventArgs e)
+        public void Repaint(int delayInterval)
         {
-            base.OnPaint(e);
-            Graphics gfx = e.Graphics;
+            BaseSystem.Sleep(delayInterval);
+            Repaint();
+        }
 
-            lock (gfxLock) {
-                InternalPaint(gfx);
+        public void Repaint()
+        {
+            BaseScreen scr = fSystem.Screen;
+            if (scr != null) {
+                try {
+                    scr.BeginPaint();
+                    UpdateView();
+                    InternalPaint(scr);
+                    scr.EndPaint();
+
+                    /*fFrameCount += 1;
+                    long now = BaseSystem.TickCount;
+                    if (now > fFrameStartTime + 1000) {
+                        FPS = ((1000 * fFrameCount / (now - fFrameStartTime)));
+                        fFrameStartTime = now;
+                        fFrameCount = 0;
+                    }*/
+                } catch (Exception ex) {
+                    Logger.Write("Terminal.Repaint(): " + ex.Message);
+                }
             }
         }
 
-        private int WriteChar(char chr, int pos, Color fg, Color bg)
+        protected virtual void UpdateView()
         {
-            lock (gfxLock) {
-                switch (chr) {
-                    case '\n':
-                        pos = ((pos + fTermWidth) / fTermWidth) * fTermWidth;
-                        break;
+            // dummy
+        }
 
-                    default:
-                        TermChar tmc = fTermBuffer[pos];
-                        tmc.Character = chr;
-                        tmc.Foreground = fg.ToArgb();
-                        tmc.Background = bg.ToArgb();
-                        pos++;
-                        break;
-                }
-                if (pos >= fSize) {
-                    pos = 0;
-                }
-                return pos;
+        private int WriteChar(char chr, int pos, int fg, int bg)
+        {
+            switch (chr) {
+                case '\n':
+                    pos = ((pos + fTermWidth) / fTermWidth) * fTermWidth;
+                    break;
+
+                default:
+                    TermChar tmc = fTermBuffer[pos];
+                    tmc.Character = chr;
+                    tmc.Foreground = fg;
+                    tmc.Background = bg;
+                    pos++;
+                    break;
             }
+            if (pos >= fSize) {
+                pos = 0;
+            }
+            return pos;
         }
 
         public void SetCursorPos(int x, int y)
@@ -275,17 +259,13 @@ namespace ZRLib.Terminal
             Clear(' ', fCurrentForeground, fCurrentBackground);
         }
 
-        public void Clear(char character, Color foreground, Color background)
+        public void Clear(char character, int foreground, int background)
         {
-            int bg = background.ToArgb();
-            int fg = foreground.ToArgb();
-            lock (gfxLock) {
-                for (int i = 0; i < fSize; i++) {
-                    var tmc = fTermBuffer[i];
-                    tmc.Character = character;
-                    tmc.Foreground = fg;
-                    tmc.Background = bg;
-                }
+            for (int i = 0; i < fSize; i++) {
+                var tmc = fTermBuffer[i];
+                tmc.Character = character;
+                tmc.Background = background;
+                tmc.Foreground = foreground;
             }
         }
 
@@ -294,7 +274,7 @@ namespace ZRLib.Terminal
             Fill(character, x, y, width, height, fCurrentForeground, fCurrentBackground);
         }
 
-        public void Fill(char character, int x, int y, int width, int height, Color foreground, Color background)
+        public void Fill(char character, int x, int y, int width, int height, int foreground, int background)
         {
             if (x < 0 || x >= fTermWidth) {
                 throw new ArgumentException("x " + x + " must be within range [0," + fTermWidth + ")");
@@ -332,12 +312,12 @@ namespace ZRLib.Terminal
             Write(chr, fCurrentForeground, fCurrentBackground);
         }
 
-        public void Write(char chr, Color foreground)
+        public void Write(char chr, int foreground)
         {
             Write(chr, foreground, fCurrentBackground);
         }
 
-        public void Write(char chr, Color foreground, Color background)
+        public void Write(char chr, int foreground, int background)
         {
             fTermCursor = WriteChar(chr, fTermCursor, foreground, background);
         }
@@ -348,13 +328,13 @@ namespace ZRLib.Terminal
             Write(chr, fCurrentForeground, fCurrentBackground);
         }
 
-        public void Write(int x, int y, char chr, Color foreground)
+        public void Write(int x, int y, char chr, int foreground)
         {
             SetCursorPos(x, y);
             Write(chr, foreground, fCurrentBackground);
         }
 
-        public void Write(int x, int y, char chr, Color foreground, Color background)
+        public void Write(int x, int y, char chr, int foreground, int background)
         {
             SetCursorPos(x, y);
             Write(chr, foreground, background);
@@ -365,12 +345,12 @@ namespace ZRLib.Terminal
             Write(str, fCurrentForeground, fCurrentBackground);
         }
 
-        public void Write(string str, Color foreground)
+        public void Write(string str, int foreground)
         {
             Write(str, foreground, fCurrentBackground);
         }
 
-        public void Write(string str, Color foreground, Color background)
+        public void Write(string str, int foreground, int background)
         {
             if (str == null) {
                 throw new NullReferenceException("string must not be null.");
@@ -392,12 +372,12 @@ namespace ZRLib.Terminal
             Write(x, y, str, fCurrentForeground, fCurrentBackground);
         }
 
-        public void Write(int x, int y, string str, Color foreground)
+        public void Write(int x, int y, string str, int foreground)
         {
             Write(x, y, str, foreground, fCurrentBackground);
         }
 
-        public void Write(int x, int y, string str, Color foreground, Color background)
+        public void Write(int x, int y, string str, int foreground, int background)
         {
             SetCursorPos(x, y);
             Write(str, foreground, background);
@@ -503,5 +483,72 @@ namespace ZRLib.Terminal
                 Write(x, y, chr);
             }
         }
+
+        public void Quit()
+        {
+            fSystem.Quit();
+        }
+
+        #region IMainWindow implementation
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                fSystem.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        public virtual void DoActive(bool active)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessGameStep()
+        {
+            // dummy
+        }
+
+        public virtual void ProcessKeyDown(ZRLib.Engine.KeyEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessKeyPress(ZRLib.Engine.KeyPressEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessKeyUp(ZRLib.Engine.KeyEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessMouseDown(ZRLib.Engine.MouseEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessMouseMove(MouseMoveEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessMouseUp(ZRLib.Engine.MouseEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void ProcessMouseWheel(MouseWheelEventArgs eventArgs)
+        {
+            // dummy
+        }
+
+        public virtual void Update(long time)
+        {
+            Repaint();
+        }
+
+        #endregion
     }
 }

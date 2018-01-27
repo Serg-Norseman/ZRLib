@@ -1,15 +1,13 @@
 /*
- *  "NorseWorld: Ragnarok", a roguelike game for PCs.
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  "ZRLib", Roguelike games development Library.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
- *  this file is part of "NorseWorld: Ragnarok".
- *
- *  this program is free software: you can redistribute it and/or modify
+ *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  this program is distributed in the hope that it will be useful,
+ *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -76,11 +74,7 @@ namespace ZRLib.Engine
         public int Color
         {
             get {
-                int num = fColor;
-                int r = (num >> 16) & 0xff;
-                int g = (num >> 8) & 0xff;
-                int b = num & 0xff;
-                return BaseScreen.RGB(r, g, b);
+                return fColor;
             }
             set {
                 if (fColor != value) {
@@ -159,9 +153,9 @@ namespace ZRLib.Engine
                     fImage.PaletteMode = true;
 
                     Stream is1 = ResourceManager.LoadStream(fImageFile);
-                    fImage.LoadFromStream(is1, BaseScreen.clBlack);
+                    fImage.LoadFromStream(is1, Colors.Black);
 
-                    fColor = BaseScreen.clWhite;
+                    fColor = Colors.White;
                 } finally {
                     if (parser != null) {
                         parser.Dispose();

@@ -1,6 +1,8 @@
 /*
- *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "NorseWorld: Ragnarok", a roguelike game for PCs.
+ *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih.
+ *
+ *  This file is part of "NorseWorld: Ragnarok".
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

@@ -1,6 +1,6 @@
 /*
  *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using BSLib;
@@ -455,10 +454,10 @@ namespace ZRLib.Core
         /// <param name="c1"> First color to blend. </param>
         /// <param name="c2"> Second color to blend. </param>
         /// <returns> Blended color. </returns>
-        public static Color Blend(Color color1, Color color2, float ratio = 0.5f)
+        /*public static Color Blend(Color color1, Color color2, float ratio = 0.5f)
         {
             return Color.FromArgb(GfxHelper.Blend(color1.ToArgb(), color2.ToArgb(), ratio));
-        }
+        }*/
 
         /// <summary>
         /// Make a color darker.
@@ -466,11 +465,11 @@ namespace ZRLib.Core
         /// <param name="color"> Color to make darker. </param>
         /// <param name="fraction"> Darkness fraction. </param>
         /// <returns> Darker color. </returns>
-        public static Color Darker(Color color, float fraction)
+        /*public static Color Darker(Color color, float fraction)
         {
             int rgb = color.ToArgb();
             return Color.FromArgb(GfxHelper.Darker(rgb, fraction));
-        }
+        }*/
 
         /// <summary>
         /// Make a color lighter.
@@ -478,10 +477,10 @@ namespace ZRLib.Core
         /// <param name="color"> Color to make lighter. </param>
         /// <param name="fraction"> Darkness fraction. </param>
         /// <returns> Lighter color. </returns>
-        public static Color Lighter(Color color, float fraction)
+        /*public static Color Lighter(Color color, float fraction)
         {
             int rgb = color.ToArgb();
             return Color.FromArgb(GfxHelper.Lighter(rgb, fraction));
-        }
+        }*/
     }
 }

@@ -41,20 +41,9 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup>
-    <RootNamespace>ZRLib</RootNamespace>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SDL2-CS">
-      <HintPath>.\SDL2-CS.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -97,6 +86,7 @@
     <Compile Include="Engine\BaseImage.cs" />
     <Compile Include="Engine\BaseScreen.cs" />
     <Compile Include="Engine\BaseSystem.cs" />
+    <Compile Include="Engine\Colors.cs" />
     <Compile Include="Engine\EventArgs.cs" />
     <Compile Include="Engine\Font.cs" />
     <Compile Include="Engine\HotKey.cs" />
@@ -110,6 +100,7 @@
     <Compile Include="Engine\MouseMoveEventArgs.cs" />
     <Compile Include="Engine\MouseWheelEventArgs.cs" />
     <Compile Include="Engine\ResourceManager.cs" />
+    <Compile Include="Engine\Terminal.cs" />
     <Compile Include="External\BSP\BSPNode.cs" />
     <Compile Include="External\BSP\BSPTree.cs" />
     <Compile Include="External\BSP\NodeSide.cs" />
@@ -124,9 +115,12 @@
     <Compile Include="Engine\SDL2\SDL2Image.cs" />
     <Compile Include="Engine\SDL2\SDL2Screen.cs" />
     <Compile Include="Engine\SDL2\SDL2System.cs" />
+    <Compile Include="External\SDL2\SDL2.cs" />
+    <Compile Include="External\SDL2\SDL2_image.cs" />
+    <Compile Include="External\SDL2\SDL2_mixer.cs" />
+    <Compile Include="External\SDL2\SDL2_ttf.cs" />
     <Compile Include="Grammar\Grammar.cs" />
     <Compile Include="Grammar\SpeechSign.cs" />
-    <Compile Include="Terminal\Terminal.cs" />
     <Compile Include="Map\AbstractMap.cs" />
     <Compile Include="Map\AStar.cs" />
     <Compile Include="Map\BaseTile.cs" />
@@ -173,10 +167,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\cp437_10x10.png" />
-    <EmbeddedResource Include="Resources\cp437_12x12.png" />
-    <EmbeddedResource Include="Resources\cp437_8x8.png" />
-    <EmbeddedResource Include="Resources\cp866_8x8.png" />
+    <Folder Include="External\SDL2" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

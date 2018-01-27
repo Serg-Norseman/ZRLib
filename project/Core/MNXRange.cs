@@ -1,6 +1,6 @@
 /*
- *  "JZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "ZRLib", Roguelike games development Library.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by

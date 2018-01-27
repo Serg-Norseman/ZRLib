@@ -1,15 +1,13 @@
 /*
- *  "NorseWorld: Ragnarok", a roguelike game for PCs.
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  "ZRLib", Roguelike games development Library.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
- *  this file is part of "NorseWorld: Ragnarok".
- *
- *  this program is free software: you can redistribute it and/or modify
+ *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  this program is distributed in the hope that it will be useful,
+ *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -21,6 +19,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using BSLib;
 using SDL2;
 using ZRLib.Core;
 using ZRLib.Engine;
@@ -35,20 +34,22 @@ namespace ZRLib.Engine.sdl2
         public SDL2Image(BaseScreen screen)
             : base(screen)
         {
+            fType = "TGA";
         }
 
         public SDL2Image(BaseScreen screen, string fileName, int transColor)
             : base(screen, fileName, transColor)
         {
+            fType = "TGA";
         }
 
         protected override void Done()
         {
-            if (fSurfacePtr != null) {
+            if (fSurfacePtr != IntPtr.Zero) {
                 SDL.SDL_FreeSurface(fSurfacePtr);
                 fSurfacePtr = IntPtr.Zero;
             }
-            if (fTexturePtr != null) {
+            if (fTexturePtr != IntPtr.Zero) {
                 SDL.SDL_DestroyTexture(fTexturePtr);
                 fTexturePtr = IntPtr.Zero;
             }
@@ -66,15 +67,10 @@ namespace ZRLib.Engine.sdl2
 
                 GCHandle bufferHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned);
                 IntPtr rw = SDL.SDL_RWFromMem(bufferHandle.AddrOfPinnedObject(), num);
-                fSurfacePtr = SDL_image.IMG_LoadTyped_RW(rw, 0, "TGA");
+                fSurfacePtr = SDL_image.IMG_LoadTyped_RW(rw, 0, fType);
                 bufferHandle.Free();
 
-                if (fSurfacePtr != null) {
-                    SDL.SDL_Surface srfStr = (SDL.SDL_Surface)Marshal.PtrToStructure(fSurfacePtr, typeof(SDL.SDL_Surface));
-                    Height = (short)srfStr.h;
-                    Width = (short)srfStr.w;
-                    TransColor = transColor;
-
+                if (fSurfacePtr != IntPtr.Zero) {
                     if (!PaletteMode) {
                         IntPtr fmt = ((SDL2Screen)fScreen).fFormatPtr;
                         IntPtr srf = SDL.SDL_ConvertSurface(fSurfacePtr, fmt, 0);
@@ -82,9 +78,13 @@ namespace ZRLib.Engine.sdl2
                         fSurfacePtr = srf;
                     }
 
-                    if (transColor != BaseScreen.clNone) {
-                        var format = ((SDL.SDL_Surface)Marshal.PtrToStructure(fSurfacePtr, typeof(SDL.SDL_Surface))).format;
-                        uint tc = SDL2Screen.ConvertColor(format, transColor);
+                    SDL.SDL_Surface srfStr = (SDL.SDL_Surface)Marshal.PtrToStructure(fSurfacePtr, typeof(SDL.SDL_Surface));
+                    Height = (short)srfStr.h;
+                    Width = (short)srfStr.w;
+                    TransColor = transColor;
+
+                    if (transColor != Colors.None) {
+                        uint tc = SDL2Screen.ConvertColor(srfStr.format, transColor);
                         SDL.SDL_SetColorKey(fSurfacePtr, 4096, tc);
                     }
 
@@ -92,6 +92,7 @@ namespace ZRLib.Engine.sdl2
                 }
             } catch (Exception ex) {
                 Logger.Write("SDLImage.loadFromStream(): " + ex.Message);
+                fTexturePtr = IntPtr.Zero;
             }
         }
 
@@ -102,10 +103,9 @@ namespace ZRLib.Engine.sdl2
         public override void ReplaceColor(int index, int replacement)
         {
             // used only for fonts rendering, don't change!
-            if (fTexturePtr != null) {
-                byte r = (byte)(replacement & 0xff);
-                byte g = (byte)((replacement >> 8) & 0xff);
-                byte b = (byte)((replacement >> 16) & 0xff);
+            if (fTexturePtr != IntPtr.Zero) {
+                byte r, g, b, a;
+                GfxHelper.DecomposeARGB(replacement, out a, out r, out g, out b);
                 SDL.SDL_SetTextureColorMod(fTexturePtr, r, g, b);
             }
         }

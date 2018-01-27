@@ -1,15 +1,13 @@
 ﻿/*
- *  "NorseWorld: Ragnarok", a roguelike game for PCs.
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  "ZRLib", Roguelike games development Library.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
- *  this file is part of "NorseWorld: Ragnarok".
- *
- *  this program is free software: you can redistribute it and/or modify
+ *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  this program is distributed in the hope that it will be useful,
+ *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -22,13 +20,8 @@ using System;
 
 namespace ZRLib.Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface IMainWindow
+    public interface IControl
     {
-        void DoActive(bool active);
-        void ProcessGameStep();
         void ProcessKeyDown(KeyEventArgs eventArgs);
         void ProcessKeyPress(KeyPressEventArgs eventArgs);
         void ProcessKeyUp(KeyEventArgs eventArgs);
@@ -36,6 +29,15 @@ namespace ZRLib.Engine
         void ProcessMouseMove(MouseMoveEventArgs eventArgs);
         void ProcessMouseUp(MouseEventArgs eventArgs);
         void ProcessMouseWheel(MouseWheelEventArgs eventArgs);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IMainWindow : IControl
+    {
+        void DoActive(bool active);
+        void ProcessGameStep();
         void Update(long time);
     }
 }

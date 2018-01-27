@@ -1,15 +1,13 @@
 /*
- *  "NorseWorld: Ragnarok", a roguelike game for PCs.
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  "ZRLib", Roguelike games development Library.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
- *  this file is part of "NorseWorld: Ragnarok".
- *
- *  this program is free software: you can redistribute it and/or modify
+ *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  this program is distributed in the hope that it will be useful,
+ *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -49,10 +47,10 @@ namespace ZRLib.Engine.sdl2
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                if (fRenderPtr != null) {
+                if (fRenderPtr != IntPtr.Zero) {
                     SDL.SDL_DestroyRenderer(fRenderPtr);
                 }
-                if (fSurfacePtr != null) {
+                if (fSurfacePtr != IntPtr.Zero) {
                     SDL.SDL_FreeSurface(fSurfacePtr);
                 }
             }
@@ -71,9 +69,8 @@ namespace ZRLib.Engine.sdl2
 
         public static uint ConvertColor(IntPtr surfaceFormat, int color)
         {
-            byte r = (byte)(color & 0xff);
-            byte g = (byte)((color >> 8) & 0xff);
-            byte b = (byte)((color >> 16) & 0xff);
+            byte a, r, g, b;
+            GfxHelper.DecomposeARGB(color, out a, out r, out g, out b);
             return SDL.SDL_MapRGB(surfaceFormat, r, g, b);
         }
 
@@ -89,7 +86,7 @@ namespace ZRLib.Engine.sdl2
 
         public override void Clear(int color)
         {
-            if (fRenderPtr != null) {
+            if (fRenderPtr != IntPtr.Zero) {
                 fRect = CreateRect(0, 0, base.Width, base.Height);
 
                 DrawColor = color;
@@ -99,7 +96,7 @@ namespace ZRLib.Engine.sdl2
 
         public override void BeginPaint()
         {
-            if (fRenderPtr != null) {
+            if (fRenderPtr != IntPtr.Zero) {
                 SDL.SDL_SetRenderDrawColor(fRenderPtr, (byte) 100, (byte) 0, (byte) 0, (byte) 0);
                 SDL.SDL_RenderClear(fRenderPtr);
             }
@@ -107,7 +104,7 @@ namespace ZRLib.Engine.sdl2
 
         public override void EndPaint()
         {
-            if (fRenderPtr != null) {
+            if (fRenderPtr != IntPtr.Zero) {
                 SDL.SDL_RenderPresent(fRenderPtr);
             }
         }
@@ -115,16 +112,15 @@ namespace ZRLib.Engine.sdl2
         private int DrawColor
         {
             set {
-                byte r = (byte)(value & 0xff);
-                byte g = (byte)((value >> 8) & 0xff);
-                byte b = (byte)((value >> 16) & 0xff);
+                byte r, g, b, a;
+                GfxHelper.DecomposeARGB(value, out a, out r, out g, out b);
                 SDL.SDL_SetRenderDrawColor(fRenderPtr, r, g, b, (byte)0);
             }
         }
 
         public override void DrawLine(int x1, int y1, int x2, int y2, int color)
         {
-            if (fRenderPtr != null) {
+            if (fRenderPtr != IntPtr.Zero) {
                 DrawColor = color;
                 SDL.SDL_RenderDrawLine(fRenderPtr, fOffsetX + x1, fOffsetY + y1, fOffsetX + x2, fOffsetY + y2);
             }
@@ -132,11 +128,11 @@ namespace ZRLib.Engine.sdl2
 
         public override void DrawRectangle(ExtRect rect, int fillColor, int borderColor)
         {
-            if (fillColor != BaseScreen.clNone) {
+            if (fillColor != Colors.None) {
                 FillRect(rect.Clone(), fillColor);
             }
 
-            if (borderColor != BaseScreen.clNone) {
+            if (borderColor != Colors.None) {
                 rect.Offset(fOffsetX, fOffsetY);
                 fRect = CreateRect(rect.Left, rect.Top, rect.Width, rect.Height);
 
@@ -147,7 +143,7 @@ namespace ZRLib.Engine.sdl2
 
         public override void FillRect(ExtRect rect, int fillColor)
         {
-            if (fillColor != BaseScreen.clNone) {
+            if (fillColor != Colors.None) {
                 rect.Offset(fOffsetX, fOffsetY);
                 fRect = CreateRect(rect.Left, rect.Top, rect.Width, rect.Height);
 
@@ -205,7 +201,7 @@ namespace ZRLib.Engine.sdl2
                 }
 
                 IntPtr imTexture = ((SDL2Image)image).fTexturePtr;
-                if (imTexture != null) {
+                if (imTexture != IntPtr.Zero) {
                     fSrcRect = CreateRect(sX, sY, sW, sH);
                     fDstRect = CreateRect(dX, dY, sW, sH);
 

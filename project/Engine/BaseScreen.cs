@@ -1,15 +1,13 @@
 /*
- *  "NorseWorld: Ragnarok", a roguelike game for PCs.
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  "ZRLib", Roguelike games development Library.
+ *  Copyright (C) 2015 by Serg V. Zhdanovskih.
  *
- *  this file is part of "NorseWorld: Ragnarok".
- *
- *  this program is free software: you can redistribute it and/or modify
+ *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  this program is distributed in the hope that it will be useful,
+ *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -28,27 +26,6 @@ namespace ZRLib.Engine
         public const sbyte FILL_HORZ = 0;
         public const sbyte FILL_VERT = 1;
         public const sbyte FILL_TILE = 2;
-
-        public const int clNone = 536870911;
-        public const int clBlack = 0;
-        public const int clNavy = 8388608;
-        public const int clGreen = 32768;
-        public const int clTeal = 8421376;
-        public const int clMaroon = 128;
-        public const int clPurple = 8388736;
-        public const int clOlive = 32896;
-        public const int clSilver = 12632256;
-        public const int clGray = 8421504;
-        public const int clBlue = 16711680;
-        public const int clLime = 65280;
-        public const int clAqua = 16776960;
-        public const int clRed = 255;
-        public const int clFuchsia = 16711935;
-        public const int clYellow = 65535;
-        public const int clWhite = 16777215;
-        public const int clSkyBlue = 15780518;
-        public const int clGold = 11530239;
-        public const int clGoldenrod = 2139610;
 
         private ExtRect fOldClipRect;
 
@@ -243,7 +220,7 @@ namespace ZRLib.Engine
 
         public int GetTextColor(bool foreground)
         {
-            return (Font != null) ? Font.Color : BaseScreen.clBlack;
+            return (Font != null) ? Font.Color : Colors.Black;
         }
 
         public void SetTextColor(int color, bool foreground)

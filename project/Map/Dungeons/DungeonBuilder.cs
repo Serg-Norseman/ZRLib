@@ -1,7 +1,7 @@
 /*
  *  "NorseWorld: Ragnarok", a roguelike game for PCs.
  *  Copyright (C) 2003 by Ruslan N. Garipov (aka Brigadir).
- *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih (aka Alchemist).
+ *  Copyright (C) 2002-2008, 2014 by Serg V. Zhdanovskih.
  *
  *  This file is part of "NorseWorld: Ragnarok".
  *
@@ -31,7 +31,7 @@ namespace ZRLib.Map.Dungeons
     /// Original: rMapDungeon.pas.
     /// Specifically and exclusively developed for Alchemist's "NorseWorld: Ragnarok" roguelike game.
     /// @author Ruslan N. Garipov (aka Brigadir), 2003
-    /// @author Serg V. Zhdanovskih (aka Alchemist), 2003-2008, 2014-2015
+    /// @author Serg V. Zhdanovskih, 2003-2008, 2014-2015
     /// </summary>
     public sealed class DungeonBuilder : BaseObject
     {
