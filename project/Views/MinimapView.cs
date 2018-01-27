@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,18 +16,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Drawing;
-using System.Windows.Forms;
 using BSLib;
-using MysteriesRL.Core;
-using MysteriesRL.Creatures;
-using MysteriesRL.Game;
-using MysteriesRL.Maps;
+using PrimevalRL.Creatures;
+using PrimevalRL.Game;
+using PrimevalRL.Maps;
 using ZRLib.Core;
+using ZRLib.Engine;
 using ZRLib.Map;
-using ZRLib.Terminal;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public sealed class MinimapView : SubView
     {
@@ -57,8 +54,8 @@ namespace MysteriesRL.Views
         internal override void UpdateView()
         {
             fTerminal.Clear();
-            fTerminal.TextBackground = Color.Black;
-            fTerminal.TextForeground = Color.White;
+            fTerminal.TextBackground = Colors.Black;
+            fTerminal.TextForeground = Colors.White;
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
             Human player = GameSpace.PlayerController.Player;
@@ -93,16 +90,16 @@ namespace MysteriesRL.Views
         private void DrawTile(IMap map, int px, int py, int ax, int ay, int sx, int sy)
         {
             char tileChar = ' ';
-            Color fg = Color.White;
+            int fg = Colors.White;
 
             if (ax == px && ay == py) {
                 tileChar = '@';
-                fg = Color.Yellow;
+                fg = Colors.Yellow;
             } else if (fShowPrivateHouse && fPrivateHousePtRest.Equals(ax, ay)) {
                 int ex = fTick % 2;
                 if (ex == 0) {
                     tileChar = 'H';
-                    fg = Color.Yellow;
+                    fg = Colors.Yellow;
                 }
             } else {
                 BaseTile tile = map.GetTile(ax, ay);
@@ -144,29 +141,28 @@ namespace MysteriesRL.Views
         {
             if (fShowPrivateHouse) {
                 fTick++;
-                UpdateView();
             }
         }
 
         public override void KeyPressed(KeyEventArgs e)
         {
-            Keys code = e.KeyCode;
+            Keys code = e.Key;
             switch (code) {
-                case Keys.Left:
+                case Keys.GK_LEFT:
                     fCenter.X--;
                     break;
-                case Keys.Up:
+                case Keys.GK_UP:
                     fCenter.Y--;
                     break;
-                case Keys.Right:
+                case Keys.GK_RIGHT:
                     fCenter.X++;
                     break;
-                case Keys.Down:
+                case Keys.GK_DOWN:
                     fCenter.Y++;
                     break;
 
-                case Keys.Tab:
-                case Keys.Escape:
+                case Keys.GK_TAB:
+                case Keys.GK_ESCAPE:
                     MainView.View = ViewType.vtGame;
                     break;
             }
@@ -174,7 +170,7 @@ namespace MysteriesRL.Views
 
         public override void KeyTyped(KeyPressEventArgs e)
         {
-            switch (e.KeyChar) {
+            switch (e.Key) {
                 case 'p':
                     fShowPrivateHouse = !fShowPrivateHouse;
                     break;
@@ -190,7 +186,7 @@ namespace MysteriesRL.Views
             }
         }
 
-        public override void MouseMoved(MouseEventArgs e)
+        public override void MouseMoved(MouseMoveEventArgs e)
         {
         }
 

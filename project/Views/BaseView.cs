@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,14 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Drawing;
-using System.Windows.Forms;
 using BSLib;
-using MysteriesRL.Game;
-using ZRLib.Core;
-using ZRLib.Terminal;
+using PrimevalRL.Game;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public enum ViewType
     {
@@ -40,6 +37,8 @@ namespace MysteriesRL.Views
         protected readonly BaseView fOwnerView;
         protected readonly Terminal fTerminal;
 
+        public abstract MRLGame GameSpace { get; }
+
         protected BaseView(BaseView ownerView, Terminal terminal)
         {
             fOwnerView = ownerView;
@@ -51,7 +50,7 @@ namespace MysteriesRL.Views
             fTerminal.Write(x, y, str);
         }
 
-        public void DrawText(int x, int y, string str, Color foreground)
+        public void DrawText(int x, int y, string str, int foreground)
         {
             fTerminal.Write(x, y, str, foreground);
         }
@@ -77,7 +76,7 @@ namespace MysteriesRL.Views
             string val = ConvertHelper.AdjustNumber(percent, 3, ' ') + "%]";
             fTerminal.Write(x2 - val.Length + 1, y, val);
 
-            Color curfg = (factor < redLevel) ? Color.Red : fTerminal.TextForeground;
+            int curfg = (factor < redLevel) ? Colors.Red : fTerminal.TextForeground;
 
             int xx1 = x1 + name.Length + 1;
             int xx2 = x2 - val.Length - 1;
@@ -91,13 +90,11 @@ namespace MysteriesRL.Views
 
         internal abstract void UpdateView();
 
-        public abstract MRLGame GameSpace { get; }
-
         public abstract void KeyPressed(KeyEventArgs e);
         public abstract void KeyTyped(KeyPressEventArgs e);
 
         public abstract void MouseClicked(MouseEventArgs e);
-        public abstract void MouseMoved(MouseEventArgs e);
+        public abstract void MouseMoved(MouseMoveEventArgs e);
 
         public abstract void Tick();
         public abstract void Show();

@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,21 +17,19 @@
  */
 
 using System;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
-using MysteriesRL.Core;
-using MysteriesRL.Views.Controls;
+using PrimevalRL.Game;
+using PrimevalRL.Views.Controls;
 using ZRLib.Core;
-using ZRLib.Terminal;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public sealed class StartupView : SubView, IProgressController
     {
-        private Color SV_COL = Color.FromArgb(0, 128, 128);
+        private int SV_COL = 0x008080;
 
         private string[] fTitle;
         private readonly ChoicesArea fChoicesArea;
@@ -45,7 +43,7 @@ namespace MysteriesRL.Views
         {
             ParseTitle();
 
-            fChoicesArea = new ChoicesArea(terminal, 40, Color.DarkGreen);
+            fChoicesArea = new ChoicesArea(terminal, 40, Colors.DarkGreen);
             fChoicesArea.AddChoice('N', Locale.GetStr(RS.Rs_NewGame));
             fChoicesArea.AddChoice('Q', Locale.GetStr(RS.Rs_Quit));
 
@@ -75,7 +73,7 @@ namespace MysteriesRL.Views
 
         internal override void UpdateView()
         {
-            fTerminal.TextBackground = Color.Black;
+            fTerminal.TextBackground = Colors.Black;
             fTerminal.TextForeground = SV_COL;
             fTerminal.Clear();
             fTerminal.DrawBox(0, 0, 159, 79, false);
@@ -91,7 +89,7 @@ namespace MysteriesRL.Views
                 }
             }
 
-            fTerminal.TextForeground = Color.AliceBlue;
+            fTerminal.TextForeground = Colors.AliceBlue;
             int top = fTitle.Length;
             fTerminal.WriteCenter(1, 158, top + 1, MRLData.MRL_VER);
             fTerminal.WriteCenter(1, 158, top + 3, MRLData.MRL_COPYRIGHT);
@@ -109,10 +107,10 @@ namespace MysteriesRL.Views
 
         public override void KeyTyped(KeyPressEventArgs e)
         {
-            switch (e.KeyChar) {
+            switch (e.Key) {
                 case 'q':
                 case 'Q':
-                    Environment.Exit(0);
+                    fTerminal.System.Quit();
                     break;
 
                 case 'n':
@@ -128,7 +126,7 @@ namespace MysteriesRL.Views
         {
         }
 
-        public override void MouseMoved(MouseEventArgs e)
+        public override void MouseMoved(MouseMoveEventArgs e)
         {
         }
 
@@ -138,13 +136,12 @@ namespace MysteriesRL.Views
 
         public override void Tick()
         {
-            UpdateView();
         }
 
         private void DrawProgress()
         {
             if (fGenLabel != null) {
-                fTerminal.TextForeground = Color.White;
+                fTerminal.TextForeground = Colors.White;
                 fTerminal.Write(20, 70, fGenLabel);
                 fTerminal.DrawProgress(20, 159 - 20, 71, fGenCompleted, fGenStages);
             }
@@ -154,7 +151,6 @@ namespace MysteriesRL.Views
         {
             fGenCompleted++;
 
-            UpdateView();
             MainView.RepaintImmediately();
         }
 
@@ -164,7 +160,6 @@ namespace MysteriesRL.Views
             fGenStages = size;
             fGenCompleted = 0;
 
-            UpdateView();
             MainView.RepaintImmediately();
         }
     }

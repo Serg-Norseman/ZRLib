@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -19,14 +19,14 @@
 using System;
 using System.Collections.Generic;
 using BSLib;
-using MysteriesRL.Core;
-using MysteriesRL.Creatures;
+using PrimevalRL.Creatures;
+using PrimevalRL.Game;
 using ZRLib.Core;
 using ZRLib.External.BSP;
 using ZRLib.Map;
 using ZRLib.Map.Dungeons;
 
-namespace MysteriesRL.Maps
+namespace PrimevalRL.Maps
 {
     public class Layer : BaseMap
     {
@@ -127,27 +127,6 @@ namespace MysteriesRL.Maps
                         }
                     }
                 }
-            }
-        }
-
-        public void InitDungeonLayer(ExtRect area, IProgressController progressController)
-        {
-            if (MRLData.DEBUG_WD) return;
-
-            progressController.SetStage(Locale.GetStr(RS.Rs_DungeonsGeneration), 100);
-            area.Inflate(50, 50);
-
-            // generate the tree of nodes
-            BSPTree tree = new BSPTree(area, 100, 200, true, null, null);
-
-            // create list of zones
-            IList<BSPNode> leaves = tree.Leaves;
-            foreach (BSPNode node in leaves) {
-                ExtRect nodeArea = ExtRect.Create(node.X1, node.Y1, node.X2, node.Y2);
-
-                InitDungeon(nodeArea, ExtPoint.Empty, false);
-
-                progressController.Complete(0);
             }
         }
 

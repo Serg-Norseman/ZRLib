@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
  */
 
 using BSLib;
-using MysteriesRL.Creatures;
-using MysteriesRL.Maps;
-using MysteriesRL.Maps.Buildings;
+using PrimevalRL.Creatures;
+using PrimevalRL.Maps;
+using PrimevalRL.Maps.Buildings;
 using ZRLib.Core;
 
-namespace MysteriesRL.Generators
+namespace PrimevalRL.Generators
 {
     public sealed class FamilyGenerator : NPCGenerator
     {

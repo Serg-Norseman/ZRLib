@@ -6,23 +6,33 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>WinExe</OutputType>
-    <AssemblyName>MysteriesRL</AssemblyName>
+    <AssemblyName>PrimevalRL</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
-    <RootNamespace>MysteriesRL</RootNamespace>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+    <StartupObject>PrimevalRL.PRLWin</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\</OutputPath>
     <DebugSymbols>True</DebugSymbols>
     <DebugType>Full</DebugType>
     <Optimize>False</Optimize>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -33,33 +43,27 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Creatures\CustomBody.cs" />
     <Compile Include="Creatures\HumanBody.cs" />
     <Compile Include="Game\CrimeRecord.cs" />
+    <Compile Include="Game\MRLData.cs" />
     <Compile Include="Game\SocialController.cs" />
     <Compile Include="Maps\City.cs" />
     <Compile Include="Maps\CityRegion.cs" />
     <Compile Include="Maps\District.cs" />
     <Compile Include="Maps\Prosperity.cs" />
     <Compile Include="Maps\Street.cs" />
-    <Compile Include="MRLData.cs" />
-    <Compile Include="MysteriesRL.cs">
+    <Compile Include="PrimevalRL.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Core\BaseEntityAction.cs" />
-    <Compile Include="Core\IProgressController.cs" />
-    <Compile Include="Core\ITerminalEntity.cs" />
-    <Compile Include="Core\Locale.cs" />
+    <Compile Include="Game\BaseEntityAction.cs" />
+    <Compile Include="Game\IProgressController.cs" />
+    <Compile Include="Game\ITerminalEntity.cs" />
+    <Compile Include="Game\Locale.cs" />
     <Compile Include="Creatures\Citizen.cs" />
     <Compile Include="Creatures\Creature.cs" />
     <Compile Include="Creatures\Damage.cs" />
@@ -122,6 +126,12 @@
     <EmbeddedResource Include="resources\ru_texts.xml" />
     <EmbeddedResource Include="resources\startup.txt" />
     <EmbeddedResource Include="resources\startup2.txt" />
+    <None Include="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SDL2_image.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BSLib\BSLib\BSLib.csproj">

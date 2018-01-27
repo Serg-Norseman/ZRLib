@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,19 +17,18 @@
  */
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
 using BSLib;
-using MysteriesRL.Core;
-using MysteriesRL.Game;
-using MysteriesRL.Game.Events;
-using MysteriesRL.Items;
-using MysteriesRL.Maps.Buildings;
+using PrimevalRL.Game;
+using PrimevalRL.Game.Events;
+using PrimevalRL.Items;
+using PrimevalRL.Maps.Buildings;
 using ZRLib.Core;
 using ZRLib.Core.Body;
+using ZRLib.Engine;
 using ZRLib.Map;
 
-namespace MysteriesRL.Creatures
+namespace PrimevalRL.Creatures
 {
     public class Human : Creature
     {
@@ -99,14 +98,14 @@ namespace MysteriesRL.Creatures
             }
         }
 
-        public override Color AppearanceColor
+        public override int AppearanceColor
         {
             get {
                 if (Player) {
-                    return Color.Yellow;
+                    return Colors.Yellow;
                 }
     
-                return Color.White;
+                return Colors.White;
             }
         }
 
@@ -415,7 +414,7 @@ namespace MysteriesRL.Creatures
         public override void TakeDamage(Damage damage)
         {
             base.TakeDamage(damage);
-            Space.AddMessage(Name + " took " + damage.Value + " damage", Color.FromArgb(255, 0, 255));
+            Space.AddMessage(Name + " took " + damage.Value + " damage", Colors.Fuchsia);
 
             HumanBody body = (HumanBody)Body;
             if (body != null) {
@@ -430,7 +429,7 @@ namespace MysteriesRL.Creatures
 
         protected override void Attack(Creature enemy)
         {
-            Space.AddMessage(Name + " is attacking " + enemy.Name, Color.FromArgb(255, 128, 128));
+            Space.AddMessage(Name + " is attacking " + enemy.Name, 0xFF8080);
 
             CriminalEvent @event = new CriminalEvent(Location, this);
             @event.Post();
@@ -448,7 +447,7 @@ namespace MysteriesRL.Creatures
             if (Player) {
                 Space.AddMessage("You were killed by a " + killer.Name + ".");
             } else {
-                Space.AddMessage(Name + " has died.", Color.Red);
+                Space.AddMessage(Name + " has died.", Colors.Red);
             }
         }
 

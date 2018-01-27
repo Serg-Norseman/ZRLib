@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,18 +16,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Drawing;
-using MysteriesRL.Core;
-using MysteriesRL.Game;
-using MysteriesRL.Maps;
+using PrimevalRL.Game;
+using PrimevalRL.Maps;
 using ZRLib.Core;
 using ZRLib.Map;
 
-namespace MysteriesRL.Creatures
+namespace PrimevalRL.Creatures
 {
     public abstract class Creature : CreatureEntity, ITerminalEntity
     {
-        public abstract Color AppearanceColor { get; }
+        public abstract int AppearanceColor { get; }
         public abstract char Appearance { get; }
         protected int fHPCur;
 

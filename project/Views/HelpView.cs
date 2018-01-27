@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,11 +16,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Drawing;
-using System.Windows.Forms;
-using ZRLib.Terminal;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public sealed class HelpView : SubView
     {
@@ -32,11 +30,11 @@ namespace MysteriesRL.Views
         internal override void UpdateView()
         {
             fTerminal.Clear();
-            fTerminal.TextBackground = Color.Black;
-            fTerminal.TextForeground = Color.White;
+            fTerminal.TextBackground = Colors.Black;
+            fTerminal.TextForeground = Colors.White;
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
-            fTerminal.TextForeground = Color.LightGray;
+            fTerminal.TextForeground = Colors.LightGray;
             fTerminal.Write(2, 2, "Keys: ");
         }
 
@@ -46,8 +44,8 @@ namespace MysteriesRL.Views
 
         public override void KeyPressed(KeyEventArgs e)
         {
-            switch (e.KeyCode) {
-                case Keys.Escape:
+            switch (e.Key) {
+                case Keys.GK_ESCAPE:
                     MainView.View = ViewType.vtGame;
                     break;
             }
@@ -61,7 +59,7 @@ namespace MysteriesRL.Views
         {
         }
 
-        public override void MouseMoved(MouseEventArgs e)
+        public override void MouseMoved(MouseMoveEventArgs e)
         {
         }
 

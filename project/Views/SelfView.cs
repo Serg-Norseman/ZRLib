@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,14 +17,12 @@
  */
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
-using MysteriesRL.Creatures;
-using MysteriesRL.Game;
-using MysteriesRL.Maps;
-using ZRLib.Terminal;
+using PrimevalRL.Creatures;
+using PrimevalRL.Game;
+using PrimevalRL.Maps;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public sealed class SelfView : SubView
     {
@@ -43,8 +41,8 @@ namespace MysteriesRL.Views
         internal override void UpdateView()
         {
             fTerminal.Clear();
-            fTerminal.TextBackground = Color.Black;
-            fTerminal.TextForeground = Color.White;
+            fTerminal.TextBackground = Colors.Black;
+            fTerminal.TextForeground = Colors.White;
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
             MRLGame gameSpace = GameSpace;
@@ -54,40 +52,40 @@ namespace MysteriesRL.Views
             City city = gameSpace.City;
             Layer layer = (Layer)gameSpace.PlainMap;
 
-            fTerminal.TextForeground = Color.LightGray;
+            fTerminal.TextForeground = Colors.LightGray;
             fTerminal.DrawBox(2, 2, 50, 50, false, "Player");
-            fTerminal.Write(4, 4, "Player name:  " + player.Name, Color.White);
-            fTerminal.Write(4, 6, "Sex:          " + player.Sex.ToString(), Color.White);
-            fTerminal.Write(4, 8, "Age:          " + Convert.ToString(player.Age), Color.White);
-            //fTerminal.write(4, 10, "Personality:  " + player.getPersonality().getDesc(), Color.white);
+            fTerminal.Write(4, 4, "Player name:  " + player.Name, Colors.White);
+            fTerminal.Write(4, 6, "Sex:          " + player.Sex.ToString(), Colors.White);
+            fTerminal.Write(4, 8, "Age:          " + Convert.ToString(player.Age), Colors.White);
+            //fTerminal.write(4, 10, "Personality:  " + player.getPersonality().getDesc(), Colors.white);
 
-            fTerminal.Write(4, 14, "Strength:     " + Convert.ToString(stats.Str), Color.White);
-            fTerminal.Write(4, 16, "Perception:   " + Convert.ToString(stats.Per), Color.White);
-            fTerminal.Write(4, 18, "Endurance:    " + Convert.ToString(stats.End), Color.White);
-            fTerminal.Write(4, 20, "Charisma:     " + Convert.ToString(stats.Chr), Color.White);
-            fTerminal.Write(4, 22, "Intelligence: " + Convert.ToString(stats.Int), Color.White);
-            fTerminal.Write(4, 24, "Agility:      " + Convert.ToString(stats.Agi), Color.White);
-            fTerminal.Write(4, 26, "Luck:         " + Convert.ToString(stats.Luk), Color.White);
+            fTerminal.Write(4, 14, "Strength:     " + Convert.ToString(stats.Str), Colors.White);
+            fTerminal.Write(4, 16, "Perception:   " + Convert.ToString(stats.Per), Colors.White);
+            fTerminal.Write(4, 18, "Endurance:    " + Convert.ToString(stats.End), Colors.White);
+            fTerminal.Write(4, 20, "Charisma:     " + Convert.ToString(stats.Chr), Colors.White);
+            fTerminal.Write(4, 22, "Intelligence: " + Convert.ToString(stats.Int), Colors.White);
+            fTerminal.Write(4, 24, "Agility:      " + Convert.ToString(stats.Agi), Colors.White);
+            fTerminal.Write(4, 26, "Luck:         " + Convert.ToString(stats.Luk), Colors.White);
 
-            fTerminal.Write(4, 30, "Level:        " + Convert.ToString(stats.Level), Color.White);
-            fTerminal.Write(4, 32, "XP:           " + Convert.ToString(stats.CurXP) + " / " + Convert.ToString(stats.NextLevelXP), Color.White);
-            fTerminal.Write(4, 34, "Carry Weight: " + Convert.ToString(0) + " / " + Convert.ToString(stats.CarryWeight), Color.White);
-            fTerminal.Write(4, 36, "HP:           " + Convert.ToString(player.HP) + " / " + Convert.ToString(player.HPMax), Color.White);
+            fTerminal.Write(4, 30, "Level:        " + Convert.ToString(stats.Level), Colors.White);
+            fTerminal.Write(4, 32, "XP:           " + Convert.ToString(stats.CurXP) + " / " + Convert.ToString(stats.NextLevelXP), Colors.White);
+            fTerminal.Write(4, 34, "Carry Weight: " + Convert.ToString(0) + " / " + Convert.ToString(stats.CarryWeight), Colors.White);
+            fTerminal.Write(4, 36, "HP:           " + Convert.ToString(player.HP) + " / " + Convert.ToString(player.HPMax), Colors.White);
 
-            fTerminal.Write(4, 40, "Stamina:      " + body.GetAttribute("stamina"), Color.White);
-            fTerminal.Write(4, 42, "Hunger:       " + body.GetAttribute("hunger"), Color.White);
+            fTerminal.Write(4, 40, "Stamina:      " + body.GetAttribute("stamina"), Colors.White);
+            fTerminal.Write(4, 42, "Hunger:       " + body.GetAttribute("hunger"), Colors.White);
 
             fTerminal.DrawBox(103, 2, 157, 14, false, "City");
-            fTerminal.Write(105, 4, "Name:        " + city.Name, Color.White);
-            fTerminal.Write(105, 6, "Streets:     " + Convert.ToString(city.Streets.Count), Color.White);
-            fTerminal.Write(105, 8, "Districts:   " + Convert.ToString(city.Districts.Count), Color.White);
-            fTerminal.Write(105, 10, "Buildings:   " + Convert.ToString(city.Buildings.Count), Color.White);
-            fTerminal.Write(105, 12, "Inhabitants: " + Convert.ToString(layer.Creatures.Count), Color.White);
+            fTerminal.Write(105, 4, "Name:        " + city.Name, Colors.White);
+            fTerminal.Write(105, 6, "Streets:     " + Convert.ToString(city.Streets.Count), Colors.White);
+            fTerminal.Write(105, 8, "Districts:   " + Convert.ToString(city.Districts.Count), Colors.White);
+            fTerminal.Write(105, 10, "Buildings:   " + Convert.ToString(city.Buildings.Count), Colors.White);
+            fTerminal.Write(105, 12, "Inhabitants: " + Convert.ToString(layer.Creatures.Count), Colors.White);
 
             fTerminal.DrawBox(52, 2, 101, 50, false, "Crimes");
 
             fTerminal.DrawBox(2, 52, 157, 78, false, "Description");
-            fTerminal.Write(4, 54, player.Desc, Color.White);
+            fTerminal.Write(4, 54, player.Desc, Colors.White);
         }
 
         public override void Tick()
@@ -96,8 +94,8 @@ namespace MysteriesRL.Views
 
         public override void KeyPressed(KeyEventArgs e)
         {
-            switch (e.KeyCode) {
-                case Keys.Escape:
+            switch (e.Key) {
+                case Keys.GK_ESCAPE:
                     MainView.View = ViewType.vtGame;
                     break;
             }
@@ -111,7 +109,7 @@ namespace MysteriesRL.Views
         {
         }
 
-        public override void MouseMoved(MouseEventArgs e)
+        public override void MouseMoved(MouseMoveEventArgs e)
         {
         }
 

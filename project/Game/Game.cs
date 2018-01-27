@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,19 +18,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using BSLib;
-using MysteriesRL.Core;
-using MysteriesRL.Creatures;
-using MysteriesRL.Game.Events;
-using MysteriesRL.Generators;
-using MysteriesRL.Maps;
-using MysteriesRL.Maps.Buildings;
-using MysteriesRL.Maps.Buildings.Features;
+using PrimevalRL.Creatures;
+using PrimevalRL.Game.Events;
+using PrimevalRL.Generators;
+using PrimevalRL.Maps;
+using PrimevalRL.Maps.Buildings;
+using PrimevalRL.Maps.Buildings.Features;
 using ZRLib.Core;
+using ZRLib.Engine;
 using ZRLib.Map;
 
-namespace MysteriesRL.Game
+namespace PrimevalRL.Game
 {
     public sealed class MRLGame : GameSpace, IEventListener
     {
@@ -102,8 +101,6 @@ namespace MysteriesRL.Game
             int ctY = RandomHelper.GetRandom(mh - ctH);
 
             ExtRect cityArea = ExtRect.Create(ctX, ctY, ctX + ctW, ctY + ctH);
-
-            fDungeonsMap.InitDungeonLayer(cityArea, progressController);
 
             fCity = new City(this, fPlainMap, cityArea);
             CityGenerator civFactory = new CityGenerator(fPlainMap, fCity, progressController);
@@ -229,10 +226,10 @@ namespace MysteriesRL.Game
 
         public void AddMessage(string text)
         {
-            AddMessage(text, Color.LightGray);
+            AddMessage(text, Colors.LightGray);
         }
 
-        public void AddMessage(string text, Color color)
+        public void AddMessage(string text, int color)
         {
             TextMessage msg = new TextMessage(text, color);
             fMessages.Add(msg);
@@ -304,7 +301,7 @@ namespace MysteriesRL.Game
         public void OnEvent(Event @event)
         {
             if (@event is VandalismEvent) {
-                AddMessage("vandalism!!!", Color.Red);
+                AddMessage("vandalism!!!", Colors.Red);
                 fPlayerController.Player.Stats.AddXP(50);
             }
         }

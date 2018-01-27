@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,18 +18,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using BSLib;
-using MysteriesRL.Creatures;
-using MysteriesRL.Game;
-using MysteriesRL.Maps;
-using ZRLib.Core;
+using PrimevalRL.Creatures;
+using PrimevalRL.Game;
+using PrimevalRL.Maps;
 using ZRLib.Core.Action;
+using ZRLib.Engine;
 using ZRLib.Map;
-using ZRLib.Terminal;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public sealed class GameView : SubView
     {
@@ -44,9 +41,7 @@ namespace MysteriesRL.Views
 
         public override MRLGame GameSpace
         {
-            get {
-                return ((MainView)fOwnerView).GameSpace;
-            }
+            get { return ((MainView)fOwnerView).GameSpace; }
         }
 
         public ExtPoint GetLocalePoint(ExtPoint terminalPoint)
@@ -59,8 +54,8 @@ namespace MysteriesRL.Views
         internal override void UpdateView()
         {
             fTerminal.Clear();
-            fTerminal.TextBackground = Color.Black;
-            fTerminal.TextForeground = Color.White;
+            fTerminal.TextBackground = Colors.Black;
+            fTerminal.TextForeground = Colors.White;
             fTerminal.DrawBox(0, 0, 102, 70, false);
             fTerminal.DrawBox(0, 71, 159, 79, false);
 
@@ -70,10 +65,10 @@ namespace MysteriesRL.Views
             DrawGameField(gameSpace);
             DrawMessages(gameSpace);
 
-            fTerminal.TextForeground = Color.White;
+            fTerminal.TextForeground = Colors.White;
 
-            DrawText(105, 1, "Time: " + gameSpace.Time.ToString(true, true), Color.White);
-            DrawText(105, 3, "City name: " + city.Name, Color.White);
+            DrawText(105, 1, "Time: " + gameSpace.Time.ToString(true, true), Colors.White);
+            DrawText(105, 3, "City name: " + city.Name, Colors.White);
 
             Human player = gameSpace.PlayerController.Player;
             NPCStats stats = player.Stats;
@@ -85,11 +80,11 @@ namespace MysteriesRL.Views
             DrawStat(105, 159, 11, "Stamina     ", body.GetAttribute("stamina"), 100, 0.25f);
             DrawStat(105, 159, 13, "Hunger      ", body.GetAttribute("hunger"), 100, 0.25f);
 
-            //drawStat(105, 159, 13, "Carry Weight: " + String.valueOf(stats.getCarryWeight()), Color.white);
+            //drawStat(105, 159, 13, "Carry Weight: " + String.valueOf(stats.getCarryWeight()), Colors.white);
 
             DrawAvailableActions(gameSpace.PlayerController);
 
-            //fTerminal.write(105, 73, "Dark: " + String.valueOf(darkness), Color.white);
+            //fTerminal.write(105, 73, "Dark: " + String.valueOf(darkness), Colors.white);
         }
 
         private void DrawAvailableActions(PlayerController playerCtl)
@@ -100,7 +95,7 @@ namespace MysteriesRL.Views
                 int idx = 0;
                 foreach (var action in actions) {
                     char key = (char)('A' + idx++);
-                    DrawText(105, top, "[" + key + "] " + action.Name, Color.White);
+                    DrawText(105, top, "[" + key + "] " + action.Name, Colors.White);
                     top += 2;
                 }
             }
@@ -148,12 +143,12 @@ namespace MysteriesRL.Views
         private void DrawTile(IMap map, int px, int py, int ax, int ay, int sx, int sy, float darkness)
         {
             char tileChar = ' ';
-            Color fgc = Color.White;
-            Color bgc = Color.Black;
+            int fgc = Colors.White;
+            int bgc = Colors.Black;
 
             if (!fMouseClick.IsEmpty && fMouseClick.Equals(ax, ay) && ax != px && ay != py) {
                 tileChar = '*';
-                fgc = Color.White;
+                fgc = Colors.White;
             } else {
                 BaseTile tile = map.GetTile(ax, ay);
                 if (tile != null/* && tile.HasState(BaseTile.TS_VISITED)*/) {
@@ -194,7 +189,7 @@ namespace MysteriesRL.Views
                         }
 
                         if (!seen) {
-                            fgc = AuxUtils.Darker(fgc, darkness);
+                            fgc = GfxHelper.Darker(fgc, darkness);
                         }
                     }
                 }
@@ -205,7 +200,7 @@ namespace MysteriesRL.Views
 
         public override void KeyPressed(KeyEventArgs e)
         {
-            Keys code = e.KeyCode;
+            Keys code = e.Key;
             //System.out.println(String.valueOf(code));
 
             PlayerController playerController = GameSpace.PlayerController;
@@ -213,24 +208,24 @@ namespace MysteriesRL.Views
             int newY = playerController.Player.PosY;
 
             switch (code) {
-                case Keys.Escape:
+                case Keys.GK_ESCAPE:
                     playerController.ClearPath();
                     break;
 
-                case Keys.Tab:
+                case Keys.GK_TAB:
                     MainView.View = ViewType.vtMinimap;
                     break;
 
-                case Keys.Left:
+                case Keys.GK_LEFT:
                     newX--;
                     break;
-                case Keys.Up:
+                case Keys.GK_UP:
                     newY--;
                     break;
-                case Keys.Right:
+                case Keys.GK_RIGHT:
                     newX++;
                     break;
-                case Keys.Down:
+                case Keys.GK_DOWN:
                     newY++;
                     break;
             }
@@ -242,7 +237,7 @@ namespace MysteriesRL.Views
         {
             PlayerController playerCtl = GameSpace.PlayerController;
 
-            switch (e.KeyChar) {
+            switch (e.Key) {
                 case 'a':
                     playerCtl.Attack();
                     break;
@@ -278,7 +273,7 @@ namespace MysteriesRL.Views
                     break;
 
                 case 'q':
-                    Application.Exit();
+                    fTerminal.System.Quit();
                     break;
 
                 case ' ':
@@ -290,7 +285,7 @@ namespace MysteriesRL.Views
                         int idx = 0;
                         foreach (var action in actions) {
                             char key = (char)('A' + idx++);
-                            if (e.KeyChar == key) {
+                            if (e.Key == key) {
                                 action.Execute(playerCtl.Player);
                             }
                         }
@@ -310,7 +305,7 @@ namespace MysteriesRL.Views
             if (MRLData.GV_BOUNDS.Contains(termPt)) {
                 ExtPoint lpt = GetLocalePoint(termPt);
 
-                if (e.Button == MouseButtons.Left) {
+                if (e.Button == MouseButton.mbLeft) {
                     if (GameSpace.CheckTarget(lpt.X, lpt.Y)) {
                         fMouseClick = lpt;
                     } else {
@@ -322,7 +317,7 @@ namespace MysteriesRL.Views
             }
         }
 
-        public override void MouseMoved(MouseEventArgs e)
+        public override void MouseMoved(MouseMoveEventArgs e)
         {
         }
 
@@ -335,7 +330,6 @@ namespace MysteriesRL.Views
             }
 
             GameSpace.DoTurn();
-            UpdateView();
         }
 
         public override void Show()

@@ -3,6 +3,11 @@
 *.userprefs
 *.DotSettings.user
 
+/*.exe*
+/*.dll
+*.pdb
+*.mdb
+
 /project/bin/
 /project/obj/
 

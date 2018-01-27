@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,11 +17,10 @@
  */
 
 using System.Collections.Generic;
-using System.Drawing;
 using BSLib;
-using ZRLib.Terminal;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views.Controls
+namespace PrimevalRL.Views.Controls
 {
     public class ChoicesArea
     {
@@ -43,9 +42,9 @@ namespace MysteriesRL.Views.Controls
         protected readonly IList<Choice> fChoices;
         protected readonly int fTop;
         protected ExtRect fArea;
-        protected Color fColor;
+        protected int fColor;
 
-        public ChoicesArea(Terminal terminal, int top, Color color)
+        public ChoicesArea(Terminal terminal, int top, int color)
         {
             fTerminal = terminal;
             fChoices = new List<Choice>();

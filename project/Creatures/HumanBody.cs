@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,11 +17,11 @@
  */
 
 using System.Collections.Generic;
-using System.Drawing;
 using BSLib;
 using ZRLib.Core;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Creatures
+namespace PrimevalRL.Creatures
 {
     public enum BodypartType
     {
@@ -158,7 +158,7 @@ namespace MysteriesRL.Creatures
             switch (damage.Type) {
                 case Damage.DMG_CUT:
                     if (!fIsBleeding) {
-                        Space.AddMessage(Owner.Name + " is bleeding", Color.Red);
+                        Space.AddMessage(Owner.Name + " is bleeding", Colors.Red);
                     }
                     fIsBleeding = true;
                     fBleedInflictor = inflictor;
@@ -176,7 +176,7 @@ namespace MysteriesRL.Creatures
                             fIsStunned = true;
                             fStunDuration = inflictor.GetEquipBonus("stun_duration");
 
-                            Space.AddMessage(Owner.Name + " is stunned", Color.Orange);
+                            Space.AddMessage(Owner.Name + " is stunned", Colors.Orange);
                         }
                     }
                     break;
@@ -234,7 +234,7 @@ namespace MysteriesRL.Creatures
                     // 20% chance to skip turn
                     Fainted = true;
                     if (Owner.Player) {
-                        Space.AddMessage("You feel tired", Color.Orange);
+                        Space.AddMessage("You feel tired", Colors.Orange);
                     }
                 }
             }
@@ -244,7 +244,7 @@ namespace MysteriesRL.Creatures
                 fStunDuration = 10;
 
                 if (Owner.Player) {
-                    Space.AddMessage("You are unconscious", Color.Orange);
+                    Space.AddMessage("You are unconscious", Colors.Orange);
                 }
             }
         }
@@ -253,7 +253,7 @@ namespace MysteriesRL.Creatures
         {
             /*if (!damaged) {
                 damaged = true;
-                //addMessage(part.getName() + "'s" + name + " is damaged", Color.magenta);
+                //addMessage(part.getName() + "'s" + name + " is damaged", Colors.magenta);
             }*/
         }
     }

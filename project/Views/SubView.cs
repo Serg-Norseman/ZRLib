@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using MysteriesRL.Game;
-using ZRLib.Terminal;
+using PrimevalRL.Game;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public abstract class SubView : BaseView
     {

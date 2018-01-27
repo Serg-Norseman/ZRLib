@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -17,11 +17,11 @@
  */
 
 using System.Collections.Generic;
-using MysteriesRL.Core;
+using PrimevalRL.Game;
 using ZRLib.Core;
 using ZRLib.Core.Action;
 
-namespace MysteriesRL.Maps.Buildings.Features
+namespace PrimevalRL.Maps.Buildings.Features
 {
     public sealed class Stove : BuildingFeature
     {

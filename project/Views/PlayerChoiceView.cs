@@ -1,6 +1,6 @@
 /*
- *  "MysteriesRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih (aka Alchemist, aka Norseman).
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -18,19 +18,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
-using MysteriesRL.Core;
-using MysteriesRL.Creatures;
-using MysteriesRL.Game;
-using MysteriesRL.Maps;
-using MysteriesRL.Maps.Buildings;
-using MysteriesRL.Views.Controls;
+using BSLib;
+using PrimevalRL.Creatures;
+using PrimevalRL.Game;
+using PrimevalRL.Maps;
+using PrimevalRL.Maps.Buildings;
+using PrimevalRL.Views.Controls;
 using ZRLib.Core;
-using ZRLib.Terminal;
+using ZRLib.Engine;
 
-namespace MysteriesRL.Views
+namespace PrimevalRL.Views
 {
     public sealed class PlayerChoiceView : SubView
     {
@@ -41,7 +39,7 @@ namespace MysteriesRL.Views
             : base(ownerView, terminal)
         {
             fCandidates = new List<Human>();
-            fChoicesArea = new ChoicesArea(terminal, 10, AuxUtils.Darker(Color.Green, 0.5f));
+            fChoicesArea = new ChoicesArea(terminal, 10, GfxHelper.Darker(Colors.Green, 0.5f));
         }
 
         public override MRLGame GameSpace
@@ -54,11 +52,11 @@ namespace MysteriesRL.Views
         internal override void UpdateView()
         {
             fTerminal.Clear();
-            fTerminal.TextBackground = Color.Black;
-            fTerminal.TextForeground = Color.White;
+            fTerminal.TextBackground = Colors.Black;
+            fTerminal.TextForeground = Colors.White;
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
-            fTerminal.TextForeground = Color.LightGray;
+            fTerminal.TextForeground = Colors.LightGray;
             fTerminal.WriteCenter(1, 158, 2, Locale.GetStr(RS.Rs_PlayerChoices));
 
             fChoicesArea.Draw();
@@ -122,8 +120,8 @@ namespace MysteriesRL.Views
 
         public override void KeyPressed(KeyEventArgs e)
         {
-            switch (e.KeyCode) {
-                case Keys.Escape:
+            switch (e.Key) {
+                case Keys.GK_ESCAPE:
                     MainView.View = ViewType.vtStartup;
                     break;
             }
@@ -131,7 +129,7 @@ namespace MysteriesRL.Views
 
         public override void KeyTyped(KeyPressEventArgs e)
         {
-            char keyChar = e.KeyChar;
+            char keyChar = e.Key;
             if (keyChar >= '0' && keyChar <= '9') {
                 int num = Convert.ToInt32("0" + keyChar);
                 if (num >= 0 && num < fCandidates.Count) {
@@ -145,7 +143,7 @@ namespace MysteriesRL.Views
         {
         }
 
-        public override void MouseMoved(MouseEventArgs e)
+        public override void MouseMoved(MouseMoveEventArgs e)
         {
         }
     }
