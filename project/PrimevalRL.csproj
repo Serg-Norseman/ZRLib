@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Creatures\CustomBody.cs" />
     <Compile Include="Creatures\HumanBody.cs" />
+    <Compile Include="Data\DataLoader.cs" />
     <Compile Include="Game\CrimeRecord.cs" />
     <Compile Include="Game\MRLData.cs" />
     <Compile Include="Game\SocialController.cs" />
@@ -144,6 +145,8 @@
       <Name>ZRLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

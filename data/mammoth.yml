@@ -1,0 +1,10 @@
+Agility: 2
+Constitution: 10
+Sight: 12
+Strength: 125
+Sprite:
+  Sign: 'M'
+  Color: 0x804040
+Habitat: Ground
+Type: Herbivore
+Period: '1.6 - 0.01'

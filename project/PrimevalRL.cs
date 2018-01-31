@@ -21,6 +21,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Timers;
+using PrimevalRL.Data;
 using PrimevalRL.Game;
 using PrimevalRL.Views;
 using ZRLib.Core;
@@ -61,6 +62,10 @@ namespace PrimevalRL
             fTimer = new System.Timers.Timer(250);
             fTimer.Elapsed += TickTimer;
             fTimer.Start();
+
+            var dataLoader = new DataLoader();
+            dataLoader.Load(GetAppPath() + "data\\creatures.yml");
+            var mammoth = DataLoader.LoadFromFile(GetAppPath() + "data\\mammoth.yml");
         }
 
         private void TickTimer(object sender, ElapsedEventArgs e)
