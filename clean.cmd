@@ -1,4 +1,5 @@
+rmdir .\.vs /s /q
 
-rmdir .\project\bin /s /q
-rmdir .\project\obj /s /q
-rmdir .\project\ProfilingSessions /s /q
+rmdir .\ZRLib\bin /s /q
+rmdir .\ZRLib\obj /s /q
+rmdir .\ZRLib\ProfilingSessions /s /q

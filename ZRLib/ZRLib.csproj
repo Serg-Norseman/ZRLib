@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AssemblyName>ZRLib</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
@@ -161,16 +161,16 @@
     <Compile Include="Map\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BSLib\BSLib\BSLib.csproj">
-      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
-      <Name>BSLib</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="External\SDL2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BSLib\BSLib\BSLib.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -3,6 +3,6 @@
 *.userprefs
 *.DotSettings.user
 
-/project/bin/
-/project/obj/
+/ZRLib/bin/
+/ZRLib/obj/
 

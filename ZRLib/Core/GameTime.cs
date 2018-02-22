@@ -96,7 +96,7 @@ namespace ZRLib.Core
             }
         };
 
-        public short Year;
+        public int Year;
         public byte Month;
         public byte Day;
         public byte Hour;
@@ -131,7 +131,7 @@ namespace ZRLib.Core
 
         public void Set(int year, int month, int day, int hour, int minute, int second)
         {
-            Year = (short)year;
+            Year = year;
             Month = (byte)month;
             Day = (byte)day;
             Hour = (byte)hour;
@@ -169,7 +169,7 @@ namespace ZRLib.Core
                     Minute = 0;
                     if (Hour == 23) {
                         Hour = 0;
-                        if (Day == MonthDays[DateHelper.IsLeapYear(Year) ? 1 : 0][Month - 1]) {
+                        if (Day == MonthDays[DateHelper.IsLeapYear((short)Year) ? 1 : 0][Month - 1]) {
                             Day = 1;
                             if (Month == 12) {
                                 Month = 1;
