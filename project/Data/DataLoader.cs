@@ -1,8 +1,6 @@
 ﻿/*
- *  "GEDKeeper", the personal genealogical database editor.
- *  Copyright (C) 2017 by Sergey V. Zhdanovskih.
- *
- *  This file is part of "GEDKeeper".
+ *  "PrimevalRL", roguelike game.
+ *  Copyright (C) 2018 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -20,11 +18,28 @@
 
 using System;
 using System.IO;
+using System.Text;
 using PrimevalRL.Game;
 using ZRLib.Core;
 
 namespace PrimevalRL.Data
 {
+    public enum DamageType
+    {
+        Natural,
+        Blunt,
+        Slash,
+        Point
+    }
+
+    public enum BodyPart
+    {
+        None,
+        Hands,
+        Head,
+        Body
+    }
+
     public enum CreatureType
     {
         Carnivore,
@@ -42,7 +57,7 @@ namespace PrimevalRL.Data
 
     public sealed class Sprite
     {
-        public char Sign;
+        public string Sign;
         public int Color;
     }
 
@@ -54,6 +69,7 @@ namespace PrimevalRL.Data
         public int Constitution;
         public int Sight;
         public int Strength;
+        public int Skin;
 
         public Sprite Sprite;
 
@@ -61,6 +77,9 @@ namespace PrimevalRL.Data
         public CreatureType Type;
 
         public string Period;
+
+        public string[] Area { get; set; }
+        public string[] Loot { get; set; }
     }
 
     internal class CreaturesList
@@ -73,37 +92,56 @@ namespace PrimevalRL.Data
         }
     }
 
+    public sealed class Weapon
+    {
+        public DamageType DamageType;
+        public int Damage;
+    }
+
+    public sealed class Crafting
+    {
+        public string[] Sources;
+        public string[] Tools;
+    }
+
+    public sealed class ItemRec
+    {
+        public string Name;
+        public string Desc;
+
+        public BodyPart Wearable;
+        public Weapon Weapon;
+        public Sprite Sprite;
+
+        public string[] Props { get; set; }
+        public Crafting Crafting { get; set; }
+    }
+
+    internal class ItemsList
+    {
+        public ItemRec[] Items { get; set; }
+
+        public ItemsList()
+        {
+            Items = new ItemRec[0];
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
     public class DataLoader
     {
-        public static CreatureRec LoadFromFile(string fileName)
-        {
-            if (!File.Exists(fileName))
-                return null;
-
-            try {
-                // loading database
-                using (var reader = new StreamReader(fileName)) {
-                    string content = reader.ReadToEnd();
-                    var rawData = YamlHelper.Deserialize(content, typeof(CreatureRec));
-                    return rawData[0] as CreatureRec;
-                }
-            } catch (Exception ex) {
-                Logger.Write("DataLoader.LoadFromFile(): " + ex.Message);
-                return null;
-            }
-        }
-
         private CreaturesList fCreatures;
+        private ItemsList fItems;
 
         public DataLoader()
         {
             fCreatures = new CreaturesList();
+            fItems = new ItemsList();
         }
 
-        public void Load(string fileName)
+        public void LoadCreatures(string fileName)
         {
             if (!File.Exists(fileName))
                 return;
@@ -116,7 +154,24 @@ namespace PrimevalRL.Data
                     fCreatures = rawData[0] as CreaturesList;
                 }
             } catch (Exception ex) {
-                Logger.Write("DataLoader.Load(): " + ex.Message);
+                Logger.Write("DataLoader.LoadCreatures(): " + ex.Message);
+            }
+        }
+
+        public void LoadItems(string fileName)
+        {
+            if (!File.Exists(fileName))
+                return;
+
+            try {
+                // loading database
+                using (var reader = new StreamReader(fileName, Encoding.UTF8)) {
+                    string content = reader.ReadToEnd();
+                    var rawData = YamlHelper.Deserialize(content, typeof(ItemsList));
+                    fItems = rawData[0] as ItemsList;
+                }
+            } catch (Exception ex) {
+                Logger.Write("DataLoader.LoadItems(): " + ex.Message);
             }
         }
     }

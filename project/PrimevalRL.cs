@@ -64,8 +64,8 @@ namespace PrimevalRL
             fTimer.Start();
 
             var dataLoader = new DataLoader();
-            dataLoader.Load(GetAppPath() + "data\\creatures.yml");
-            var mammoth = DataLoader.LoadFromFile(GetAppPath() + "data\\mammoth.yml");
+            dataLoader.LoadCreatures(GetAppPath() + "data\\creatures.yml");
+            dataLoader.LoadItems(GetAppPath() + "data\\items.yml");
         }
 
         private void TickTimer(object sender, ElapsedEventArgs e)

@@ -230,6 +230,11 @@ namespace PrimevalRL.Game
             AddTile(new TileRec(150, 'S', Colors.Red, Colors.Black, false, new TileFlags(TileFlags.tfBarrier, TileFlags.tfForeground), 1000.0f)); // tid_Stove
             AddTile(new TileRec(151, 'B', Colors.LightGray, Colors.Black, false, new TileFlags(TileFlags.tfBarrier, TileFlags.tfForeground), 1000.0f)); // tid_Bed
 
+            AddTile(new TileRec(152, '', Colors.White, Colors.Black, true, new TileFlags(TileFlags.tfForeground), 1000.0f)); // tid_Portal0
+            AddTile(new TileRec(153, '+', Colors.White, Colors.Black, true, new TileFlags(TileFlags.tfForeground), 1000.0f)); // tid_Portal1
+            AddTile(new TileRec(154, (char)7, Colors.White, Colors.Black, true, new TileFlags(TileFlags.tfForeground), 1000.0f)); // tid_Portal2
+            AddTile(new TileRec(155, (char)9, Colors.White, Colors.Black, true, new TileFlags(TileFlags.tfForeground), 1000.0f)); // tid_Portal3
+
             AddTile(new TileRec(171, '.', Colors.DarkGray, Colors.Black, false, new TileFlags(), 1.0f)); // tid_DungeonFloor
             AddTile(new TileRec(172, 'X', Colors.DarkGray, Colors.Black, false, new TileFlags(TileFlags.tfBarrier, TileFlags.tfForeground), 1000.0f)); // tid_DungeonWall
 

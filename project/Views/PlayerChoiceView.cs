@@ -66,7 +66,7 @@ namespace PrimevalRL.Views
 
         public override void Show()
         {
-            LocatedEntityList population = ((Layer)GameSpace.PlainMap).Creatures;
+            LocatedEntityList population = ((Layer)GameSpace.BaseRealm.PlainMap).Creatures;
 
             for (int i = 0; i < population.Count; i++) {
                 Human human = (Human)population.GetItem(i);

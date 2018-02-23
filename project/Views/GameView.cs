@@ -279,6 +279,18 @@ namespace PrimevalRL.Views
                 case ' ':
                     break;
 
+                case 'p':
+                    {
+                        ExtRect area = ExtRect.Create(playerCtl.Player.PosX - 5, playerCtl.Player.PosY - 5, 
+                                                      playerCtl.Player.PosX + 5, playerCtl.Player.PosY + 5);
+                        IMap map = GameSpace.BaseRealm.PlainMap;
+                        ExtPoint pt = map.SearchFreeLocation(area);
+                        Portal portal = new Portal(GameSpace, map, pt.X, pt.Y);
+                        map.Features.Add(portal);
+                        portal.Render();
+                    }
+                    break;
+
                 default:
                     IList<IAction> actions = playerCtl.AvailableActions;
                     if (actions != null) {
@@ -327,6 +339,11 @@ namespace PrimevalRL.Views
             int ex = fTick % 20;
             if (ex == 0) {
                 GameSpace.UpdateWater();
+            }
+
+            ex = fTick % 2;
+            if (ex == 0) {
+                GameSpace.UpdatePortals();
             }
 
             GameSpace.DoTurn();

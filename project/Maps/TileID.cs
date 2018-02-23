@@ -84,6 +84,10 @@ namespace PrimevalRL.Maps
 
         /*  */ tid_Stove = 150,
         /*  */ tid_Bed = 151,
+        /*  */ tid_Portal0 = 152,
+        /*  */ tid_Portal1 = 153,
+        /*  */ tid_Portal2 = 154,
+        /*  */ tid_Portal3 = 155,
 
         /*  */ tid_DungeonFloor = 171,
         /*  */ tid_DungeonWall = 172,

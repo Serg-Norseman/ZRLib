@@ -1,0 +1,187 @@
+﻿#http://www.donsmaps.com/tools.html
+
+Items:
+  - Name: branch
+    Desc: a sturdy branch
+    Wearable: Hands
+    Weapon:
+      DamageType: Blunt
+      Damage: 1
+    Sprite:
+      Sign: '/'
+      Color: 0x8d6815
+
+
+  - Name: stone
+    Desc: a round stone
+    Wearable: Hands
+    Weapon:
+      DamageType: Blunt
+      Damage: 2
+    Sprite:
+      Sign: "\u0007"
+      Color: 0x585858
+
+
+  - Name: vine
+    Desc: a thin, flexible branch
+    Sprite:
+      Sign: "\u0239"
+      Color: 0x247a07
+
+
+  - Name: trunk
+    Desc: a fallen tree
+    Sprite:
+      Sign: "\u0022"
+      Color: 0x8d6815
+
+
+  - Name: boulder
+    Desc: a big boulder
+    Sprite:
+      Sign: '#'
+      Color: 0x585858
+    Props: [Obstacle, Crushable]
+
+
+  - Name: tree
+    Desc: a mature tree
+    Sprite:
+      Sign: 'T'
+      Color: 0x4da83b
+    Props: [Obstacle, Cuttable]
+
+
+  - Name: sharp-stone
+    Desc: a sharp stone
+    Wearable: Hands
+    Weapon:
+      DamageType: Slash
+      Damage: 2
+    Sprite:
+      Sign: "\u0004"
+      Color: 0x585858
+    Crafting:
+      Sources: [stone]
+      Tools: [stone]
+
+
+  - Name: small-sharp-stone
+    Desc: a small, sharp stone
+    Wearable: Hands
+    Weapon:
+      DamageType: Point
+      Damage: 2
+    Sprite:
+      Sign: "\u0017"
+      Color: 0x585858
+    Crafting:
+      Sources: [sharp-stone]
+      Tools: [stone]
+
+
+  - Name: stone-hammer
+    Desc: a stone hammer
+    Wearable: Hands
+    Weapon:
+      DamageType: Blunt
+      Damage: 4
+    Sprite:
+      Sign: "\u0209"
+      Color: 0x8d6815
+    Crafting:
+      Sources: [stone, branch, vine]
+      Tools: [stone]
+
+
+  - Name: stone-axe
+    Desc: a stone axe
+    Wearable: Hands
+    Weapon:
+      DamageType: Slash
+      Damage: 4
+    Sprite:
+      Sign: "\u0184"
+      Color: 0x8d6815
+    Crafting:
+      Sources: [sharp-stone, branch, vine]
+      Tools: [stone]
+
+
+  - Name: stone-spear
+    Desc: a stone spear
+    Wearable: Hands
+    Weapon:
+      DamageType: Point
+      Damage: 4
+    Sprite:
+      Sign: "\u0244"
+      Color: 0x8d6815
+    Crafting:
+      Sources: [small-sharp-stone, trunk, vine]
+      Tools: [stone]
+
+
+  - Name: animal-fur
+    Desc: an animal fur
+
+
+  - Name: leather
+    Desc: a leather
+    Crafting:
+      Sources: [animal-fur, water]
+      Tools: [small-sharp-stone]
+
+
+  - Name: clay
+    Desc: a clay
+
+
+  - Name: sand
+    Desc: a sand
+
+
+  - Name: clay-beaker
+    Desc: a clay beaker
+    Crafting:
+      Sources: [clay, sand, water]
+      Tools: []
+
+
+  - Name: tar
+    Desc: a tar
+
+
+  - Name: waterbag
+    Desc: a waterbag
+    Wearable: Hands
+    Crafting:
+      Sources: [animal-fur, tar]
+      Tools: [small-sharp-stone]
+    Props: [Container]
+
+
+  - Name: torch
+    Desc: a torch
+    Wearable: Hands
+    Sprite:
+      Sign: '|'
+      Color: 0x000000
+    Crafting:
+      Sources: [animal-fur, branch, vine, tar]
+      Tools: []
+
+
+  - Name: dart
+    Desc: a dart
+    Wearable: Hands
+    Weapon:
+      DamageType: Point
+      Damage: 2
+    Sprite:
+      Sign: '-'
+      Color: 0x8d6815
+    Crafting:
+      Sources: [small-sharp-stone, trunk]
+      Tools: [stone]

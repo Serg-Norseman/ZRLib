@@ -7,3 +7,4 @@ del .\*.exe*
 del .\*.dll
 del .\*.pdb
 del .\*.mdb
+del .\*.log

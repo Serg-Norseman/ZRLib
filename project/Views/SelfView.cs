@@ -50,7 +50,7 @@ namespace PrimevalRL.Views
             NPCStats stats = player.Stats;
             HumanBody body = (HumanBody)player.Body;
             City city = gameSpace.City;
-            Layer layer = (Layer)gameSpace.PlainMap;
+            Layer layer = (Layer)gameSpace.BaseRealm.PlainMap;
 
             fTerminal.TextForeground = Colors.LightGray;
             fTerminal.DrawBox(2, 2, 50, 50, false, "Player");

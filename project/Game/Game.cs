@@ -33,12 +33,10 @@ namespace PrimevalRL.Game
 {
     public sealed class MRLGame : GameSpace, IEventListener
     {
-        private readonly Layer fPlainMap;
-        private readonly Layer fCellarsMap;
+        private readonly Realm fBaseRealm;
 
         private readonly IList<TextMessage> fMessages;
         private readonly PlayerController fPlayerController;
-        private readonly GameTime fTime;
 
         private City fCity;
 
@@ -47,25 +45,17 @@ namespace PrimevalRL.Game
         public MRLGame(object owner)
             : base(owner)
         {
-            fPlainMap = new Layer(false, "plain");
-            fCellarsMap = new Layer(true, "cellars");
-
+            fBaseRealm = new Realm();
             fMinimap = null;
             fMessages = new List<TextMessage>();
             fPlayerController = new PlayerController();
-            fTime = new GameTime();
 
             ScheduledEventManager.Subscribe(this);
         }
 
-        public IMap PlainMap
+        public Realm BaseRealm
         {
-            get { return fPlainMap; }
-        }
-
-        public IMap CellarsMap
-        {
-            get { return fCellarsMap; }
+            get { return fBaseRealm; }
         }
 
         public City City
@@ -80,12 +70,12 @@ namespace PrimevalRL.Game
 
         public void InitNew(IProgressController progressController)
         {
-            fTime.Set(1890, 0x7, 0x1, 12, 0x0, 0x0);
+            fBaseRealm.Time.Set(1890, 0x7, 0x1, 12, 0x0, 0x0);
 
-            fPlainMap.InitPlainLayer(progressController);
+            fBaseRealm.PlainMap.InitPlainLayer(progressController);
 
-            int mw = fPlainMap.Width;
-            int mh = fPlainMap.Height;
+            int mw = fBaseRealm.PlainMap.Width;
+            int mh = fBaseRealm.PlainMap.Height;
 
             int ctH = RandomHelper.GetBoundedRnd(mh / 2, (int)(mh * 0.66f));
             int ctW = RandomHelper.GetBoundedRnd(mw / 2, (int)(mw * 0.66f));
@@ -95,11 +85,11 @@ namespace PrimevalRL.Game
 
             ExtRect cityArea = ExtRect.Create(ctX, ctY, ctX + ctW, ctY + ctH);
 
-            fCity = new City(this, fPlainMap, cityArea);
-            CityGenerator civFactory = new CityGenerator(fPlainMap, fCity, progressController);
+            fCity = new City(this, fBaseRealm.PlainMap, cityArea);
+            CityGenerator civFactory = new CityGenerator(fBaseRealm.PlainMap, fCity, progressController);
             civFactory.BuildCity();
 
-            fMinimap = new Minimap(fPlainMap, fCity);
+            fMinimap = new Minimap(fBaseRealm.PlainMap, fCity);
 
             IList<Building> blds = fCity.Buildings;
             progressController.SetStage(Locale.GetStr(RS.Rs_BuildingsPopulate), blds.Count);
@@ -121,14 +111,14 @@ namespace PrimevalRL.Game
             }
 
             // flush features
-            EntityList feats = fPlainMap.Features;
+            EntityList feats = fBaseRealm.PlainMap.Features;
             for (int i = 0; i < feats.Count; i++) {
                 GameEntity entity = feats.GetItem(i);
 
                 if (entity is MapFeature) {
                     MapFeature mf = (MapFeature)entity;
 
-                    fPlainMap.GetTile(mf.PosX, mf.PosY).Foreground = (ushort)mf.TileID;
+                    fBaseRealm.PlainMap.GetTile(mf.PosX, mf.PosY).Foreground = (ushort)mf.TileID;
                 }
             }
         }
@@ -140,9 +130,9 @@ namespace PrimevalRL.Game
                 privArea = bld.Area;
             }
 
-            fCellarsMap.InitDungeon(privArea, ExtPoint.Empty, true);
+            fBaseRealm.UndergroundMap.InitDungeon(privArea, ExtPoint.Empty, true);
 
-            GenStairway(fPlainMap, fCellarsMap, privArea);
+            GenStairway(fBaseRealm.PlainMap, fBaseRealm.UndergroundMap, privArea);
             //GenStairway(fCellarsMap, fDungeonsMap, privArea);
         }
 
@@ -168,7 +158,7 @@ namespace PrimevalRL.Game
 
         public GameTime Time
         {
-            get { return fTime; }
+            get { return fBaseRealm.Time; }
         }
 
         public string GetLocationName(int px, int py)
@@ -230,7 +220,7 @@ namespace PrimevalRL.Game
 
         public bool CheckTarget(int mx, int my)
         {
-            if (fPlainMap.IsBarrier(mx, my)) {
+            if (fBaseRealm.PlainMap.IsBarrier(mx, my)) {
                 return false;
             }
             return true;
@@ -251,7 +241,7 @@ namespace PrimevalRL.Game
             AddMessage(location);
 
             if (!here) {
-                Creature creature = (Creature)fPlainMap.FindCreature(mx, my);
+                Creature creature = (Creature)fBaseRealm.PlainMap.FindCreature(mx, my);
                 if (creature != null) {
                     AddMessage("You see " + creature.Desc);
                 }
@@ -261,7 +251,7 @@ namespace PrimevalRL.Game
         public float LightFactor
         {
             get {
-                DayTime dt = fTime.DayTime;
+                DayTime dt = fBaseRealm.Time.DayTime;
                 var timeRec = GameTime.DayTimes[(int)dt];
                 return timeRec.RadMod;
             }
@@ -270,7 +260,7 @@ namespace PrimevalRL.Game
         public float LightBrightness
         {
             get {
-                DayTime dt = fTime.DayTime;
+                DayTime dt = fBaseRealm.Time.DayTime;
                 var timeRec = GameTime.DayTimes[(int)dt];
                 return timeRec.Brightness;
             }
@@ -279,7 +269,7 @@ namespace PrimevalRL.Game
         // every 100 ms
         public void DoTurn()
         {
-            fTime.Tick(60);
+            fBaseRealm.Time.Tick(60);
 
             PlayerController.DoPathStep();
 
@@ -288,7 +278,18 @@ namespace PrimevalRL.Game
 
         public void UpdateWater()
         {
-            fPlainMap.UpdateWater(PlayerController.Viewport);
+            fBaseRealm.PlainMap.UpdateWater(PlayerController.Viewport);
+        }
+
+        public void UpdatePortals()
+        {
+            IMap map = fBaseRealm.PlainMap;
+            for (int i = 0; i < map.Features.Count; i++) {
+                var portal = map.Features.GetItem(i) as Portal;
+                if (portal != null) {
+                    portal.DoTurn();
+                }
+            }
         }
 
         public void OnEvent(Event @event)
