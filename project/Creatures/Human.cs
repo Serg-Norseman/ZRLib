@@ -225,11 +225,11 @@ namespace PrimevalRL.Creatures
         public virtual void Ascend(ExtPoint target)
         {
             IMap map = Map;
-            if (map == Space.BaseRealm.PlainMap) {
+            if (map == Space.CurrentRealm.PlainMap) {
                 //
             }
-            if (map == Space.BaseRealm.UndergroundMap) {
-                Map = Space.BaseRealm.PlainMap;
+            if (map == Space.CurrentRealm.UndergroundMap) {
+                Map = Space.CurrentRealm.PlainMap;
                 MoveTo(target.X, target.Y);
             }
         }
@@ -237,8 +237,8 @@ namespace PrimevalRL.Creatures
         public virtual void Descend(ExtPoint target)
         {
             IMap map = Map;
-            if (map == Space.BaseRealm.PlainMap) {
-                Map = Space.BaseRealm.UndergroundMap;
+            if (map == Space.CurrentRealm.PlainMap) {
+                Map = Space.CurrentRealm.UndergroundMap;
                 MoveTo(target.X, target.Y);
             }
         }

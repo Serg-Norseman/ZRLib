@@ -79,6 +79,7 @@
     Habitat: Ground
     Type: Herbivore
     Period: '1.6 - 0.01 Ma'
+    PeriodStruct: {Beg: 1.6, End: 0.01, Units: Ma}
     Loot: [meat, animal-fur, bones, tusks]
 
 

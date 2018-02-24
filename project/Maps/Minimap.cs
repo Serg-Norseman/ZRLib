@@ -32,11 +32,14 @@ namespace PrimevalRL.Maps
         public Minimap(IMap source, City city)
             : base(source.Height / SCALE, source.Width / SCALE)
         {
-            MakePlane(source, city);
-            MakeCity(source, city);
+            MakePlane(source);
+
+            if (city != null) {
+                MakeCity(source, city);
+            }
         }
 
-        public void MakePlane(IMap source, City city)
+        public void MakePlane(IMap source)
         {
             IDictionary<int, int> bgMap = new Dictionary<int, int>();
             IDictionary<int, int> fgMap = new Dictionary<int, int>();

@@ -57,6 +57,8 @@
     <Compile Include="Game\MRLData.cs" />
     <Compile Include="Game\SocialController.cs" />
     <Compile Include="Game\YamlHelper.cs" />
+    <Compile Include="Generators\RealmGenerator.cs" />
+    <Compile Include="Maps\BaseRealm.cs" />
     <Compile Include="Maps\City.cs" />
     <Compile Include="Maps\CityRegion.cs" />
     <Compile Include="Maps\District.cs" />
@@ -127,7 +129,7 @@
     <EmbeddedResource Include="resources\en_texts.xml" />
     <EmbeddedResource Include="resources\namegen\female.txt" />
     <EmbeddedResource Include="resources\namegen\male.txt" />
-    <EmbeddedResource Include="resources\namegen\surnames.csv" />
+    <EmbeddedResource Include="resources\namegen\surnames.txt" />
     <EmbeddedResource Include="resources\ru_texts.xml" />
     <EmbeddedResource Include="resources\startup.txt" />
     <None Include="SDL2.dll">

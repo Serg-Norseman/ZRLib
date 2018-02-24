@@ -17,8 +17,12 @@
  */
 
 using System;
+using BSLib;
+using PrimevalRL.Game;
+using PrimevalRL.Generators;
 using PrimevalRL.Maps;
 using ZRLib.Core;
+using ZRLib.Map;
 
 namespace PrimevalRL.Maps
 {
@@ -27,9 +31,9 @@ namespace PrimevalRL.Maps
     /// </summary>
     public class Realm
     {
-        private readonly Layer fPlainMap;
-        private readonly Layer fUndergroundMap;
-        private readonly GameTime fTime;
+        protected readonly Layer fPlainMap;
+        protected readonly Layer fUndergroundMap;
+        protected readonly GameTime fTime;
 
         public Layer PlainMap
         {
@@ -41,16 +45,59 @@ namespace PrimevalRL.Maps
             get { return fUndergroundMap; }
         }
 
+        public IMap fMinimap;
+
+        /// <summary>
+        /// This year value is based on the sign 32-bit int, i.e. for the game with geochronology 
+        /// can count the dates to Paleoproterozoic (2.1 billion years).
+        /// </summary>
         public GameTime Time
         {
             get { return fTime; }
         }
 
-        public Realm()
+        public Realm(bool underground)
         {
             fPlainMap = new Layer(false, "plain");
-            fUndergroundMap = new Layer(true, "underground");
+            if (underground) {
+                fUndergroundMap = new Layer(true, "underground");
+            }
             fTime = new GameTime();
+            fMinimap = null;
+        }
+
+        public virtual void InitNew(MRLGame gameSpace, int year, IProgressController progressController)
+        {
+            fTime.Set(year, 7, 1, 12, 0, 0);
+            RealmGenerator.Gen_Valley(fPlainMap, true, true, true);
+            fMinimap = new Minimap(fPlainMap, null);
+        }
+
+        public virtual string GetLocationName(int px, int py)
+        {
+            return "unknown";
+        }
+
+        public ExtPoint SearchFreeLocation(ExtRect area, int tries = 50)
+        {
+            ExtPoint pt = fPlainMap.SearchFreeLocation(area);
+            return pt;
+        }
+
+        public void UpdateWater(ExtRect viewport)
+        {
+            fPlainMap.UpdateWater(viewport);
+        }
+
+        public void UpdatePortals()
+        {
+            IMap map = fPlainMap;
+            for (int i = 0; i < map.Features.Count; i++) {
+                var portal = map.Features.GetItem(i) as Portal;
+                if (portal != null) {
+                    portal.DoTurn();
+                }
+            }
         }
     }
 }

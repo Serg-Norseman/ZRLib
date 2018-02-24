@@ -27,7 +27,19 @@ namespace PrimevalRL.Maps
 {
     public class Portal : MapFeature
     {
+        private Realm fOldRealm;
+        private Realm fNewRealm;
         private int fStage;
+
+        public Realm OldRealm
+        {
+            get { return fOldRealm; }
+        }
+
+        public Realm NewRealm
+        {
+            get { return fNewRealm; }
+        }
 
         public Portal(GameSpace space, object owner)
             : base(space, owner)
@@ -36,18 +48,18 @@ namespace PrimevalRL.Maps
             fStage = 0;
         }
 
-        public Portal(GameSpace space, object owner, int x, int y)
+        public Portal(GameSpace space, object owner, int x, int y, Realm oldRealm, Realm newRealm, int tx, int ty)
             : base(space, owner, x, y)
         {
             fTileID = TileID.tid_Portal0;
             fStage = 0;
+            fOldRealm = oldRealm;
+            fNewRealm = newRealm;
         }
 
         public IMap Map
         {
-            get {
-                return (IMap)Owner;
-            }
+            get { return (IMap)Owner; }
         }
 
         public override TileID TileID
@@ -99,6 +111,9 @@ namespace PrimevalRL.Maps
 
             public override void Execute(object invoker)
             {
+                MRLGame game = this.Space as MRLGame;
+                game.CurrentRealm = (Owner as Portal).NewRealm;
+                game.PlayerController.Player.Map = game.CurrentRealm.PlainMap;
             }
         }
     }

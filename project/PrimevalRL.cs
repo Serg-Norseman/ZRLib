@@ -62,10 +62,6 @@ namespace PrimevalRL
             fTimer = new System.Timers.Timer(250);
             fTimer.Elapsed += TickTimer;
             fTimer.Start();
-
-            var dataLoader = new DataLoader();
-            dataLoader.LoadCreatures(GetAppPath() + "data\\creatures.yml");
-            dataLoader.LoadItems(GetAppPath() + "data\\items.yml");
         }
 
         private void TickTimer(object sender, ElapsedEventArgs e)

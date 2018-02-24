@@ -114,7 +114,7 @@ namespace PrimevalRL.Views
                 case 'n':
                 case 'N':
                     fMenuMode = false;
-                    GameSpace.InitNew(this);
+                    GameSpace.InitBaseRealm(this);
                     MainView.View = ViewType.vtPlayerChoice;
                     break;
             }

@@ -1,0 +1,109 @@
+Timeline;Deviation;TimeUnits;Eon;Era;Period;Epoch;Age;Chron
+4567.17; +/- 0.7;Ma;Hadean;;;;;
+3800; +/- 0;Ma;Archean;Eoarchean;;;;
+3600; +/- 0;Ma;Archean;Paleoarchean;;;;
+3200; +/- 0;Ma;Archean;Mesoarchean;;;;
+2800; +/- 0;Ma;Archean;Neoarchean;;;;
+2500; +/- 0;Ma;Proterozoic;Paleoproterozoic;Siderian;;;
+2300; +/- 0;Ma;Proterozoic;Paleoproterozoic;Rhyacian;;;
+2050; +/- 0;Ma;Proterozoic;Paleoproterozoic;Orosirian;;;
+1800; +/- 0;Ma;Proterozoic;Paleoproterozoic;Statherian;;;
+1600; +/- 0;Ma;Proterozoic;Mesoproterozoic;Calymmian;;;
+1400; +/- 0;Ma;Proterozoic;Mesoproterozoic;Ectasian;;;
+1200; +/- 0;Ma;Proterozoic;Mesoproterozoic;Stenian;;;
+1000; +/- 0;Ma;Proterozoic;Neoproterozoic;Tonian;;;
+850; +/- 0;Ma;Proterozoic;Neoproterozoic;Cryogenian;;;
+630; +5/-30;Ma;Proterozoic;Neoproterozoic;Ediacaran;;;
+542; +/- 0.3;Ma;Phanerozoic;Paleozoic;Cambrian;Early Cambrian;;
+513; +/- 2;Ma;Phanerozoic;Paleozoic;Cambrian;Middle Cambrian;;
+501; +/- 2;Ma;Phanerozoic;Paleozoic;Cambrian;Late Cambrian;Paibian;
+488.3; +/- 1.7;Ma;Phanerozoic;Paleozoic;Ordovician;Early Ordovician;Tremadocian;
+478.6; +/- 1.7;Ma;Phanerozoic;Paleozoic;Ordovician;Early Ordovician;Arenig;
+471.8; +/- 1.6;Ma;Phanerozoic;Paleozoic;Ordovician;Middle Ordovician;Ordovician III;
+468.1; +/- 1.6;Ma;Phanerozoic;Paleozoic;Ordovician;Middle Ordovician;Darriwilian;
+460.9; +/- 1.6;Ma;Phanerozoic;Paleozoic;Ordovician;Late Ordovician;Ordovician V;
+455.8; +/- 1.6;Ma;Phanerozoic;Paleozoic;Ordovician;Late Ordovician;Ordovician VI;
+445.6; +/- 1.5;Ma;Phanerozoic;Paleozoic;Ordovician;Late Ordovician;Hirnantian;
+443.7; +/- 1.5;Ma;Phanerozoic;Paleozoic;Silurian;Early Silurian;Llandovery;Rhuddanian
+439; +/- 1.8;Ma;Phanerozoic;Paleozoic;Silurian;Early Silurian;Llandovery;Aeronian
+436; +/- 1.9;Ma;Phanerozoic;Paleozoic;Silurian;Early Silurian;Llandovery;Telychian
+428.2; +/- 2.3;Ma;Phanerozoic;Paleozoic;Silurian;Early Silurian;Wenlock;Sheinwoodian
+426.2; +/- 2.4;Ma;Phanerozoic;Paleozoic;Silurian;Early Silurian;Wenlock;Homerian
+422.9; +/- 2.5;Ma;Phanerozoic;Paleozoic;Silurian;Late Silurian;Ludlow;Gorstian
+421.3; +/- 2.6;Ma;Phanerozoic;Paleozoic;Silurian;Late Silurian;Ludlow;Ludfordian
+418.7; +/- 2.7;Ma;Phanerozoic;Paleozoic;Silurian;Late Silurian;Pridoli;
+416; +/- 2.8;Ma;Phanerozoic;Paleozoic;Devonian;Early Devonian;Lochkovian;
+411.2; +/- 2.8;Ma;Phanerozoic;Paleozoic;Devonian;Early Devonian;Praghian;
+407; +/- 2.8;Ma;Phanerozoic;Paleozoic;Devonian;Early Devonian;Emsian;
+397.5; +/- 2.7;Ma;Phanerozoic;Paleozoic;Devonian;Middle Devonian;Eifelian;
+391.8; +/- 2.7;Ma;Phanerozoic;Paleozoic;Devonian;Middle Devonian;Givetian;
+385.3; +/- 2.6;Ma;Phanerozoic;Paleozoic;Devonian;Late Devonian;Frasnian;
+374.5; +/- 2.6;Ma;Phanerozoic;Paleozoic;Devonian;Late Devonian;Famennian;
+359.2; +/- 2.5;Ma;Phanerozoic;Paleozoic;Carboniferous;Mississippian;Early Mississippian;Tournaisian
+345.3; +/- 2.1;Ma;Phanerozoic;Paleozoic;Carboniferous;Mississippian;Middle Mississippian;Visean
+326.4; +/- 1.6;Ma;Phanerozoic;Paleozoic;Carboniferous;Mississippian;Late Mississippian;Serpukhovian
+318.1; +/- 1.3;Ma;Phanerozoic;Paleozoic;Carboniferous;Pennsylvanian;Early Pennsylvanian;Bashkirian
+311.7; +/- 1.1;Ma;Phanerozoic;Paleozoic;Carboniferous;Pennsylvanian;Middle Pennsylvanian;Moscovian
+306.5; +/- 1;Ma;Phanerozoic;Paleozoic;Carboniferous;Pennsylvanian;Late Pennsylvanian;Kasimovian
+303.9; +/- 0.9;Ma;Phanerozoic;Paleozoic;Carboniferous;Pennsylvanian;Late Pennsylvanian;Gzhelian
+299; +/- 0.8;Ma;Phanerozoic;Paleozoic;Permian;Early Permian;Asselian;
+294.6; +/- 0.8;Ma;Phanerozoic;Paleozoic;Permian;Early Permian;Sakmarian;
+284.4; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Early Permian;Artinskian;
+275.6; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Early Permian;Kungurian;
+270.6; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Middle Permian;Roadian;
+268; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Middle Permian;Wordian;
+265.8; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Middle Permian;Capitanian;
+260.4; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Late Permian;Wuchiapingian;
+253.8; +/- 0.7;Ma;Phanerozoic;Paleozoic;Permian;Late Permian;Changhsingian;
+251; +/- 0.4;Ma;Phanerozoic;Mesozoic;Triassic;Early Triassic;Induan;
+249.7; +/- 0.7;Ma;Phanerozoic;Mesozoic;Triassic;Early Triassic;Olenekian;
+245; +/- 1.5;Ma;Phanerozoic;Mesozoic;Triassic;Middle Triassic;Anisian;
+237; +/- 2;Ma;Phanerozoic;Mesozoic;Triassic;Middle Triassic;Ladinian;
+228; +/- 2;Ma;Phanerozoic;Mesozoic;Triassic;Late Triassic;Carnian;
+216.5; +/- 2;Ma;Phanerozoic;Mesozoic;Triassic;Late Triassic;Norian;
+203.6; +/- 1.5;Ma;Phanerozoic;Mesozoic;Triassic;Late Triassic;Rhaetian;
+199.6; +/- 0.6;Ma;Phanerozoic;Mesozoic;Jurassic;Early Jurassic;Hettangian;
+196.5; +/- 1;Ma;Phanerozoic;Mesozoic;Jurassic;Early Jurassic;Sinemurian;
+189.6; +/- 1.5;Ma;Phanerozoic;Mesozoic;Jurassic;Early Jurassic;Pliensbachian;
+183; +/- 1.5;Ma;Phanerozoic;Mesozoic;Jurassic;Early Jurassic;Toarcian;
+175.6; +/- 2;Ma;Phanerozoic;Mesozoic;Jurassic;Middle Jurassic;Aalenian;
+171.6; +/- 3;Ma;Phanerozoic;Mesozoic;Jurassic;Middle Jurassic;Bajocian;
+167.7; +/- 3.5;Ma;Phanerozoic;Mesozoic;Jurassic;Middle Jurassic;Bathonian;
+164.7; +/- 4;Ma;Phanerozoic;Mesozoic;Jurassic;Middle Jurassic;Callovian;
+161.2; +/- 4;Ma;Phanerozoic;Mesozoic;Jurassic;Late Jurassic;Oxfordian;
+155.7; +/- 4;Ma;Phanerozoic;Mesozoic;Jurassic;Late Jurassic;Kimmeridgian;
+150.8; +/- 4;Ma;Phanerozoic;Mesozoic;Jurassic;Late Jurassic;Tithonian;
+145.5; +/- 4;Ma;Phanerozoic;Mesozoic;Cretaceous;Early Cretaceous;Berriasian;
+140.2; +/- 3;Ma;Phanerozoic;Mesozoic;Cretaceous;Early Cretaceous;Valanginian;
+136.4; +/- 2;Ma;Phanerozoic;Mesozoic;Cretaceous;Early Cretaceous;Hauterivian;
+130; +/- 1.5;Ma;Phanerozoic;Mesozoic;Cretaceous;Early Cretaceous;Barremian;
+125; +/- 1;Ma;Phanerozoic;Mesozoic;Cretaceous;Early Cretaceous;Aptian;
+112; +/- 1;Ma;Phanerozoic;Mesozoic;Cretaceous;Early Cretaceous;Albian;
+99.6; +/- 0.9;Ma;Phanerozoic;Mesozoic;Cretaceous;Late Cretaceous;Cenomanian;
+93.5; +/- 0.8;Ma;Phanerozoic;Mesozoic;Cretaceous;Late Cretaceous;Turonian;
+89.3; +/- 1;Ma;Phanerozoic;Mesozoic;Cretaceous;Late Cretaceous;Coniacian;
+85.8; +/- 0.7;Ma;Phanerozoic;Mesozoic;Cretaceous;Late Cretaceous;Santonian;
+83.5; +/- 0.7;Ma;Phanerozoic;Mesozoic;Cretaceous;Late Cretaceous;Campanian;
+70.6; +/- 0.6;Ma;Phanerozoic;Mesozoic;Cretaceous;Late Cretaceous;Maastrichtian;
+65.5; +/- 0.3;Ma;Phanerozoic;Cenozoic;Paleogene;Paleocene;Early Paleocene;Danian
+61.7; +/- 0.2;Ma;Phanerozoic;Cenozoic;Paleogene;Paleocene;Middle Paleocene;Selandian
+58.7; +/- 0.2;Ma;Phanerozoic;Cenozoic;Paleogene;Paleocene;Late Paleocene;Thanetian
+55.8; +/- 0.2;Ma;Phanerozoic;Cenozoic;Paleogene;Eocene;Early Eocene;Ypresian
+48.6; +/- 0.2;Ma;Phanerozoic;Cenozoic;Paleogene;Eocene;Middle Eocene;Lutetian
+40.4; +/- 0.2;Ma;Phanerozoic;Cenozoic;Paleogene;Eocene;Middle Eocene;Bartonian
+37.2; +/- 0.1;Ma;Phanerozoic;Cenozoic;Paleogene;Eocene;Late Eocene;Priabonian
+33.9; +/- 0.1;Ma;Phanerozoic;Cenozoic;Paleogene;Oligocene;Early Oligocene;Rupelian
+28.4; +/- 0.1;Ma;Phanerozoic;Cenozoic;Paleogene;Oligocene;Late Oligocene;Chattian
+23.03; +/- 0.05;Ma;Phanerozoic;Cenozoic;Neogene;Miocene;Early Miocene;Aquitanian
+20.43; +/- 0.05;Ma;Phanerozoic;Cenozoic;Neogene;Miocene;Early Miocene;Burdigalian
+15.97; +/- 0.05;Ma;Phanerozoic;Cenozoic;Neogene;Miocene;Middle Miocene;Langhian
+13.65; +/- 0.05;Ma;Phanerozoic;Cenozoic;Neogene;Miocene;Middle Miocene;Serravallian
+11.608; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Miocene;Late Miocene;Tortonian
+7.246; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Miocene;Late Miocene;Messinian
+5.332; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Pliocene;Early Pliocene;Zanclean
+3.6; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Pliocene;Late Pliocene;Piacenzian
+2.588; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Pliocene;Late Pliocene;Gelasian
+1.806; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Pleistocene;Early Pleistocene;
+0.781; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Pleistocene;Middle Pleistocene;
+0.126; +/- 0.005;Ma;Phanerozoic;Cenozoic;Neogene;Pleistocene;Late Pleistocene;
+0.01143; +/- 0.00013;Ma;Phanerozoic;Cenozoic;Neogene;Holocene;;

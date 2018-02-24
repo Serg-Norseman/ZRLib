@@ -21,7 +21,6 @@ using BSLib;
 using PrimevalRL.Creatures;
 using PrimevalRL.Maps;
 using PrimevalRL.Maps.Buildings;
-using PrimevalRL.Maps.Buildings.Features;
 using ZRLib.Core;
 using ZRLib.Core.Action;
 using ZRLib.Map;
@@ -131,42 +130,6 @@ namespace PrimevalRL.Game
                 //var rt = ExtRect.Create(px - MRLData.GV_XRad, py - MRLData.GV_YRad, px + MRLData.GV_XRad, py + MRLData.GV_YRad);
                 fViewport = ExtRect.Create(px - MRLData.GV_XRad, py - MRLData.GV_YRad, px + MRLData.GV_XRad, py + MRLData.GV_YRad);
                 return fViewport;//rt;
-            }
-        }
-
-        public void SwitchLock()
-        {
-            int px = fPlayer.PosX;
-            int py = fPlayer.PosY;
-            ExtPoint pt = fPlayer.Location;
-            ExtRect rt = ExtRect.Create(px - 1, py - 1, px + 1, py + 1);
-
-            IList<Door> doors = new List<Door>();
-
-            City city = fPlayer.Space.City;
-            foreach (Building bld in city.Buildings) {
-                ExtRect exrt = bld.Area;
-                exrt.Inflate(+1, +1);
-                if (exrt.Contains(pt)) {
-                    foreach (Door door in bld.Doors) {
-                        if (rt.Contains(door.Location)) {
-                            doors.Add(door);
-                        }
-                    }
-                    break;
-                }
-            }
-
-            if (doors.Count < 1) {
-                // not doors near
-            } else if (doors.Count > 1) {
-                // too many doors
-            } else {
-                Door door = doors[0];
-                door.Opened = !door.Opened;
-                // FIXME: message
-
-                fPlayer.Map.GetTile(door.PosX, door.PosY).Foreground = (ushort)door.TileID;
             }
         }
 

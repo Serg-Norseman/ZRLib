@@ -61,6 +61,12 @@ namespace PrimevalRL.Maps
                 case TileType.ttDungeonWall:
                     return (ushort)TileID.tid_DungeonWall;
 
+                case TileType.ttGrass:
+                    return (ushort)TileID.tid_Grass;
+
+                case TileType.ttMountain:
+                    return (ushort)TileID.tid_Tree; // TODO
+
                 default:
                     return (ushort)0;
             }

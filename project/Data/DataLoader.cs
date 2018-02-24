@@ -17,8 +17,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using BSLib;
 using PrimevalRL.Game;
 using ZRLib.Core;
 
@@ -61,6 +63,22 @@ namespace PrimevalRL.Data
         public int Color;
     }
 
+    public enum TimeUnits
+    {
+        // BC
+        Ma,
+        Ka,
+        // AD
+        AD
+    }
+
+    public sealed class Period
+    {
+        public double Beg;
+        public double End;
+        public TimeUnits Units;
+    }
+
     public sealed class CreatureRec
     {
         public string Name;
@@ -77,12 +95,13 @@ namespace PrimevalRL.Data
         public CreatureType Type;
 
         public string Period;
+        public Period PeriodStruct;
 
         public string[] Area { get; set; }
         public string[] Loot { get; set; }
     }
 
-    internal class CreaturesList
+    public class CreaturesList
     {
         public CreatureRec[] Creatures { get; set; }
 
@@ -126,7 +145,7 @@ namespace PrimevalRL.Data
         public Crafting Crafting { get; set; }
     }
 
-    internal class ItemsList
+    public class ItemsList
     {
         public ItemRec[] Items { get; set; }
 
@@ -136,18 +155,27 @@ namespace PrimevalRL.Data
         }
     }
 
+    public sealed class GeoTime
+    {
+        public float TimeBeg;
+        public float TimeEnd;
+        public string Name;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     public class DataLoader
     {
-        private CreaturesList fCreatures;
-        private ItemsList fItems;
+        public CreaturesList fCreatures;
+        public ItemsList fItems;
+        public List<GeoTime> fTimes;
 
         public DataLoader()
         {
             fCreatures = new CreaturesList();
             fItems = new ItemsList();
+            fTimes = new List<GeoTime>();
         }
 
         public void LoadCreatures(string fileName)
@@ -181,6 +209,56 @@ namespace PrimevalRL.Data
                 }
             } catch (Exception ex) {
                 Logger.Write("DataLoader.LoadItems(): " + ex.Message);
+            }
+        }
+
+        public string GetTimeName(int year)
+        {
+            string result = "";
+            float y = year / 1000000.0f;
+            foreach (var time in fTimes) {
+                float beg = -time.TimeBeg;
+                float end = -time.TimeEnd;
+
+                if (y > beg && (y < end || end == 0.0f)) {
+                    result = time.Name;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public void LoadGeoAges(string fileName)
+        {
+            if (!File.Exists(fileName))
+                return;
+
+            try {
+                // loading database
+                using (var reader = new StreamReader(fileName, Encoding.UTF8)) {
+                    var csv = CSVReader.CreateFromTextReader(reader, ";");
+
+                    GeoTime prevTime = null;
+                    List<object> row;
+                    int num = 0;
+                    while ((row = csv.ReadRow()) != null) {
+                        num += 1;
+                        if (num == 1)
+                            continue;
+
+                        var newTime = new GeoTime();
+                        newTime.TimeBeg = (float)ConvertHelper.ParseFloat(row[0].ToString(), 0.0f, true);
+                        newTime.Name = row[3].ToString() + " " + row[4].ToString() + " " + row[5].ToString() + " " + row[6].ToString();
+                        fTimes.Add(newTime);
+
+                        if (prevTime != null) {
+                            prevTime.TimeEnd = newTime.TimeBeg;
+                        }
+                        prevTime = newTime;
+                    }
+                }
+            } catch (Exception ex) {
+                Logger.Write("DataLoader.LoadGeoAges(): " + ex.Message);
             }
         }
     }

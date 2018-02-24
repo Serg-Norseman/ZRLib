@@ -22,6 +22,7 @@ using BSLib;
 using PrimevalRL.Creatures;
 using PrimevalRL.Game;
 using PrimevalRL.Maps;
+using ZRLib.Core;
 using ZRLib.Core.Action;
 using ZRLib.Engine;
 using ZRLib.Map;
@@ -32,7 +33,6 @@ namespace PrimevalRL.Views
     {
         private ExtRect fMapRect;
         private ExtPoint fMouseClick;
-        private int fTick;
 
         public GameView(BaseView ownerView, Terminal terminal)
             : base(ownerView, terminal)
@@ -53,38 +53,42 @@ namespace PrimevalRL.Views
 
         internal override void UpdateView()
         {
-            fTerminal.Clear();
-            fTerminal.TextBackground = Colors.Black;
-            fTerminal.TextForeground = Colors.White;
-            fTerminal.DrawBox(0, 0, 102, 70, false);
-            fTerminal.DrawBox(0, 71, 159, 79, false);
+            try {
+                fTerminal.Clear();
+                fTerminal.TextBackground = Colors.Black;
+                fTerminal.TextForeground = Colors.White;
+                fTerminal.DrawBox(0, 0, 102, 70, false);
+                fTerminal.DrawBox(0, 71, 159, 79, false);
 
-            MRLGame gameSpace = GameSpace;
-            City city = gameSpace.City;
+                MRLGame gameSpace = GameSpace;
 
-            DrawGameField(gameSpace);
-            DrawMessages(gameSpace);
+                DrawGameField(gameSpace);
+                DrawMessages(gameSpace);
 
-            fTerminal.TextForeground = Colors.White;
+                fTerminal.TextForeground = Colors.White;
 
-            DrawText(105, 1, "Time: " + gameSpace.Time.ToString(true, true), Colors.White);
-            DrawText(105, 3, "City name: " + city.Name, Colors.White);
+                var time = gameSpace.CurrentRealm.Time;
+                DrawText(105, 1, "Time: " + time.ToString(true, true), Colors.White);
+                DrawText(105, 2, "Period: " + gameSpace.DataLoader.GetTimeName(time.Year), Colors.White);
 
-            Human player = gameSpace.PlayerController.Player;
-            NPCStats stats = player.Stats;
-            HumanBody body = (HumanBody)player.Body;
+                Human player = gameSpace.PlayerController.Player;
+                NPCStats stats = player.Stats;
+                HumanBody body = (HumanBody)player.Body;
 
-            DrawStat(105, 159, 5, "Player name ", player.Name);
-            DrawStat(105, 159, 7, "XP          ", stats.CurXP, stats.NextLevelXP, 0);
-            DrawStat(105, 159, 9, "HP          ", player.HP, player.HPMax, 0.25f);
-            DrawStat(105, 159, 11, "Stamina     ", body.GetAttribute("stamina"), 100, 0.25f);
-            DrawStat(105, 159, 13, "Hunger      ", body.GetAttribute("hunger"), 100, 0.25f);
+                DrawStat(105, 159, 5, "Player name ", player.Name);
+                DrawStat(105, 159, 7, "XP          ", stats.CurXP, stats.NextLevelXP, 0);
+                DrawStat(105, 159, 9, "HP          ", player.HP, player.HPMax, 0.25f);
+                DrawStat(105, 159, 11, "Stamina     ", body.GetAttribute("stamina"), 100, 0.25f);
+                DrawStat(105, 159, 13, "Hunger      ", body.GetAttribute("hunger"), 100, 0.25f);
 
-            //drawStat(105, 159, 13, "Carry Weight: " + String.valueOf(stats.getCarryWeight()), Colors.white);
+                //drawStat(105, 159, 13, "Carry Weight: " + String.valueOf(stats.getCarryWeight()), Colors.white);
 
-            DrawAvailableActions(gameSpace.PlayerController);
+                DrawAvailableActions(gameSpace.PlayerController);
 
-            //fTerminal.write(105, 73, "Dark: " + String.valueOf(darkness), Colors.white);
+                //fTerminal.write(105, 73, "Dark: " + String.valueOf(darkness), Colors.white);
+            } catch (Exception ex) {
+                Logger.Write("GameView.UpdateView(): " + ex.Message);
+            }
         }
 
         private void DrawAvailableActions(PlayerController playerCtl)
@@ -121,22 +125,26 @@ namespace PrimevalRL.Views
 
         private void DrawGameField(MRLGame gameSpace)
         {
-            float darkness = 1 - gameSpace.LightBrightness;
-            PlayerController playerController = gameSpace.PlayerController;
-            Human player = playerController.Player;
-            IMap map = player.Map;
+            try {
+                float darkness = 1 - gameSpace.LightBrightness;
+                PlayerController playerController = gameSpace.PlayerController;
+                Human player = playerController.Player;
+                IMap map = player.Map;
 
-            int px = player.PosX;
-            int py = player.PosY;
-            fMapRect = playerController.Viewport;
+                int px = player.PosX;
+                int py = player.PosY;
+                fMapRect = playerController.Viewport;
 
-            for (int ay = fMapRect.Top; ay <= fMapRect.Bottom; ay++) {
-                for (int ax = fMapRect.Left; ax <= fMapRect.Right; ax++) {
-                    int sx = MRLData.GV_BOUNDS.Left + (ax - fMapRect.Left);
-                    int sy = MRLData.GV_BOUNDS.Top + (ay - fMapRect.Top);
+                for (int ay = fMapRect.Top; ay <= fMapRect.Bottom; ay++) {
+                    for (int ax = fMapRect.Left; ax <= fMapRect.Right; ax++) {
+                        int sx = MRLData.GV_BOUNDS.Left + (ax - fMapRect.Left);
+                        int sy = MRLData.GV_BOUNDS.Top + (ay - fMapRect.Top);
 
-                    DrawTile(map, px, py, ax, ay, sx, sy, darkness);
+                        DrawTile(map, px, py, ax, ay, sx, sy, darkness);
+                    }
                 }
+            } catch (Exception ex) {
+                Logger.Write("GameView.DrawGameField(): " + ex.Message);
             }
         }
 
@@ -201,7 +209,6 @@ namespace PrimevalRL.Views
         public override void KeyPressed(KeyEventArgs e)
         {
             Keys code = e.Key;
-            //System.out.println(String.valueOf(code));
 
             PlayerController playerController = GameSpace.PlayerController;
             int newX = playerController.Player.PosX;
@@ -217,15 +224,36 @@ namespace PrimevalRL.Views
                     break;
 
                 case Keys.GK_LEFT:
+                case Keys.GK_NUMPAD4:
                     newX--;
                     break;
                 case Keys.GK_UP:
+                case Keys.GK_NUMPAD8:
                     newY--;
                     break;
                 case Keys.GK_RIGHT:
+                case Keys.GK_NUMPAD6:
                     newX++;
                     break;
                 case Keys.GK_DOWN:
+                case Keys.GK_NUMPAD2:
+                    newY++;
+                    break;
+
+                case Keys.GK_NUMPAD7:
+                    newX--;
+                    newY--;
+                    break;
+                case Keys.GK_NUMPAD9:
+                    newX++;
+                    newY--;
+                    break;
+                case Keys.GK_NUMPAD1:
+                    newX--;
+                    newY++;
+                    break;
+                case Keys.GK_NUMPAD3:
+                    newX++;
                     newY++;
                     break;
             }
@@ -255,7 +283,6 @@ namespace PrimevalRL.Views
                     break;
 
                 case 'k':
-                    playerCtl.SwitchLock();
                     break;
 
                 case 'l':
@@ -281,11 +308,13 @@ namespace PrimevalRL.Views
 
                 case 'p':
                     {
-                        ExtRect area = ExtRect.Create(playerCtl.Player.PosX - 5, playerCtl.Player.PosY - 5, 
+                        Realm newRealm = GameSpace.InitNewRealm(null);
+                        
+                        ExtRect area = ExtRect.Create(playerCtl.Player.PosX - 5, playerCtl.Player.PosY - 5,
                                                       playerCtl.Player.PosX + 5, playerCtl.Player.PosY + 5);
-                        IMap map = GameSpace.BaseRealm.PlainMap;
+                        IMap map = GameSpace.CurrentRealm.PlainMap;
                         ExtPoint pt = map.SearchFreeLocation(area);
-                        Portal portal = new Portal(GameSpace, map, pt.X, pt.Y);
+                        Portal portal = new Portal(GameSpace, map, pt.X, pt.Y, GameSpace.CurrentRealm, newRealm, pt.X, pt.Y);
                         map.Features.Add(portal);
                         portal.Render();
                     }
@@ -335,23 +364,11 @@ namespace PrimevalRL.Views
 
         public override void Tick()
         {
-            fTick++;
-            int ex = fTick % 20;
-            if (ex == 0) {
-                GameSpace.UpdateWater();
-            }
-
-            ex = fTick % 2;
-            if (ex == 0) {
-                GameSpace.UpdatePortals();
-            }
-
             GameSpace.DoTurn();
         }
 
         public override void Show()
         {
-            fTick = 0;
         }
     }
 }

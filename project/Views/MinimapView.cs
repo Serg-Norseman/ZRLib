@@ -59,7 +59,7 @@ namespace PrimevalRL.Views
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
             Human player = GameSpace.PlayerController.Player;
-            IMap map = GameSpace.fMinimap;
+            IMap map = GameSpace.CurrentRealm.fMinimap;
 
             int px = player.PosX / Minimap.SCALE;
             int py = player.PosY / Minimap.SCALE;

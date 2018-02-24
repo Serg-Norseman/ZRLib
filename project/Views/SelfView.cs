@@ -49,8 +49,7 @@ namespace PrimevalRL.Views
             Human player = gameSpace.PlayerController.Player;
             NPCStats stats = player.Stats;
             HumanBody body = (HumanBody)player.Body;
-            City city = gameSpace.City;
-            Layer layer = (Layer)gameSpace.BaseRealm.PlainMap;
+            Layer layer = (Layer)gameSpace.CurrentRealm.PlainMap;
 
             fTerminal.TextForeground = Colors.LightGray;
             fTerminal.DrawBox(2, 2, 50, 50, false, "Player");
@@ -74,13 +73,6 @@ namespace PrimevalRL.Views
 
             fTerminal.Write(4, 40, "Stamina:      " + body.GetAttribute("stamina"), Colors.White);
             fTerminal.Write(4, 42, "Hunger:       " + body.GetAttribute("hunger"), Colors.White);
-
-            fTerminal.DrawBox(103, 2, 157, 14, false, "City");
-            fTerminal.Write(105, 4, "Name:        " + city.Name, Colors.White);
-            fTerminal.Write(105, 6, "Streets:     " + Convert.ToString(city.Streets.Count), Colors.White);
-            fTerminal.Write(105, 8, "Districts:   " + Convert.ToString(city.Districts.Count), Colors.White);
-            fTerminal.Write(105, 10, "Buildings:   " + Convert.ToString(city.Buildings.Count), Colors.White);
-            fTerminal.Write(105, 12, "Inhabitants: " + Convert.ToString(layer.Creatures.Count), Colors.White);
 
             fTerminal.DrawBox(52, 2, 101, 50, false, "Crimes");
 

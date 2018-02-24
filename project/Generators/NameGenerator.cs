@@ -50,14 +50,13 @@ namespace PrimevalRL.Generators
         {
             try {
                 Assembly assembly = typeof(NameGenerator).Assembly;
-                using (Stream stream = assembly.GetManifestResourceStream("resources.namegen.surnames.csv")) {
-                    using (StreamReader strd = new StreamReader(stream, Encoding.GetEncoding(1251)))
+                using (Stream stream = assembly.GetManifestResourceStream("resources.namegen.surnames.txt")) {
+                    using (StreamReader strd = new StreamReader(stream))
                     {
                         while (strd.Peek() != -1)
                         {
                             string ns = strd.ReadLine().Trim();
-                            string[] line = ns.Replace("\"", "").Split(',');
-                            fSurnames.Add(line[0]);
+                            fSurnames.Add(ns);
                         }
                     }
                 }
@@ -71,13 +70,12 @@ namespace PrimevalRL.Generators
             try {
                 Assembly assembly = typeof(NameGenerator).Assembly;
                 using (Stream stream = assembly.GetManifestResourceStream("resources.namegen." + sex + ".txt")) {
-                    using (StreamReader strd = new StreamReader(stream, Encoding.GetEncoding(1251)))
+                    using (StreamReader strd = new StreamReader(stream))
                     {
                         while (strd.Peek() != -1)
                         {
                             string ns = strd.ReadLine().Trim();
-                            string[] line = ns.Split(' ');
-                            names.Add(line[0]);
+                            names.Add(ns);
                         }
                     }
                 }
