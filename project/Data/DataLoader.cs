@@ -98,6 +98,12 @@ namespace PrimevalRL.Data
         public int Damage;
     }
 
+    /*public sealed class CraftSource
+    {
+        public string Name;
+        public int Amount;
+    }*/
+
     public sealed class Crafting
     {
         public string[] Sources;
@@ -107,8 +113,11 @@ namespace PrimevalRL.Data
     public sealed class ItemRec
     {
         public string Name;
+        public string ManyName;
+
         public string Desc;
 
+        public float Weight;
         public BodyPart Wearable;
         public Weapon Weapon;
         public Sprite Sprite;
