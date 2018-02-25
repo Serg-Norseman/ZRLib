@@ -1,0 +1,124 @@
+﻿Creatures:
+  - Name: buffalo
+    Agility: -2
+    Constitution: 2
+    Sight: 6
+    Strength: 2
+    Skin: 2
+    Sprite:
+      Sign: 'b'
+    Habitat: Ground
+    Type: Herbivore
+    Period: '0 - 0 Ma'
+    Loot: [meat, animal-fur, horns, bones]
+
+
+  - Name: fish
+    Agility: 2
+    Constitution: -2
+    Sight: 5
+    Strength: -2
+    Skin: -2
+    Sprite:
+      Sign: 'f'
+    Habitat: Underwater
+    Period: '0 - 0 Ma'
+    Loot: [meat]
+
+
+  - Name: puma
+    Agility: 2
+    Constitution: 2
+    Sight: 10
+    Strength: 2
+    Skin: 1
+    Sprite:
+      Sign: 'p'
+    Habitat: Ground
+    Type: Carnivore
+    Period: '0 - 0 Ma'
+    Loot: [meat, animal-fur, bones, teeth]
+
+
+  - Name: rabbit
+    Agility: 2
+    Constitution: -1
+    Sight: 12
+    Strength: -2
+    Skin: -1
+    Sprite:
+      Sign: 'r'
+    Habitat: Ground
+    Type: Herbivore
+    Period: '0 - 0 Ma'
+    Loot: [meat, animal-fur]
+
+
+  - Name: wolf
+    Agility: 1
+    Constitution: 0
+    Sight: 10
+    Strength: 1
+    Skin: 1
+    Sprite:
+      Sign: 'w'
+    Habitat: Ground
+    Type: Carnivore
+    Period: '0 - 0 Ma'
+    Loot: [meat, animal-fur, teeth]
+
+
+  - Name: mammoth
+    Agility: 2
+    Constitution: 10
+    Sight: 12
+    Strength: 125
+    Sprite:
+      Sign: 'M'
+      Color: 0x804040
+    Habitat: Ground
+    Type: Herbivore
+    Period: '1.6 - 0.01 Ma'
+    PeriodStruct: {Beg: 1.6, End: 0.01, Units: Ma}
+    Loot: [meat, animal-fur, bones, tusks]
+
+
+  - Name: machairodus
+    Sprite:
+      Sign: 'm'
+    Habitat: Ground
+    Type: Carnivore
+    Period: '15 - 2 Ma'
+    Area: ['Europe', 'Asia', 'Africa', 'North America']
+    Loot: [meat, animal-fur, teeth]
+
+
+  - Name: smilodon
+    Sprite:
+      Sign: 's'
+    Habitat: Ground
+    Type: Carnivore
+    Period: '2.5 - 0.01 Ma'
+    Area: ['North America', 'South America']
+    Loot: [meat, animal-fur, teeth]
+
+
+  - Name: bison
+    Sprite:
+      Sign: 'B'
+    Habitat: Ground
+    Type: Herbivore
+    Period: '0.24 – 0.009 Ma'
+    Area: ['North America']
+    Loot: [meat, animal-fur, horns, bones]
+
+
+  - Name: mammutidae
+    Sprite:
+      Sign: 'M'
+    Habitat: Ground
+    Type: Herbivore
+    Period: '28.4 – 0.011 Ma'
+    Area: ['North America', 'Africa', 'Eurasia']
+    Loot: [meat, animal-fur, tusk, bones]
+
