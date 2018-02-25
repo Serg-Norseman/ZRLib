@@ -7,3 +7,7 @@ rmdir .\ZRLib\ProfilingSessions /s /q
 rmdir .\ZRLib.Tests\bin /s /q
 rmdir .\ZRLib.Tests\obj /s /q
 rmdir .\ZRLib.Tests\ProfilingSessions /s /q
+
+cd .\PrimevalRL
+call clean.cmd
+cd ..
