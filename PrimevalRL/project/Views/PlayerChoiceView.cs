@@ -42,13 +42,6 @@ namespace PrimevalRL.Views
             fChoicesArea = new ChoicesArea(terminal, 10, GfxHelper.Darker(Colors.Green, 0.5f));
         }
 
-        public override MRLGame GameSpace
-        {
-            get {
-                return ((MainView)fOwnerView).GameSpace;
-            }
-        }
-
         internal override void UpdateView()
         {
             fTerminal.Clear();
@@ -114,10 +107,6 @@ namespace PrimevalRL.Views
             return result.ToString();
         }
 
-        public override void Tick()
-        {
-        }
-
         public override void KeyPressed(KeyEventArgs e)
         {
             switch (e.Key) {
@@ -137,14 +126,6 @@ namespace PrimevalRL.Views
                     MainView.View = ViewType.vtGame;
                 }
             }
-        }
-
-        public override void MouseClicked(MouseEventArgs e)
-        {
-        }
-
-        public override void MouseMoved(MouseMoveEventArgs e)
-        {
         }
     }
 }

@@ -20,6 +20,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Timers;
 using PrimevalRL.Data;
 using PrimevalRL.Game;
@@ -109,11 +110,9 @@ namespace PrimevalRL
         public void Run()
         {
             try {
-                //AppCreate();
                 try {
-                    this.System.Run();
+                    System.Run();
                 } finally {
-                    //AppDestroy();
                 }
             } catch (Exception ex) {
                 Logger.Write("PRLWin.Run(): " + ex.Message);
@@ -122,12 +121,13 @@ namespace PrimevalRL
 
         public static void Main(string[] args)
         {
-            //InitEnvironment(StaticData.Rs_GameName);
-            //if (!InstanceExists)
-            {
-                var win = new PRLWin();
-                win.Run();
-                win.Dispose();
+            bool isFirstInstance;
+            using (Mutex mtx = new Mutex(true, MRLData.MRL_NAME, out isFirstInstance)) {
+                if (isFirstInstance) {
+                    var win = new PRLWin();
+                    win.Run();
+                    win.Dispose();
+                }
             }
         }
     }

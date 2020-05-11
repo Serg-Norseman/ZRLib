@@ -31,13 +31,6 @@ namespace PrimevalRL.Views
         {
         }
 
-        public override MRLGame GameSpace
-        {
-            get {
-                return ((MainView)fOwnerView).GameSpace;
-            }
-        }
-
         internal override void UpdateView()
         {
             fTerminal.Clear();
@@ -80,10 +73,6 @@ namespace PrimevalRL.Views
             fTerminal.Write(4, 54, player.Desc, Colors.White);
         }
 
-        public override void Tick()
-        {
-        }
-
         public override void KeyPressed(KeyEventArgs e)
         {
             switch (e.Key) {
@@ -91,22 +80,6 @@ namespace PrimevalRL.Views
                     MainView.View = ViewType.vtGame;
                     break;
             }
-        }
-
-        public override void KeyTyped(KeyPressEventArgs e)
-        {
-        }
-
-        public override void MouseClicked(MouseEventArgs e)
-        {
-        }
-
-        public override void MouseMoved(MouseMoveEventArgs e)
-        {
-        }
-
-        public override void Show()
-        {
         }
     }
 }

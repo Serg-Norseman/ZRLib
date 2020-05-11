@@ -99,10 +99,6 @@ namespace PrimevalRL.Views
             DrawProgress();
         }
 
-        public override void KeyPressed(KeyEventArgs e)
-        {
-        }
-
         public override void KeyTyped(KeyPressEventArgs e)
         {
             switch (e.Key) {
@@ -118,22 +114,6 @@ namespace PrimevalRL.Views
                     MainView.View = ViewType.vtPlayerChoice;
                     break;
             }
-        }
-
-        public override void MouseClicked(MouseEventArgs e)
-        {
-        }
-
-        public override void MouseMoved(MouseMoveEventArgs e)
-        {
-        }
-
-        public override void Show()
-        {
-        }
-
-        public override void Tick()
-        {
         }
 
         private void DrawProgress()

@@ -1,6 +1,6 @@
-/*
+﻿/*
  *  "PrimevalRL", roguelike game.
- *  Copyright (C) 2015, 2017 by Serg V. Zhdanovskih.
+ *  Copyright (C) 2018 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,26 +16,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using PrimevalRL.Game;
-using ZRLib.Engine;
+using System;
+using PrimevalRL.Game.Types;
 
-namespace PrimevalRL.Views
+namespace PrimevalRL.Data
 {
-    public abstract class SubView : BaseView
+    public sealed class CreatureRec
     {
-        protected SubView(BaseView ownerView, Terminal terminal)
-            : base(ownerView, terminal)
-        {
-        }
+        public string Name;
 
-        public override MRLGame GameSpace
-        {
-            get { return MainView.GameSpace; }
-        }
+        public int Agility;
+        public int Constitution;
+        public int Sight;
+        public int Strength;
+        public int Skin;
 
-        public MainView MainView
-        {
-            get { return (MainView)fOwnerView; }
-        }
+        public Sprite Sprite;
+
+        public HabitatType Habitat;
+        public CreatureType Type;
+
+        public string[] Area { get; set; }
+        public string[] Loot { get; set; }
     }
 }

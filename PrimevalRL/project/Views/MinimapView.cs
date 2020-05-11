@@ -46,11 +46,6 @@ namespace PrimevalRL.Views
         {
         }
 
-        public override MRLGame GameSpace
-        {
-            get { return ((MainView)fOwnerView).GameSpace; }
-        }
-
         internal override void UpdateView()
         {
             fTerminal.Clear();
@@ -104,7 +99,7 @@ namespace PrimevalRL.Views
             } else {
                 BaseTile tile = map.GetTile(ax, ay);
                 if (tile != null) {
-                    byte pf_status = tile.Pf_status;
+                    byte pf_status = tile.PathStatus;
                     int id;
 
                     switch (pf_status) {
@@ -186,10 +181,6 @@ namespace PrimevalRL.Views
             }
         }
 
-        public override void MouseMoved(MouseMoveEventArgs e)
-        {
-        }
-
         public ExtPoint GetLocalePoint(ExtPoint terminalPoint)
         {
             int mpx = (terminalPoint.X - MapArea.Left) + fMapRect.Left;
@@ -202,13 +193,14 @@ namespace PrimevalRL.Views
             Human player = GameSpace.PlayerController.Player;
 
             ExtPoint ppt = player.Location;
-            ExtRect privRt = player.Apartment.Area;
-            ExtPoint phPt = privRt.GetCenter();
-            fPrivateHousePt = new ExtPoint(phPt.X / Minimap.SCALE, phPt.Y / Minimap.SCALE);
-
             fCenter = new ExtPoint(ppt.X / Minimap.SCALE, ppt.Y / Minimap.SCALE);
-
             fTick = 0;
+
+            if (player.Apartment != null) {
+                ExtRect privRt = player.Apartment.Area;
+                ExtPoint phPt = privRt.GetCenter();
+                fPrivateHousePt = new ExtPoint(phPt.X / Minimap.SCALE, phPt.Y / Minimap.SCALE);
+            }
         }
     }
 }

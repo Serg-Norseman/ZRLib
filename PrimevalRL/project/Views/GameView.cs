@@ -39,11 +39,6 @@ namespace PrimevalRL.Views
         {
         }
 
-        public override MRLGame GameSpace
-        {
-            get { return ((MainView)fOwnerView).GameSpace; }
-        }
-
         public ExtPoint GetLocalePoint(ExtPoint terminalPoint)
         {
             int mpx = (terminalPoint.X - MRLData.GV_BOUNDS.Left) + fMapRect.Left;
@@ -69,7 +64,6 @@ namespace PrimevalRL.Views
 
                 var time = gameSpace.CurrentRealm.Time;
                 DrawText(105, 1, "Time: " + time.ToString(true, true), Colors.White);
-                DrawText(105, 2, "Period: " + gameSpace.DataLoader.GetTimeName(time.Year), Colors.White);
 
                 Human player = gameSpace.PlayerController.Player;
                 NPCStats stats = player.Stats;
@@ -171,7 +165,7 @@ namespace PrimevalRL.Views
                         tileChar = creature.Appearance;
                         fgc = creature.AppearanceColor;
                     } else {
-                        byte pf_status = tile.Pf_status;
+                        byte pf_status = tile.PathStatus;
                         int id;
 
                         switch (pf_status) {
@@ -358,17 +352,9 @@ namespace PrimevalRL.Views
             }
         }
 
-        public override void MouseMoved(MouseMoveEventArgs e)
-        {
-        }
-
         public override void Tick()
         {
             GameSpace.DoTurn();
-        }
-
-        public override void Show()
-        {
         }
     }
 }

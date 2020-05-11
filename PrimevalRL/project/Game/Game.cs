@@ -71,7 +71,6 @@ namespace PrimevalRL.Game
             DataLoader = new DataLoader();
             DataLoader.LoadCreatures(PRLWin.GetAppPath() + "resources\\data\\creatures.yml");
             DataLoader.LoadItems(PRLWin.GetAppPath() + "resources\\data\\items.yml");
-            DataLoader.LoadGeoAges(PRLWin.GetAppPath() + "resources\\data\\timeline_geo.csv");
 
             ScheduledEventManager.Subscribe(this);
         }

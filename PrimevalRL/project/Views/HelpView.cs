@@ -16,15 +16,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+using PrimevalRL.Game;
 using ZRLib.Engine;
 
 namespace PrimevalRL.Views
 {
     public sealed class HelpView : SubView
     {
+        private List<string> fText;
+
         public HelpView(BaseView ownerView, Terminal terminal)
             : base(ownerView, terminal)
         {
+            fText = GameUtils.ReadResText("en_help.txt");
         }
 
         internal override void UpdateView()
@@ -35,11 +40,10 @@ namespace PrimevalRL.Views
             fTerminal.DrawBox(0, 0, 159, 79, false);
 
             fTerminal.TextForeground = Colors.LightGray;
-            fTerminal.Write(2, 2, "Keys: ");
-        }
-
-        public override void Tick()
-        {
+            for (int i = 0; i < fText.Count; i++) {
+                string line = fText[i];
+                fTerminal.Write(4, 2 + i * 2, line);
+            }
         }
 
         public override void KeyPressed(KeyEventArgs e)
@@ -49,22 +53,6 @@ namespace PrimevalRL.Views
                     MainView.View = ViewType.vtGame;
                     break;
             }
-        }
-
-        public override void KeyTyped(KeyPressEventArgs e)
-        {
-        }
-
-        public override void MouseClicked(MouseEventArgs e)
-        {
-        }
-
-        public override void MouseMoved(MouseMoveEventArgs e)
-        {
-        }
-
-        public override void Show()
-        {
         }
     }
 }

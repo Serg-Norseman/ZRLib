@@ -7,6 +7,7 @@
 /*.dll
 *.pdb
 *.mdb
+*.log
 
 /project/bin/
 /project/obj/

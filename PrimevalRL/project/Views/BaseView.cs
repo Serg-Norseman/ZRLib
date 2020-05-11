@@ -88,15 +88,39 @@ namespace PrimevalRL.Views
             }
         }
 
-        internal abstract void UpdateView();
+        internal virtual void UpdateView()
+        {
+            // dummy
+        }
 
-        public abstract void KeyPressed(KeyEventArgs e);
-        public abstract void KeyTyped(KeyPressEventArgs e);
+        public virtual void KeyPressed(KeyEventArgs e)
+        {
+            // dummy
+        }
 
-        public abstract void MouseClicked(MouseEventArgs e);
-        public abstract void MouseMoved(MouseMoveEventArgs e);
+        public virtual void KeyTyped(KeyPressEventArgs e)
+        {
+            // dummy
+        }
 
-        public abstract void Tick();
-        public abstract void Show();
+        public virtual void MouseClicked(MouseEventArgs e)
+        {
+            // dummy
+        }
+
+        public virtual void MouseMoved(MouseMoveEventArgs e)
+        {
+            // dummy
+        }
+
+        public virtual void Tick()
+        {
+            // dummy
+        }
+
+        public virtual void Show()
+        {
+            // dummy
+        }
     }
 }

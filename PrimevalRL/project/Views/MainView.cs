@@ -126,11 +126,6 @@ namespace PrimevalRL.Views
             fSubView.MouseMoved(e);
         }
 
-        public override void Show()
-        {
-            // dummy
-        }
-
         // TODO: to remove!
         public void RepaintImmediately()
         {

@@ -17,90 +17,13 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using BSLib;
 using PrimevalRL.Game;
 using ZRLib.Core;
 
 namespace PrimevalRL.Data
 {
-    public enum DamageType
-    {
-        Natural,
-        Blunt,
-        Slash,
-        Point
-    }
-
-    public enum BodyPart
-    {
-        None,
-        Hands,
-        Head,
-        Body
-    }
-
-    public enum CreatureType
-    {
-        Carnivore,
-        Herbivore
-    }
-
-    public enum HabitatType
-    {
-        Ground,
-        Underground,
-        Water,
-        Underwater,
-        Flying
-    }
-
-    public sealed class Sprite
-    {
-        public string Sign;
-        public int Color;
-    }
-
-    public enum TimeUnits
-    {
-        // BC
-        Ma,
-        Ka,
-        // AD
-        AD
-    }
-
-    public sealed class Period
-    {
-        public double Beg;
-        public double End;
-        public TimeUnits Units;
-    }
-
-    public sealed class CreatureRec
-    {
-        public string Name;
-
-        public int Agility;
-        public int Constitution;
-        public int Sight;
-        public int Strength;
-        public int Skin;
-
-        public Sprite Sprite;
-
-        public HabitatType Habitat;
-        public CreatureType Type;
-
-        public string Period;
-        public Period PeriodStruct;
-
-        public string[] Area { get; set; }
-        public string[] Loot { get; set; }
-    }
-
     public class CreaturesList
     {
         public CreatureRec[] Creatures { get; set; }
@@ -109,12 +32,6 @@ namespace PrimevalRL.Data
         {
             Creatures = new CreatureRec[0];
         }
-    }
-
-    public sealed class Weapon
-    {
-        public DamageType DamageType;
-        public int Damage;
     }
 
     /*public sealed class CraftSource
@@ -129,21 +46,6 @@ namespace PrimevalRL.Data
         public string[] Tools;
     }
 
-    public sealed class ItemRec
-    {
-        public string Name;
-        public string ManyName;
-
-        public string Desc;
-
-        public float Weight;
-        public BodyPart Wearable;
-        public Weapon Weapon;
-        public Sprite Sprite;
-
-        public string[] Props { get; set; }
-        public Crafting Crafting { get; set; }
-    }
 
     public class ItemsList
     {
@@ -155,12 +57,6 @@ namespace PrimevalRL.Data
         }
     }
 
-    public sealed class GeoTime
-    {
-        public float TimeBeg;
-        public float TimeEnd;
-        public string Name;
-    }
 
     /// <summary>
     /// 
@@ -169,13 +65,11 @@ namespace PrimevalRL.Data
     {
         public CreaturesList fCreatures;
         public ItemsList fItems;
-        public List<GeoTime> fTimes;
 
         public DataLoader()
         {
             fCreatures = new CreaturesList();
             fItems = new ItemsList();
-            fTimes = new List<GeoTime>();
         }
 
         public void LoadCreatures(string fileName)
@@ -209,56 +103,6 @@ namespace PrimevalRL.Data
                 }
             } catch (Exception ex) {
                 Logger.Write("DataLoader.LoadItems(): " + ex.Message);
-            }
-        }
-
-        public string GetTimeName(int year)
-        {
-            string result = "";
-            float y = year / 1000000.0f;
-            foreach (var time in fTimes) {
-                float beg = -time.TimeBeg;
-                float end = -time.TimeEnd;
-
-                if (y > beg && (y < end || end == 0.0f)) {
-                    result = time.Name;
-                    break;
-                }
-            }
-            return result;
-        }
-
-        public void LoadGeoAges(string fileName)
-        {
-            if (!File.Exists(fileName))
-                return;
-
-            try {
-                // loading database
-                using (var reader = new StreamReader(fileName, Encoding.UTF8)) {
-                    var csv = CSVReader.CreateFromTextReader(reader, ";");
-
-                    GeoTime prevTime = null;
-                    List<object> row;
-                    int num = 0;
-                    while ((row = csv.ReadRow()) != null) {
-                        num += 1;
-                        if (num == 1)
-                            continue;
-
-                        var newTime = new GeoTime();
-                        newTime.TimeBeg = (float)ConvertHelper.ParseFloat(row[0].ToString(), 0.0f, true);
-                        newTime.Name = row[3].ToString() + " " + row[4].ToString() + " " + row[5].ToString() + " " + row[6].ToString();
-                        fTimes.Add(newTime);
-
-                        if (prevTime != null) {
-                            prevTime.TimeEnd = newTime.TimeBeg;
-                        }
-                        prevTime = newTime;
-                    }
-                }
-            } catch (Exception ex) {
-                Logger.Write("DataLoader.LoadGeoAges(): " + ex.Message);
             }
         }
     }

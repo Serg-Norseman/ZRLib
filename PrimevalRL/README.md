@@ -12,19 +12,4 @@ time as for the first time. Portals can appear both in the original time
 
 ## Keys
 
-```
-Tab 			- Toggle [Game] / [Minimap] views
-Up/Down/Left/Right 	- Simple move
-<Left Click>		- Set target point
-<Right Click>		- Show location by cursor
-<Escape>		- [Help/Minimap] Close view; [Gameview] break path's movement;
-a			- Simple attack nearest enemy
-c			- Show character screen
-f			- Toggle circular/segment FOV
-h			- Help screen (now he is empty)
-l			- Show current player location
-p			- [Minimap] Show the private house of player
-t			- Teleport to target <debug key>
-w			- Walk to target
-p			- Open portal
-```
+A screen with keys and other help is called up in the game using the `h` key.

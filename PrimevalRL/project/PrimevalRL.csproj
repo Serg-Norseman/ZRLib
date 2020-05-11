@@ -52,10 +52,19 @@
   <ItemGroup>
     <Compile Include="Creatures\CustomBody.cs" />
     <Compile Include="Creatures\HumanBody.cs" />
+    <Compile Include="Data\CreatureRec.cs" />
     <Compile Include="Data\DataLoader.cs" />
+    <Compile Include="Data\ItemRec.cs" />
+    <Compile Include="Data\Sprite.cs" />
+    <Compile Include="Data\Weapon.cs" />
     <Compile Include="Game\CrimeRecord.cs" />
+    <Compile Include="Game\GameUtils.cs" />
     <Compile Include="Game\MRLData.cs" />
     <Compile Include="Game\SocialController.cs" />
+    <Compile Include="Game\Types\BodyPart.cs" />
+    <Compile Include="Game\Types\CreatureType.cs" />
+    <Compile Include="Game\Types\DamageType.cs" />
+    <Compile Include="Game\Types\HabitatType.cs" />
     <Compile Include="Game\YamlHelper.cs" />
     <Compile Include="Generators\RealmGenerator.cs" />
     <Compile Include="Maps\BaseRealm.cs" />
@@ -132,6 +141,7 @@
     <EmbeddedResource Include="resources\namegen\surnames.txt" />
     <EmbeddedResource Include="resources\ru_texts.xml" />
     <EmbeddedResource Include="resources\startup.txt" />
+    <EmbeddedResource Include="resources\en_help.txt" />
     <None Include="SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -141,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data" />
+    <Folder Include="Game\Types" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BSLib\BSLib\BSLib.csproj">
