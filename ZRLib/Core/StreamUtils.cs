@@ -44,6 +44,16 @@ namespace ZRLib.Core
             S.Write(val);
         }
 
+        public static sbyte ReadSByte(BinaryReader S)
+        {
+            return S.ReadSByte();
+        }
+
+        public static void WriteSByte(BinaryWriter S, sbyte val)
+        {
+            S.Write(val);
+        }
+
         public static ushort ReadWord(BinaryReader S)
         {
             return S.ReadUInt16();

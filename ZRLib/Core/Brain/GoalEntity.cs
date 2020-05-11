@@ -33,6 +33,17 @@ namespace ZRLib.Core.Brain
         public int SourceID;
         public float Value;
 
+        public BrainEntity Brain
+        {
+            get { return fBrain; }
+        }
+
+        public CreatureEntity Self
+        {
+            get { return fBrain.Self; }
+        }
+
+
         protected GoalEntity(BrainEntity owner)
         {
             fBrain = owner;
@@ -43,16 +54,6 @@ namespace ZRLib.Core.Brain
             Kind = -1;
             SourceID = -1;
             Value = 0f;
-        }
-
-        public BrainEntity Brain
-        {
-            get { return fBrain; }
-        }
-
-        public CreatureEntity Self
-        {
-            get { return fBrain.Self; }
         }
 
         public abstract void Execute();

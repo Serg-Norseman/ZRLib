@@ -25,6 +25,19 @@ namespace ZRLib.Core
     {
         protected BrainEntity fBrain;
 
+        public BrainEntity Brain
+        {
+            get {
+                return fBrain;
+            }
+            set {
+                if (fBrain != null) {
+                    fBrain.Dispose();
+                }
+                fBrain = value;
+            }
+        }
+
         public CreatureEntity(GameSpace space, object owner)
             : base(space, owner)
         {
@@ -39,20 +52,6 @@ namespace ZRLib.Core
             }
             base.Dispose(disposing);
         }
-
-        public BrainEntity Brain
-        {
-            get {
-                return fBrain;
-            }
-            set {
-                if (fBrain != null) {
-                    fBrain.Dispose();
-                }
-                fBrain = value;
-            }
-        }
-
 
         public virtual bool CanMove(IMap map, int aX, int aY)
         {

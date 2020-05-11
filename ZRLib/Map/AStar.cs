@@ -100,7 +100,7 @@ namespace ZRLib.Map
             try {
                 PriorityQueue<PSBound> bounds = new PriorityQueue<PSBound>(MaxBoundSize);
 
-                Map.GetTile(Dst_x, Dst_y).Pf_status = PathSearch.tps_Finish;
+                Map.GetTile(Dst_x, Dst_y).PathStatus = PathSearch.tps_Finish;
 
                 float gval = 0.0f;
                 bounds.Add(new PSBound(Src_x, Src_y, gval, (gval + Hest(Src_x, Src_y))));
@@ -112,7 +112,7 @@ namespace ZRLib.Map
                     float b_gval = bnd.Gval;
 
                     BaseTile b_tile = Map.GetTile(bx, by);
-                    b_tile.Pf_status = PathSearch.tps_Passed;
+                    b_tile.PathStatus = PathSearch.tps_Passed;
 
                     for (int i = 1; i <= 8; i++) {
                         int ax = bx + CoursesX[i - 1];
@@ -126,27 +126,27 @@ namespace ZRLib.Map
                             if (cost >= PathSearch.BARRIER_COST) {
                                 pf_status = PathSearch.tps_Barrier;
                             } else {
-                                pf_status = a_tile.Pf_status;
+                                pf_status = a_tile.PathStatus;
                             }
 
                             switch (pf_status) {
                                 case PathSearch.tps_Unvisited:
                                     gval = (b_gval + cost * Kk[i % 2]);
-                                    a_tile.Pf_prev = new ExtPoint(bx, by);
-                                    a_tile.Pf_status = PathSearch.tps_Bound;
+                                    a_tile.PathPrev = new ExtPoint(bx, by);
+                                    a_tile.PathStatus = PathSearch.tps_Bound;
                                     bounds.Add(new PSBound(ax, ay, gval, (gval + Hest(ax, ay))));
                                     break;
 
                                 case PathSearch.tps_Finish:
-                                    a_tile.Pf_prev = new ExtPoint(bx, by);
-                                    Map.GetTile(Src_x, Src_y).Pf_status = PathSearch.tps_Start;
+                                    a_tile.PathPrev = new ExtPoint(bx, by);
+                                    Map.GetTile(Src_x, Src_y).PathStatus = PathSearch.tps_Start;
                                     return true;
                             }
                         }
                     }
                 }
 
-                Map.GetTile(Src_x, Src_y).Pf_status = PathSearch.tps_Start;
+                Map.GetTile(Src_x, Src_y).PathStatus = PathSearch.tps_Start;
             } catch (Exception ex) {
                 Logger.Write("AStar.search(): " + ex.Message);
             }

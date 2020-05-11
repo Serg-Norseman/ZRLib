@@ -1,6 +1,6 @@
 /*
  *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih.
+ *  Copyright (C) 2015, 2020 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,6 +29,29 @@ namespace ZRLib.Core.Brain
 
         public BytesSet EmittersX;
 
+        public CreatureEntity Self
+        {
+            get {
+                return fSelf;
+            }
+        }
+
+        public int GoalsCount
+        {
+            get {
+                return fGoals.Count;
+            }
+        }
+
+        protected virtual EmitterList Emitters
+        {
+            get {
+                // dummy
+                return null;
+            }
+        }
+
+
         protected BrainEntity(CreatureEntity owner)
         {
             fSelf = owner;
@@ -45,13 +68,6 @@ namespace ZRLib.Core.Brain
                 fGoals = null;
             }
             base.Dispose(disposing);
-        }
-
-        public CreatureEntity Self
-        {
-            get {
-                return fSelf;
-            }
         }
 
         public virtual ExtPoint GetEvadePos(CreatureEntity enemy)
@@ -75,24 +91,9 @@ namespace ZRLib.Core.Brain
             return fGoals[index];
         }
 
-        public int GoalsCount
-        {
-            get {
-                return fGoals.Count;
-            }
-        }
-
         protected virtual void EvaluateGoal(GoalEntity goal)
         {
             // dummy
-        }
-
-        protected virtual EmitterList Emitters
-        {
-            get {
-                // dummy
-                return null;
-            }
         }
 
         protected virtual void PrepareEmitter(Emitter emitter)
@@ -182,12 +183,12 @@ namespace ZRLib.Core.Brain
                 try {
                     EmitterList curEmitters = Emitters;
                     if (curEmitters != null) {
-                        int num = curEmitters.EmittersCount;
+                        int num = curEmitters.Count;
                         for (int i = 0; i < num; i++) {
-                            Emitter emit = curEmitters.GetEmitter(i);
+                            Emitter emit = curEmitters[i];
                             bool check = EmittersX.Contains(emit.EmitterKind) && (double)MathHelper.Distance(fSelf.Location, emit.Position) <= (double)emit.Radius;
                             if (check) {
-                                int j = FindGoalByEmitter(emit.UID_Renamed);
+                                int j = FindGoalByEmitter(emit.UID);
                                 if (j < 0 && IsAwareOfEmitter(emit)) {
                                     PrepareEmitter(emit);
                                 }

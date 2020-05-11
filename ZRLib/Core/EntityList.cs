@@ -1,6 +1,6 @@
 /*
  *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih.
+ *  Copyright (C) 2015, 2020 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -65,7 +65,7 @@ namespace ZRLib.Core
 
         public virtual int Add(GameEntity entity)
         {
-            return fList.Add(entity);
+            return (entity == null) ? -1 : fList.Add(entity);
         }
 
         public virtual void Assign(EntityList list)
@@ -93,7 +93,7 @@ namespace ZRLib.Core
             int num = fList.Count;
             for (int i = 0; i < num; i++) {
                 GameEntity e = GetItem(i);
-                if (e.CLSID_Renamed == id) {
+                if (e.CLSID == id) {
                     return e;
                 }
             }
@@ -106,7 +106,7 @@ namespace ZRLib.Core
             int num = fList.Count;
             for (int i = 0; i < num; i++) {
                 GameEntity e = GetItem(i);
-                if (e.UID_Renamed == id) {
+                if (e.UID == id) {
                     return e;
                 }
             }
@@ -141,18 +141,18 @@ namespace ZRLib.Core
 
                 int count = StreamUtils.ReadInt(stream);
                 for (int i = 0; i < count; i++) {
-                    sbyte kind = (sbyte)StreamUtils.ReadByte(stream);
+                    byte kind = StreamUtils.ReadByte(stream);
                     try {
                         GameEntity item = (GameEntity)SerializablesManager.CreateSerializable(kind, base.Owner);
                         item.LoadFromStream(stream, version);
                         fList.Add(item);
                     } catch (Exception ex) {
-                        Logger.Write("EntityList.loadFromStream(" + Convert.ToString(kind) + "): " + ex.Message);
+                        Logger.Write("EntityList.loadFromStream(" + Convert.ToString(kind) + "): " + ex.StackTrace.ToString());
                         throw ex;
                     }
                 }
             } catch (Exception ex) {
-                Logger.Write("EntityList.loadFromStream(): " + ex.Message);
+                Logger.Write("EntityList.loadFromStream(): " + ex.StackTrace.ToString());
                 throw ex;
             }
         }
@@ -180,7 +180,7 @@ namespace ZRLib.Core
                     }
                 }
             } catch (Exception ex) {
-                Logger.Write("EntityList.saveToStream(): " + ex.Message);
+                Logger.Write("EntityList.saveToStream(): " + ex.StackTrace.ToString());
                 throw ex;
             }
         }

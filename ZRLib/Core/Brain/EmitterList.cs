@@ -1,6 +1,6 @@
 /*
  *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih.
+ *  Copyright (C) 2015, 2020 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,43 +16,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.Generic;
 using BSLib;
 
 namespace ZRLib.Core.Brain
 {
-    public sealed class EmitterList : BaseObject
+    public sealed class EmitterList : ExtList<Emitter>
     {
-        private List<Emitter> fEmitters;
-
-        public Emitter GetEmitter(int index)
+        public EmitterList() : base()
         {
-            Emitter result = null;
-            if (index >= 0 && index < fEmitters.Count) {
-                result = fEmitters[index];
-            }
-            return result;
-        }
-
-        public int EmittersCount
-        {
-            get {
-                return fEmitters.Count;
-            }
-        }
-
-        public EmitterList()
-        {
-            fEmitters = new List<Emitter>();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                fEmitters.Clear();
-                fEmitters = null;
-            }
-            base.Dispose(disposing);
         }
 
         public int AddEmitter(sbyte emitterKind, int sourceID, ExtPoint pos, float radius, int duration, bool dynSource)
@@ -67,31 +38,21 @@ namespace ZRLib.Core.Brain
             emitter.ExpiryTimeLeft = duration;
             emitter.DynamicSourcePos = dynSource;
 
-            fEmitters.Add(emitter);
-            return (int)emitter.UID_Renamed;
-        }
-
-        public void ClearEmitters()
-        {
-            fEmitters.Clear();
-        }
-
-        public void DeleteEmitter(int index)
-        {
-            fEmitters.RemoveAt(index);
+            Add(emitter);
+            return (int)emitter.UID;
         }
 
         public void UpdateEmitters(int elapsedTime)
         {
-            for (int i = fEmitters.Count - 1; i >= 0; i--) {
-                Emitter emitter = fEmitters[i];
+            for (int i = Count - 1; i >= 0; i--) {
+                Emitter emitter = this[i];
 
                 if ((double)emitter.ExpiryTime > (double)0f) {
                     emitter.ExpiryTimeLeft -= elapsedTime;
                 }
 
                 if ((double)emitter.ExpiryTime > (double)0f && emitter.ExpiryTimeLeft <= 0) {
-                    DeleteEmitter(i);
+                    Delete(i);
                 } else {
                     if (emitter.DynamicSourcePos) {
                         LocatedEntity source = (LocatedEntity)GameSpace.Instance.FindEntity(emitter.SourceID);

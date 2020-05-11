@@ -24,16 +24,17 @@ namespace ZRLib.Core
     {
         private ExtRect fArea;
 
-        protected AreaEntity(GameSpace space, object owner)
-            : base(space, owner)
-        {
-            fArea = ExtRect.Empty;
-        }
-
         public virtual ExtRect Area
         {
             get { return fArea; }
             set { fArea = value; }
+        }
+
+
+        protected AreaEntity(GameSpace space, object owner)
+            : base(space, owner)
+        {
+            fArea = ExtRect.Empty;
         }
 
         public void SetArea(int left, int top, int right, int bottom)

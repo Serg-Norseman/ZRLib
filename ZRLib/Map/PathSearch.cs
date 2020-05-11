@@ -72,7 +72,7 @@ namespace ZRLib.Map
                     }
 
                     int len = 1;
-                    ExtPoint prv = map.GetTile(dst.X, dst.Y).Pf_prev;
+                    ExtPoint prv = map.GetTile(dst.X, dst.Y).PathPrev;
                     while (prv.X != src.X || prv.Y != src.Y) {
                         len++;
                         if (path != null) {
@@ -80,8 +80,8 @@ namespace ZRLib.Map
                         }
 
                         BaseTile m_tile = map.GetTile(prv.X, prv.Y);
-                        m_tile.Pf_status = PathSearch.tps_Path;
-                        prv = m_tile.Pf_prev;
+                        m_tile.PathStatus = PathSearch.tps_Path;
+                        prv = m_tile.PathPrev;
 
                         if (len > map.Width << 1) {
                             return null;
@@ -91,7 +91,7 @@ namespace ZRLib.Map
                     result = new PSResult(len, prv, path);
                 }
             } catch (Exception ex) {
-                Logger.Write("PathSearch.search(): " + ex.Message);
+                Logger.Write("PathSearch.Search(): " + ex.Message);
                 result = null;
             }
 
@@ -105,8 +105,8 @@ namespace ZRLib.Map
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
                     BaseTile m_tile = map.GetTile(x, y);
-                    m_tile.Pf_status = PathSearch.tps_Unvisited;
-                    m_tile.Pf_prev = ExtPoint.Empty;
+                    m_tile.PathStatus = PathSearch.tps_Unvisited;
+                    m_tile.PathPrev = ExtPoint.Empty;
                 }
             }
         }

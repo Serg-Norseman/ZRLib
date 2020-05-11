@@ -57,19 +57,17 @@ namespace ZRLib.Core
 
         public void AddEntity(GameEntity entity)
         {
-            fEntityTable[entity.UID_Renamed] = entity;
+            fEntityTable[entity.UID] = entity;
         }
 
         public void DeleteEntity(GameEntity entity)
         {
-            fEntityTable.Remove(entity.UID_Renamed);
+            fEntityTable.Remove(entity.UID);
         }
 
         public GameEntity FindEntity(int UID)
         {
             return fEntityTable.GetValueOrNull(UID);
         }
-
-
     }
 }

@@ -1,6 +1,6 @@
 /*
  *  "ZRLib", Roguelike games development Library.
- *  Copyright (C) 2015 by Serg V. Zhdanovskih.
+ *  Copyright (C) 2015, 2020 by Serg V. Zhdanovskih.
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -229,20 +229,47 @@ namespace ZRLib.Map
             }
         }
 
+        public virtual void DrawHLine(int x1, int x2, int y, ushort tid, bool fg)
+        {
+            if (x1 > x2) {
+                int t = x1;
+                x1 = x2;
+                x2 = t;
+            }
+            for (int xx = x1; xx <= x2; xx++) {
+                SetTile(xx, y, tid, fg);
+            }
+        }
+
+        public virtual void DrawVLine(int y1, int y2, int x, ushort tid, bool fg)
+        {
+            if (y1 > y2) {
+                int t = y1;
+                y1 = y2;
+                y2 = t;
+            }
+            for (int yy = y1; yy <= y2; yy++) {
+                SetTile(x, yy, tid, fg);
+            }
+        }
+
         public virtual void FillRadial(int aX, int aY, ushort boundTile, ushort fillTile, bool fg)
         {
-            SetTile(aX, aY, fillTile, fg);
+            BaseTile tile = GetTile(aX, aY);
+            if (tile == null) return;
+            int checkId = (fg) ? tile.Foreground : tile.Background;
+            if (checkId == boundTile) return;
+
+            if (fg) {
+                tile.Foreground = fillTile;
+            } else {
+                tile.Background = fillTile;
+            }
 
             for (int yy = aY - 1; yy <= aY + 1; yy++) {
                 for (int xx = aX - 1; xx <= aX + 1; xx++) {
-                    if (xx != aX && yy != aY) {
-                        BaseTile tile = GetTile(xx, yy);
-                        if (tile != null) {
-                            int checkId = (fg) ? tile.Foreground : tile.Background;
-                            if (checkId != fillTile && checkId != boundTile) {
-                                FillRadial(xx, yy, boundTile, fillTile, fg);
-                            }
-                        }
+                    if (xx != aX || yy != aY) {
+                        FillRadial(xx, yy, boundTile, fillTile, fg);
                     }
                 }
             }

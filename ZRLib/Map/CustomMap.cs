@@ -22,8 +22,7 @@ namespace ZRLib.Map
     {
         private BaseTile[] fTiles;
 
-        protected CustomMap(int width, int height)
-            : base(width, height)
+        protected CustomMap(int width, int height) : base(width, height)
         {
         }
 

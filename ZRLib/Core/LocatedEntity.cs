@@ -27,11 +27,6 @@ namespace ZRLib.Core
         private int fPosX;
         private int fPosY;
 
-        protected LocatedEntity(GameSpace space, object owner)
-            : base(space, owner)
-        {
-        }
-
         public int PosX
         {
             get {
@@ -51,6 +46,12 @@ namespace ZRLib.Core
             get {
                 return new ExtPoint(fPosX, fPosY);
             }
+        }
+
+
+        protected LocatedEntity(GameSpace space, object owner)
+            : base(space, owner)
+        {
         }
 
         public virtual void SetPos(int posX, int posY)

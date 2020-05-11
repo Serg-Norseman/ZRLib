@@ -24,16 +24,17 @@ namespace ZRLib.Core
     {
         protected ExtPoint fLocation;
 
-        public LocatedEvent(ExtPoint location)
-        {
-            fLocation = location;
-        }
-
         public virtual ExtPoint Location
         {
             get {
                 return fLocation;
             }
+        }
+
+
+        public LocatedEvent(ExtPoint location)
+        {
+            fLocation = location;
         }
     }
 }

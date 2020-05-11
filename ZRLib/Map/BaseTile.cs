@@ -49,9 +49,8 @@ namespace ZRLib.Map
         public int States;
 
         // PathSearch runtime
-        public byte Pf_status;
-        // see TilePathStatus
-        public ExtPoint Pf_prev;
+        public byte PathStatus; // see PathSearch Status
+        public ExtPoint PathPrev;
 
         public BaseTile()
         {
@@ -61,8 +60,8 @@ namespace ZRLib.Map
             ForegroundExt = 0;
             States = 0;
 
-            Pf_status = 0;
-            Pf_prev = ExtPoint.Empty;
+            PathStatus = 0;
+            PathPrev = ExtPoint.Empty;
         }
 
         public virtual void Assign(BaseTile source)

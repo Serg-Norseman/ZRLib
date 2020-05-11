@@ -30,7 +30,9 @@ namespace ZRLib.Core
         void SaveToStream(BinaryWriter stream, FileVersion version);
     }
 
+
     public delegate ISerializable ISerializableCreateHandler(object owner);
+
 
     public static class SerializablesManager
     {

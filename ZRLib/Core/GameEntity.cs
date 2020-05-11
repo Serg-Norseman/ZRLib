@@ -25,16 +25,80 @@ namespace ZRLib.Core
         private static int LastUID;
 
         protected readonly GameSpace fSpace;
+        private int fCLSID;
+        private int fUID;
 
-        public int CLSID_Renamed;
-        public int UID_Renamed;
+
+        public virtual GameSpace Space
+        {
+            get {
+                return fSpace;
+            }
+        }
+
+        public int UID
+        {
+            get {
+                return fUID;
+            }
+            set {
+                if (fUID != value) {
+                    GameSpace space = GameSpace.Instance;
+    
+                    if (space != null && fUID != -1) {
+                        space.DeleteEntity(this);
+                    }
+    
+                    fUID = value;
+    
+                    if (space != null && value != -1) {
+                        space.AddEntity(this);
+                    }
+                }
+            }
+        }
+
+        public virtual int CLSID
+        {
+            get {
+                return fCLSID;
+            }
+            set {
+                fCLSID = value;
+            }
+        }
+
+        public virtual string Desc
+        {
+            get {
+                return "";
+            }
+            set {
+            }
+        }
+
+        public virtual string Name
+        {
+            get {
+                return "";
+            }
+            set {
+            }
+        }
+
+        public virtual byte SerializeKind
+        {
+            get {
+                return 0;
+            }
+        }
+
 
         protected GameEntity(GameSpace space, object owner)
             : base(owner)
         {
             fSpace = space;
-
-            UID_Renamed = -1;
+            fUID = -1;
             NewUID();
         }
 
@@ -48,106 +112,36 @@ namespace ZRLib.Core
             base.Dispose(disposing);
         }
 
-        public virtual GameSpace Space
-        {
-            get {
-                return fSpace;
-            }
-        }
-
         public static void ResetUID(int newID)
         {
             LastUID = newID;
         }
 
-        public static int NextUID
+        public static int NextUID()
         {
-            get {
-                int result = LastUID;
-                LastUID++;
-                return result;
-            }
+            int result = LastUID;
+            LastUID++;
+            return result;
         }
 
         public void NewUID()
         {
-            UID = NextUID;
+            UID = NextUID();
         }
-
-        public int UID
-        {
-            get {
-                return UID_Renamed;
-            }
-            set {
-                if (UID_Renamed != value) {
-                    GameSpace space = GameSpace.Instance;
-    
-                    if (space != null && UID_Renamed != -1) {
-                        space.DeleteEntity(this);
-                    }
-    
-                    UID_Renamed = value;
-    
-                    if (space != null && value != -1) {
-                        space.AddEntity(this);
-                    }
-                }
-            }
-        }
-
-
-        public virtual int CLSID
-        {
-            get {
-                return CLSID_Renamed;
-            }
-            set {
-                CLSID_Renamed = value;
-            }
-        }
-
-
-        public virtual string Desc
-        {
-            get {
-                return "";
-            }
-            set {
-            }
-        }
-
-
-        public virtual string Name
-        {
-            get {
-                return "";
-            }
-            set {
-            }
-        }
-
 
         public virtual bool Assign(GameEntity entity)
         {
             return true;
         }
 
-        public virtual byte SerializeKind
-        {
-            get {
-                return 0;
-            }
-        }
-
         public virtual void LoadFromStream(BinaryReader stream, FileVersion version)
         {
-            CLSID = StreamUtils.ReadInt(stream);
+            fCLSID = StreamUtils.ReadInt(stream);
         }
 
         public virtual void SaveToStream(BinaryWriter stream, FileVersion version)
         {
-            StreamUtils.WriteInt(stream, CLSID_Renamed);
+            StreamUtils.WriteInt(stream, fCLSID);
         }
     }
 }
