@@ -20,10 +20,10 @@ namespace ZRLib.External.BSP
 {
     public enum SideType
     {
-        stTop,
-        stRight,
-        stBottom,
-        stLeft
+        Top,
+        Right,
+        Bottom,
+        Left
     }
 
     public sealed class NodeSide

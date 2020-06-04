@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{C5D1EB0A-E936-43BA-97F8-4C46E35AA836}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>MysteriesRL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+    <StartupObject>MysteriesRL.MRLWin</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>..\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YamlSerializer">
+      <HintPath>YamlSerializer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Creatures\CustomBody.cs" />
+    <Compile Include="Creatures\HumanBody.cs" />
+    <Compile Include="Data\CreatureRec.cs" />
+    <Compile Include="Data\DataLoader.cs" />
+    <Compile Include="Data\ItemRec.cs" />
+    <Compile Include="Data\Sprite.cs" />
+    <Compile Include="Data\Weapon.cs" />
+    <Compile Include="Game\CrimeRecord.cs" />
+    <Compile Include="Game\GameUtils.cs" />
+    <Compile Include="Game\MRLData.cs" />
+    <Compile Include="Game\SocialController.cs" />
+    <Compile Include="Game\Types\BodyPart.cs" />
+    <Compile Include="Game\Types\CreatureType.cs" />
+    <Compile Include="Game\Types\DamageType.cs" />
+    <Compile Include="Game\Types\HabitatType.cs" />
+    <Compile Include="Game\YamlHelper.cs" />
+    <Compile Include="Maps\BaseRealm.cs" />
+    <Compile Include="Maps\City.cs" />
+    <Compile Include="Maps\CityRegion.cs" />
+    <Compile Include="Maps\District.cs" />
+    <Compile Include="Maps\Portal.cs" />
+    <Compile Include="Maps\Realm.cs" />
+    <Compile Include="Maps\Street.cs" />
+    <Compile Include="Maps\Streetlight.cs" />
+    <Compile Include="MysteriesRL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Game\BaseEntityAction.cs" />
+    <Compile Include="Game\IProgressController.cs" />
+    <Compile Include="Game\ITerminalEntity.cs" />
+    <Compile Include="Game\Locale.cs" />
+    <Compile Include="Creatures\Citizen.cs" />
+    <Compile Include="Creatures\Creature.cs" />
+    <Compile Include="Creatures\Damage.cs" />
+    <Compile Include="Creatures\Human.cs" />
+    <Compile Include="Creatures\NPCStats.cs" />
+    <Compile Include="Creatures\Personality.cs" />
+    <Compile Include="Game\Events\CriminalEvent.cs" />
+    <Compile Include="Game\Events\EntityEvent.cs" />
+    <Compile Include="Game\Events\MurderEvent.cs" />
+    <Compile Include="Game\Events\NPCReportCrimeEvent.cs" />
+    <Compile Include="Game\Events\NPCWitnessCrimeEvent.cs" />
+    <Compile Include="Game\Events\SuspiciousSoundEvent.cs" />
+    <Compile Include="Game\Events\TakeDamageEvent.cs" />
+    <Compile Include="Game\Events\VandalismEvent.cs" />
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\Message.cs" />
+    <Compile Include="Game\PlayerController.cs" />
+    <Compile Include="Generators\ApartmentGenerator.cs" />
+    <Compile Include="Generators\BuildingRenderer.cs" />
+    <Compile Include="Generators\CityGenerator.cs" />
+    <Compile Include="Generators\FamilyGenerator.cs" />
+    <Compile Include="Generators\NameGenerator.cs" />
+    <Compile Include="Generators\NPCGenerator.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemsFactory.cs" />
+    <Compile Include="Items\ItemsList.cs" />
+    <Compile Include="Maps\BaseMap.cs" />
+    <Compile Include="Maps\Buildings\Building.cs" />
+    <Compile Include="Maps\Buildings\Features\Bed.cs" />
+    <Compile Include="Maps\Buildings\Features\BuildingFeature.cs" />
+    <Compile Include="Maps\Buildings\Features\Door.cs" />
+    <Compile Include="Maps\Buildings\Features\Stairs.cs" />
+    <Compile Include="Maps\Buildings\Features\Stove.cs" />
+    <Compile Include="Maps\Buildings\Features\Window.cs" />
+    <Compile Include="Maps\Buildings\Room.cs" />
+    <Compile Include="Maps\Layer.cs" />
+    <Compile Include="Maps\MapFeature.cs" />
+    <Compile Include="Maps\Minimap.cs" />
+    <Compile Include="Maps\TileFlags.cs" />
+    <Compile Include="Maps\TileID.cs" />
+    <Compile Include="Maps\MMapUtils.cs" />
+    <Compile Include="Views\BaseView.cs" />
+    <Compile Include="Views\Controls\ChoicesArea.cs" />
+    <Compile Include="Views\GameView.cs" />
+    <Compile Include="Views\HelpView.cs" />
+    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MinimapView.cs" />
+    <Compile Include="Views\PlayerChoiceView.cs" />
+    <Compile Include="Views\SelfView.cs" />
+    <Compile Include="Views\StartupView.cs" />
+    <Compile Include="Views\SubView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <EmbeddedResource Include="resources\en_texts.xml" />
+    <EmbeddedResource Include="resources\namegen\female.txt" />
+    <EmbeddedResource Include="resources\namegen\male.txt" />
+    <EmbeddedResource Include="resources\namegen\surnames.txt" />
+    <EmbeddedResource Include="resources\ru_texts.xml" />
+    <EmbeddedResource Include="resources\startup.txt" />
+    <EmbeddedResource Include="resources\en_help.txt" />
+    <None Include="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SDL2_image.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data" />
+    <Folder Include="Game\Types" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BSLib\BSLib\BSLib.csproj">
+      <Project>{f657a1b7-c834-420a-b302-88460e3f6283}</Project>
+      <Name>BSLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ZRLib\ZRLib\ZRLib.csproj">
+      <Project>{da3cb263-9751-421b-8ae5-2915d3e26096}</Project>
+      <Name>ZRLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -27,10 +27,6 @@ namespace ZRLib.Map
 
     public abstract class AbstractMap : BaseObject, IMap
     {
-        public abstract void SetMetaTile(int x, int y, TileType tile);
-
-        public abstract void FillMetaBorder(int x1, int y1, int x2, int y2, TileType tile);
-
         public static readonly int[] CoursesX = new int[] {
             0,
             1,
@@ -53,14 +49,39 @@ namespace ZRLib.Map
             -1
         };
 
-        private readonly EntityList fFeatures;
+        private readonly EntityList<GameEntity> fFeatures;
         private int fHeight;
         private int fWidth;
+
+        public ExtRect AreaRect
+        {
+            get {
+                return ExtRect.Create(0, 0, Width - 1, Height - 1);
+            }
+        }
+
+        public int Height
+        {
+            get { return fHeight; }
+        }
+
+        public int Width
+        {
+            get { return fWidth; }
+        }
+
+        public EntityList<GameEntity> Features
+        {
+            get {
+                return fFeatures;
+            }
+        }
+
 
         protected AbstractMap(int width, int height)
             : base()
         {
-            fFeatures = new EntityList(this, true);
+            fFeatures = new EntityList<GameEntity>(this);
             Resize(width, height);
         }
 
@@ -94,34 +115,14 @@ namespace ZRLib.Map
             CreateTiles();
         }
 
-        public ExtRect AreaRect
-        {
-            get {
-                return ExtRect.Create(0, 0, Width - 1, Height - 1);
-            }
-        }
+        public abstract void SetMetaTile(int x, int y, TileType tile);
 
-        public int Height
-        {
-            get { return fHeight; }
-        }
-
-        public int Width
-        {
-            get { return fWidth; }
-        }
+        public abstract void FillMetaBorder(int x1, int y1, int x2, int y2, TileType tile);
 
         public virtual bool IsValid(int x, int y)
         {
             // Attention: using of getters is mandatory!
             return x >= 0 && x < Width && y >= 0 && y < Height;
-        }
-
-        public EntityList Features
-        {
-            get {
-                return fFeatures;
-            }
         }
 
         public abstract BaseTile GetTile(int x, int y);
@@ -274,7 +275,6 @@ namespace ZRLib.Map
                 }
             }
         }
-
 
         private void LineHandler(int aX, int aY, ref bool refContinue)
         {

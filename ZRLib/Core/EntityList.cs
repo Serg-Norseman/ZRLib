@@ -22,14 +22,31 @@ using BSLib;
 
 namespace ZRLib.Core
 {
-    public class EntityList : BaseEntity
+    public class EntityList<T> : BaseEntity
+        where T : GameEntity
     {
-        private readonly ExtList<GameEntity> fList;
+        private readonly ExtList<T> fList;
 
-        public EntityList(object owner, bool ownsObjects)
+
+        public int Count
+        {
+            get {
+                return fList.Count;
+            }
+        }
+
+        public T this[int index]
+        {
+            get {
+                return fList[index];
+            }
+        }
+
+
+        public EntityList(object owner)
             : base(owner)
         {
-            fList = new ExtList<GameEntity>(ownsObjects);
+            fList = new ExtList<T>(true);
         }
 
         protected override void Dispose(bool disposing)
@@ -40,41 +57,18 @@ namespace ZRLib.Core
             base.Dispose(disposing);
         }
 
-        public virtual int Count
-        {
-            get {
-                return fList.Count;
-            }
-        }
-
-        public virtual bool OwnsObjects
-        {
-            get {
-                return fList.OwnsObjects;
-            }
-            set {
-                fList.OwnsObjects = value;
-            }
-        }
-
-
-        public virtual GameEntity GetItem(int index)
-        {
-            return fList[index];
-        }
-
-        public virtual int Add(GameEntity entity)
+        public virtual int Add(T entity)
         {
             return (entity == null) ? -1 : fList.Add(entity);
         }
 
-        public virtual void Assign(EntityList list)
+        public virtual void Assign(EntityList<T> list)
         {
             fList.Clear();
 
             int num = list.Count;
             for (int i = 0; i < num; i++) {
-                Add(list.GetItem(i));
+                Add(list[i]);
             }
         }
 
@@ -88,11 +82,11 @@ namespace ZRLib.Core
             fList.Delete(index);
         }
 
-        public GameEntity FindByCLSID(int id)
+        public T FindByCLSID(int id)
         {
             int num = fList.Count;
             for (int i = 0; i < num; i++) {
-                GameEntity e = GetItem(i);
+                T e = fList[i];
                 if (e.CLSID == id) {
                     return e;
                 }
@@ -101,11 +95,11 @@ namespace ZRLib.Core
             return null;
         }
 
-        public GameEntity FindByGUID(int id)
+        public T FindByGUID(int id)
         {
             int num = fList.Count;
             for (int i = 0; i < num; i++) {
-                GameEntity e = GetItem(i);
+                T e = fList[i];
                 if (e.UID == id) {
                     return e;
                 }
@@ -119,17 +113,17 @@ namespace ZRLib.Core
             fList.Exchange(index1, index2);
         }
 
-        public virtual GameEntity Extract(GameEntity item)
+        public virtual T Extract(T item)
         {
-            return (GameEntity)fList.Extract(item);
+            return (T)fList.Extract(item);
         }
 
-        public virtual int IndexOf(GameEntity entity)
+        public virtual int IndexOf(T entity)
         {
             return fList.IndexOf(entity);
         }
 
-        public virtual int Remove(GameEntity entity)
+        public virtual int Remove(T entity)
         {
             return fList.Remove(entity);
         }
@@ -143,16 +137,16 @@ namespace ZRLib.Core
                 for (int i = 0; i < count; i++) {
                     byte kind = StreamUtils.ReadByte(stream);
                     try {
-                        GameEntity item = (GameEntity)SerializablesManager.CreateSerializable(kind, base.Owner);
+                        T item = (T)SerializablesManager.CreateSerializable(kind, base.Owner);
                         item.LoadFromStream(stream, version);
                         fList.Add(item);
                     } catch (Exception ex) {
-                        Logger.Write("EntityList.loadFromStream(" + Convert.ToString(kind) + "): " + ex.StackTrace.ToString());
+                        Logger.Write("EntityList.LoadFromStream(" + Convert.ToString(kind) + "): " + ex.StackTrace.ToString());
                         throw ex;
                     }
                 }
             } catch (Exception ex) {
-                Logger.Write("EntityList.loadFromStream(): " + ex.StackTrace.ToString());
+                Logger.Write("EntityList.LoadFromStream(): " + ex.StackTrace.ToString());
                 throw ex;
             }
         }
@@ -164,7 +158,7 @@ namespace ZRLib.Core
 
                 int num = fList.Count;
                 for (int i = 0; i < num; i++) {
-                    if (GetItem(i).SerializeKind <= 0) {
+                    if (fList[i].SerializeKind <= 0) {
                         count--;
                     }
                 }
@@ -172,7 +166,7 @@ namespace ZRLib.Core
                 StreamUtils.WriteInt(stream, count);
 
                 for (int i = 0; i < num; i++) {
-                    GameEntity item = GetItem(i);
+                    var item = fList[i];
                     byte kind = item.SerializeKind;
                     if (kind > 0) {
                         StreamUtils.WriteByte(stream, kind);
@@ -180,7 +174,7 @@ namespace ZRLib.Core
                     }
                 }
             } catch (Exception ex) {
-                Logger.Write("EntityList.saveToStream(): " + ex.StackTrace.ToString());
+                Logger.Write("EntityList.SaveToStream(): " + ex.StackTrace.ToString());
                 throw ex;
             }
         }

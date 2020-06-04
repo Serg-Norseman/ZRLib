@@ -67,6 +67,7 @@
     <Compile Include="Core\EntityList.cs" />
     <Compile Include="Core\Event.cs" />
     <Compile Include="Core\EventManager.cs" />
+    <Compile Include="Core\ILocated.cs" />
     <Compile Include="Core\LocatedEvent.cs" />
     <Compile Include="Core\Parser.cs" />
     <Compile Include="Core\ScheduledEventManager.cs" />
@@ -155,7 +156,9 @@
     <Compile Include="Map\Dungeons\StaticArea.cs" />
     <Compile Include="Map\Dungeons\TempleRoom.cs" />
     <Compile Include="Map\FOV.cs" />
+    <Compile Include="Map\ILightSource.cs" />
     <Compile Include="Map\IMap.cs" />
+    <Compile Include="Map\LightMgr.cs" />
     <Compile Include="Map\MapUtils.cs" />
     <Compile Include="Map\PathSearch.cs" />
     <Compile Include="Map\TileType.cs" />

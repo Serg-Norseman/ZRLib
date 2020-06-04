@@ -30,7 +30,7 @@ namespace ZRLib.Map
         int Height { get; }
         int Width { get; }
 
-        EntityList Features { get; }
+        EntityList<GameEntity> Features { get; }
         BaseTile GetTile(int x, int y);
 
         bool IsValid(int x, int y);

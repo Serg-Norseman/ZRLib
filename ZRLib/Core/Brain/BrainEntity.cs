@@ -70,6 +70,11 @@ namespace ZRLib.Core.Brain
             base.Dispose(disposing);
         }
 
+        public GoalEntity GetGoal(int index)
+        {
+            return fGoals[index];
+        }
+
         public virtual ExtPoint GetEvadePos(CreatureEntity enemy)
         {
             // dummy
@@ -84,11 +89,6 @@ namespace ZRLib.Core.Brain
         public virtual void StepTo(int aX, int aY)
         {
             // dummy
-        }
-
-        public GoalEntity GetGoal(int index)
-        {
-            return fGoals[index];
         }
 
         protected virtual void EvaluateGoal(GoalEntity goal)
@@ -177,7 +177,7 @@ namespace ZRLib.Core.Brain
                 try {
                     PrepareGoals();
                 } catch (Exception ex) {
-                    Logger.Write("BrainEntity.think0(" + GetType().Name + "): " + ex.Message);
+                    Logger.Write("BrainEntity.Think0(" + GetType().Name + "): " + ex.Message);
                 }
 
                 try {
@@ -196,7 +196,7 @@ namespace ZRLib.Core.Brain
                         }
                     }
                 } catch (Exception ex) {
-                    Logger.Write("BrainEntity.think1(" + GetType().Name + "): " + ex.Message);
+                    Logger.Write("BrainEntity.Think1(" + GetType().Name + "): " + ex.Message);
                 }
 
                 GoalEntity highestGoal = null;
@@ -224,7 +224,7 @@ namespace ZRLib.Core.Brain
                         i++;
                     }
                 } catch (Exception ex) {
-                    Logger.Write("BrainEntity.think().evaluateGoals(" + GetType().Name + "): " + ex.Message);
+                    Logger.Write("BrainEntity.Think().EvaluateGoals(" + GetType().Name + "): " + ex.Message);
                 }
 
                 try {
@@ -236,10 +236,10 @@ namespace ZRLib.Core.Brain
                         }
                     }
                 } catch (Exception ex) {
-                    Logger.Write("BrainEntity.think().executeHighestGoal(" + GetType().Name + "): " + ex.Message);
+                    Logger.Write("BrainEntity.Think().ExecuteHighestGoal(" + GetType().Name + "): " + ex.Message);
                 }
             } catch (Exception ex) {
-                Logger.Write("BrainEntity.think(" + GetType().Name + "): " + ex.Message);
+                Logger.Write("BrainEntity.Think(" + GetType().Name + "): " + ex.Message);
             }
         }
     }

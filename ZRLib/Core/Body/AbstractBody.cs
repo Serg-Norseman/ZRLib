@@ -24,6 +24,13 @@ namespace ZRLib.Core.Body
     {
         protected List<Bodypart> fParts;
 
+
+        public IList<Bodypart> Parts
+        {
+            get { return fParts; }
+        }
+
+
         protected AbstractBody(object owner)
             : base(owner)
         {
@@ -36,25 +43,6 @@ namespace ZRLib.Core.Body
                 fParts = null;
             }
             base.Dispose(disposing);
-        }
-
-        public int PartsCount
-        {
-            get { return fParts.Count; }
-        }
-
-        public Bodypart GetPart(int index)
-        {
-            Bodypart result = null;
-            if (index >= 0 && index < fParts.Count) {
-                result = fParts[index];
-            }
-            return result;
-        }
-
-        public void Clear()
-        {
-            fParts.Clear();
         }
 
         public Bodypart AddPart(int type)

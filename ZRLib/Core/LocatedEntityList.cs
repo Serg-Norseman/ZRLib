@@ -20,23 +20,19 @@ using BSLib;
 
 namespace ZRLib.Core
 {
-    public class LocatedEntityList : EntityList
+    public class LocatedEntityList<T> : EntityList<T>
+        where T : LocatedEntity
     {
-        public LocatedEntityList(object owner, bool ownsObjects)
-            : base(owner, ownsObjects)
+        public LocatedEntityList(object owner)
+            : base(owner)
         {
-        }
-
-        public new virtual LocatedEntity GetItem(int index)
-        {
-            return (LocatedEntity)base.GetItem(index);
         }
 
         public virtual LocatedEntity SearchItemByPos(int aX, int aY)
         {
             int num = Count;
             for (int i = 0; i < num; i++) {
-                LocatedEntity entry = GetItem(i);
+                T entry = this[i];
                 if (entry.PosX == aX && entry.PosY == aY) {
                     return entry;
                 }
@@ -44,13 +40,13 @@ namespace ZRLib.Core
             return null;
         }
 
-        public ExtList<LocatedEntity> SearchListByPos(int aX, int aY)
+        public ExtList<T> SearchListByPos(int aX, int aY)
         {
-            ExtList<LocatedEntity> result = new ExtList<LocatedEntity>(false);
+            ExtList<T> result = new ExtList<T>(false);
 
             int num = Count;
             for (int i = 0; i < num; i++) {
-                LocatedEntity entry = GetItem(i);
+                T entry = this[i];
                 if (entry.PosX == aX && entry.PosY == aY) {
                     result.Add(entry);
                 }
@@ -59,13 +55,13 @@ namespace ZRLib.Core
             return result;
         }
 
-        public ExtList<LocatedEntity> SearchListByArea(ExtRect rect)
+        public ExtList<T> SearchListByArea(ExtRect rect)
         {
-            ExtList<LocatedEntity> result = new ExtList<LocatedEntity>(false);
+            ExtList<T> result = new ExtList<T>(false);
 
             int num = Count;
             for (int i = 0; i < num; i++) {
-                LocatedEntity entry = GetItem(i);
+                T entry = this[i];
                 if (entry.InRect(rect)) {
                     result.Add(entry);
                 }

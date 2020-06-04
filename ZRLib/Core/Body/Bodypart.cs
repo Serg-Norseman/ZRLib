@@ -28,6 +28,7 @@ namespace ZRLib.Core.Body
         public int State;
         public object Item;
 
+
         public Bodypart(int type)
         {
             Type = type;

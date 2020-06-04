@@ -222,16 +222,16 @@ namespace ZRLib.External.BSP
             bool resL, resT, resR, resB;
 
             resL = HasNode(leaves, node.X1 - halfMin, cY); // left
-            node.Sides.Add(new NodeSide(SideType.stLeft, (resL) ? LocationType.ltInner : LocationType.ltOuter));
+            node.Sides.Add(new NodeSide(SideType.Left, (resL) ? LocationType.ltInner : LocationType.ltOuter));
 
             resR = HasNode(leaves, node.X2 + halfMin, cY); // right
-            node.Sides.Add(new NodeSide(SideType.stRight, (resR) ? LocationType.ltInner : LocationType.ltOuter));
+            node.Sides.Add(new NodeSide(SideType.Right, (resR) ? LocationType.ltInner : LocationType.ltOuter));
 
             resT = HasNode(leaves, cX, node.Y1 - halfMin); // top
-            node.Sides.Add(new NodeSide(SideType.stTop, (resT) ? LocationType.ltInner : LocationType.ltOuter));
+            node.Sides.Add(new NodeSide(SideType.Top, (resT) ? LocationType.ltInner : LocationType.ltOuter));
 
             resB = HasNode(leaves, cX, node.Y2 + halfMin); // bottom
-            node.Sides.Add(new NodeSide(SideType.stBottom, (resB) ? LocationType.ltInner : LocationType.ltOuter));
+            node.Sides.Add(new NodeSide(SideType.Bottom, (resB) ? LocationType.ltInner : LocationType.ltOuter));
 
 
             if (!resL || !resR || !resT || !resB) {

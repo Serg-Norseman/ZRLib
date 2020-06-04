@@ -8,6 +8,6 @@ rmdir .\ZRLib.Tests\bin /s /q
 rmdir .\ZRLib.Tests\obj /s /q
 rmdir .\ZRLib.Tests\ProfilingSessions /s /q
 
-cd .\PrimevalRL
+cd .\MysteriesRL
 call clean.cmd
 cd ..

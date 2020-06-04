@@ -22,7 +22,7 @@ using BSLib;
 
 namespace ZRLib.Core
 {
-    public abstract class LocatedEntity : GameEntity
+    public abstract class LocatedEntity : GameEntity, ILocated
     {
         private int fPosX;
         private int fPosY;
@@ -75,7 +75,7 @@ namespace ZRLib.Core
                 fPosX = StreamUtils.ReadInt(stream);
                 fPosY = StreamUtils.ReadInt(stream);
             } catch (Exception ex) {
-                Logger.Write("LocatedEntity.loadFromStream(): " + ex.Message);
+                Logger.Write("LocatedEntity.LoadFromStream(): " + ex.Message);
                 throw ex;
             }
         }

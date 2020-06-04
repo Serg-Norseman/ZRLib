@@ -148,7 +148,7 @@ namespace ZRLib.Map
 
                 Map.GetTile(Src_x, Src_y).PathStatus = PathSearch.tps_Start;
             } catch (Exception ex) {
-                Logger.Write("AStar.search(): " + ex.Message);
+                Logger.Write("AStar.Search(): " + ex.Message);
             }
 
             return false;

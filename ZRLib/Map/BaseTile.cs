@@ -17,7 +17,6 @@
  */
 
 using BSLib;
-using ZRLib.Core;
 
 namespace ZRLib.Map
 {
@@ -52,6 +51,33 @@ namespace ZRLib.Map
         public byte PathStatus; // see PathSearch Status
         public ExtPoint PathPrev;
 
+
+        public bool EmptyStates
+        {
+            get { return (States == 0); }
+        }
+
+        public byte BackBase
+        {
+            get { return (byte)(Background & 0xff); }
+        }
+
+        public byte BackVar
+        {
+            get { return (byte)((Background >> 8) & 0xff); }
+        }
+
+        public byte ForeBase
+        {
+            get { return (byte)(Foreground & 0xff); }
+        }
+
+        public byte ForeVar
+        {
+            get { return (byte)((Foreground >> 8) & 0xff); }
+        }
+
+
         public BaseTile()
         {
             Background = 0;
@@ -76,11 +102,6 @@ namespace ZRLib.Map
         public void AddStates(int states)
         {
             States |= states;
-        }
-
-        public bool EmptyStates
-        {
-            get { return (States == 0); }
         }
 
         public void IncludeState(int state)
@@ -110,29 +131,9 @@ namespace ZRLib.Map
             return (ushort)((_var & 0xFF) << 8 | (_base & 0xFF));
         }
 
-        public byte BackBase
-        {
-            get { return (byte)(Background & 0xff); }
-        }
-
-        public byte BackVar
-        {
-            get { return (byte)((Background >> 8) & 0xff); }
-        }
-
         public void SetBack(int _base, int _var)
         {
             Background = GetVarID((byte)_base, (byte)_var);
-        }
-
-        public byte ForeBase
-        {
-            get { return (byte)(Foreground & 0xff); }
-        }
-
-        public byte ForeVar
-        {
-            get { return (byte)((Foreground >> 8) & 0xff); }
         }
 
         public void SetFore(int _base, int _var)

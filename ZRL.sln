@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib", "..\BSLib\BSLib\BSL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZRLib.Tests", "ZRLib.Tests\ZRLib.Tests.csproj", "{A8B53A6B-40A6-40BA-A671-03FC911BC37B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimevalRL", "PrimevalRL\project\PrimevalRL.csproj", "{C5D1EB0A-E936-43BA-97F8-4C46E35AA836}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MysteriesRL", "MysteriesRL\project\MysteriesRL.csproj", "{C5D1EB0A-E936-43BA-97F8-4C46E35AA836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

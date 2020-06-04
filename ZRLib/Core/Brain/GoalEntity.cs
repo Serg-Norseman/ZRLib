@@ -33,6 +33,7 @@ namespace ZRLib.Core.Brain
         public int SourceID;
         public float Value;
 
+
         public BrainEntity Brain
         {
             get { return fBrain; }

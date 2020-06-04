@@ -23,33 +23,34 @@ namespace ZRLib.Engine
     public static class Colors
     {
         public const int None = 0x1FFFFFFF;
-        public const int Black = 0;
-        public const int Navy = 0x000080;
-        public const int Green = 0x008000;
-        public const int Teal = 0x008080;
-        public const int Maroon = 0x800000;
-        public const int Purple = 0x800080;
-        public const int Olive = 0x808000;
-        public const int LightGray = 0xD3D3D3;
-        public const int Silver = 0xC0C0C0;
-        public const int Gray = 0x808080;
-        public const int Blue = 0x0000FF;
-        public const int Lime = 0x00FF00;
+
+        public const int AliceBlue = 0xF0F8FF;
         public const int Aqua = 0x00FFFF;
-        public const int Red = 0xFF0000;
+        public const int Black = 0;
+        public const int Blue = 0x0000FF;
+        public const int Cyan = 0x00FFFF;
+        public const int DarkBlue = 0x00008B;
+        public const int DarkCyan = 0x008B8B;
+        public const int DarkGray = 0xA9A9A9;
+        public const int DarkGreen = 0x006400;
         public const int Fuchsia = 0xFF00FF;
-        public const int Yellow = 0xFFFF00;
-        public const int White = 0xFFFFFF;
-        public const int SkyBlue = 0x87CEEB;
         public const int Gold = 0xFFEFAF;
         public const int Goldenrod = 0xDAA520;
-        public const int Orange = 0xFFA500;
+        public const int Gray = 0x808080;
+        public const int Green = 0x008000;
+        public const int LightGray = 0xD3D3D3;
+        public const int Lime = 0x00FF00;
         public const int Magenta = 0xFF00FF;
-        public const int DarkGreen = 0x006400;
-        public const int DarkGray = 0xA9A9A9;
-        public const int Cyan = 0x00FFFF;
-        public const int DarkCyan = 0x008B8B;
-        public const int DarkBlue = 0x00008B;
-        public const int AliceBlue = 0xF0F8FF;
+        public const int Maroon = 0x800000;
+        public const int Navy = 0x000080;
+        public const int Olive = 0x808000;
+        public const int Orange = 0xFFA500;
+        public const int Purple = 0x800080;
+        public const int Red = 0xFF0000;
+        public const int Silver = 0xC0C0C0;
+        public const int SkyBlue = 0x87CEEB;
+        public const int Teal = 0x008080;
+        public const int White = 0xFFFFFF;
+        public const int Yellow = 0xFFFF00;
     }
 }

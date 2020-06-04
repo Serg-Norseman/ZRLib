@@ -25,10 +25,10 @@ namespace ZRLib.Core.Action
         private readonly List<IAction> fActionsList;
         private readonly T fOwner;
 
-        public ActionList(T owner)
+
+        public List<IAction> List
         {
-            fOwner = owner;
-            fActionsList = new List<IAction>();
+            get { return fActionsList; }
         }
 
         public T Owner
@@ -36,14 +36,16 @@ namespace ZRLib.Core.Action
             get { return fOwner; }
         }
 
+
+        public ActionList(T owner)
+        {
+            fOwner = owner;
+            fActionsList = new List<IAction>();
+        }
+
         public void AddAction(IAction action)
         {
             fActionsList.Add(action);
-        }
-
-        public List<IAction> List
-        {
-            get { return fActionsList; }
         }
 
         public void AddAll(IList<IAction> superList)
