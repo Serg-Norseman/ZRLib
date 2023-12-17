@@ -100,12 +100,12 @@ namespace MysteriesRL.Generators
                 name = fFemaleNames[fRandom.Next(fFemaleNames.Count)];
             }
 
-            return ConvertHelper.UniformName(name);
+            return StringHelper.UniformName(name);
         }
 
         public string GenerateSurname()
         {
-            return ConvertHelper.UniformName(fSurnames[fRandom.Next(fSurnames.Count)]);
+            return StringHelper.UniformName(fSurnames[fRandom.Next(fSurnames.Count)]);
         }
     }
 }

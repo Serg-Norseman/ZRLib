@@ -81,7 +81,7 @@ namespace ZRLib.External.PQG
 
             QNode choice = action.RndNode();
             string description = choice.Description;
-            string padding = ConvertHelper.Repeat(' ', cur_depth);
+            string padding = StringHelper.Repeat(' ', cur_depth);
             Console.WriteLine(padding + "[" + description + "]");
             foreach (string step in choice.Sequence) {
                 Console.WriteLine(padding + step);

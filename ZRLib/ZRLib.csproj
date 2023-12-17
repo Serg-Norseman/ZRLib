@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <PropertyGroup>
     <ProjectGuid>{DA3CB263-9751-421B-8AE5-2915D3E26096}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AssemblyName>ZRLib</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
@@ -162,10 +162,13 @@
     <Compile Include="Map\MapUtils.cs" />
     <Compile Include="Map\PathSearch.cs" />
     <Compile Include="Map\TileType.cs" />
+    <Compile Include="Storyteller\AEUtils.cs" />
+    <Compile Include="Storyteller\IStoryView.cs" />
+    <Compile Include="Storyteller\Personality.cs" />
+    <Compile Include="Storyteller\Scene.cs" />
+    <Compile Include="Storyteller\Story.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="External\SDL2" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>

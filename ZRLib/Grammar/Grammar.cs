@@ -316,7 +316,7 @@ namespace ZRLib.Grammar
                     string src = name.Substring(0, signLen);
                     string tgt = fSpeechTable[idx].Sound;
                     if (EngUpperChars.IndexOf(src[0]) >= 0) {
-                        tgt = ConvertHelper.UniformName(tgt);
+                        tgt = StringHelper.UniformName(tgt);
                     }
                     result += tgt;
                 } else {
