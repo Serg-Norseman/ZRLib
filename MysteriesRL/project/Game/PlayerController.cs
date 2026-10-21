@@ -189,8 +189,8 @@ namespace MysteriesRL.Game
                 ExtList<LocatedEntity> list = ListByArea(((Layer)fPlayer.Map).Features, rt);
                 for (int i = 0; i < list.Count; i++) {
                     LocatedEntity entity = list[i];
-                    if (entity is IActor) {
-                        IList<IAction> featActions = ((IActor)entity).GetActionsList();
+                    if (entity is IActor actor) {
+                        IList<IAction> featActions = actor.GetActionsList();
                         result.AddRange(featActions);
                     }
                 }
@@ -212,9 +212,7 @@ namespace MysteriesRL.Game
             for (int i = 0; i < num; i++) {
                 GameEntity entry = list[i];
 
-                if (entry is LocatedEntity) {
-                    LocatedEntity locEntry = (LocatedEntity)entry;
-
+                if (entry is LocatedEntity locEntry) {
                     if (locEntry.InRect(rect)) {
                         result.Add(locEntry);
                     }
@@ -226,8 +224,7 @@ namespace MysteriesRL.Game
 
         public bool InRange(GameEntity entity)
         {
-            if (entity is LocatedEntity) {
-                LocatedEntity located = (LocatedEntity)entity;
+            if (entity is LocatedEntity located) {
                 int dist = MathHelper.Distance(fPlayer.Location, located.Location);
                 return (dist <= 1);
             } else {

@@ -61,9 +61,7 @@ namespace ZRLib.Map
             for (int y = y1; y <= y2; y++) {
                 for (int x = x1; x <= x2; x++) {
                     BaseTile tile = map.GetTile(x, y);
-                    if (tile != null) {
-                        tile.IncludeState(BaseTile.TS_VISITED);
-                    }
+                    tile?.IncludeState(BaseTile.TS_VISITED);
                 }
             }
         }

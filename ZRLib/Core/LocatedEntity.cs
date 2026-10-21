@@ -76,7 +76,7 @@ namespace ZRLib.Core
                 fPosY = StreamUtils.ReadInt(stream);
             } catch (Exception ex) {
                 Logger.Write("LocatedEntity.LoadFromStream(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

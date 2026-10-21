@@ -65,12 +65,8 @@ namespace MysteriesRL.Creatures
 
         public bool Fainted
         {
-            get {
-                return fIsFainted;
-            }
-            set {
-                fIsFainted = value;
-            }
+            get { return fIsFainted; }
+            set { fIsFainted = value; }
         }
 
         public bool Infected

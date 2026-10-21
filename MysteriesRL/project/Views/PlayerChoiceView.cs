@@ -59,7 +59,7 @@ namespace MysteriesRL.Views
 
         public override void Show()
         {
-            LocatedEntityList<Creature> population = ((Layer)GameSpace.CurrentRealm.PlainMap).Creatures;
+            var population = GameSpace.CurrentRealm.PlainMap.Creatures;
 
             for (int i = 0; i < population.Count; i++) {
                 Human human = (Human)population[i];

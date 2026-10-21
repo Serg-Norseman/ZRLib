@@ -31,9 +31,7 @@ namespace ZRLib.Core
                 return fBrain;
             }
             set {
-                if (fBrain != null) {
-                    fBrain.Dispose();
-                }
+                fBrain?.Dispose();
                 fBrain = value;
             }
         }
@@ -46,9 +44,7 @@ namespace ZRLib.Core
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                if (fBrain != null) {
-                    fBrain.Dispose();
-                }
+                fBrain?.Dispose();
             }
             base.Dispose(disposing);
         }

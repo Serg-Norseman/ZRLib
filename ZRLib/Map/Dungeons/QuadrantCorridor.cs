@@ -78,9 +78,7 @@ namespace ZRLib.Map.Dungeons
         {
             bool Result = DimensionRect.IsIntersect(anArea.DimensionRect);
             if (Result) {
-                if (anArea is RectangularRoom) {
-                    RectangularRoom rectArea = ((RectangularRoom)anArea);
-
+                if (anArea is RectangularRoom rectArea) {
                     int rLeft = rectArea.Left - CenterX;
                     int rRight = rectArea.Right - CenterX;
                     int rTop = CenterY - rectArea.Top;
@@ -140,9 +138,7 @@ namespace ZRLib.Map.Dungeons
                         Result = (((long)Math.Round(inDist)) >= (long)InRadius);
                     }
                 } else {
-                    if (anArea is CylindricityRoom) {
-                        CylindricityRoom cylArea = ((CylindricityRoom)anArea);
-
+                    if (anArea is CylindricityRoom cylArea) {
                         int rLeft = cylArea.fCenterX - CenterX;
                         int rTop = cylArea.fCenterY - CenterY;
 
@@ -323,7 +319,7 @@ namespace ZRLib.Map.Dungeons
                 FlushMarksList();
             } catch (Exception ex) {
                 Logger.Write("QuadrantCorridor.flushToMap(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

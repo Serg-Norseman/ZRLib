@@ -16,11 +16,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using MysteriesRL.Game.Types;
-
 namespace MysteriesRL.Data
 {
+    public enum DamageType
+    {
+        Natural,
+        Blunt,
+        Slash,
+        Point
+    }
+
+
     public sealed class Weapon
     {
         public DamageType DamageType;

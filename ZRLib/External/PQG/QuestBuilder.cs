@@ -25,7 +25,7 @@ namespace ZRLib.External.PQG
 {
     public class QuestBuilder
     {
-        private int DEPTH = 3;
+        private readonly int DEPTH = 3;
 
         private readonly List<QObject> fActionsList;
         private readonly Dictionary<string, QObject> fActionsMap;

@@ -16,7 +16,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using MysteriesRL.Game;
 using ZRLib.Core;
 using ZRLib.Core.Action;
 

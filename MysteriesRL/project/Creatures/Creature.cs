@@ -130,7 +130,7 @@ namespace MysteriesRL.Creatures
 
         public virtual void TakeDamage(Damage damage)
         {
-            fHPCur = fHPCur - damage.Value;
+            fHPCur -= damage.Value;
 
             if (!Alive) {
                 Die(damage.Inflictor);

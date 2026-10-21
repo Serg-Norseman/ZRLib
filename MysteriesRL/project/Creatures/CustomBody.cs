@@ -30,9 +30,7 @@ namespace MysteriesRL.Creatures
 
         public MRLGame Space
         {
-            get {
-                return (MRLGame)Owner.Space;
-            }
+            get { return Owner.Space; }
         }
 
 

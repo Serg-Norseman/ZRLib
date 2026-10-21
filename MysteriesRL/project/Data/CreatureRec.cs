@@ -16,11 +16,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using MysteriesRL.Game.Types;
-
 namespace MysteriesRL.Data
 {
+    public enum HabitatType
+    {
+        Ground,
+        Underground,
+        Water,
+        Underwater,
+        Flying
+    }
+
+
+    public enum CreatureType
+    {
+        Carnivore,
+        Herbivore
+    }
+
+
     public sealed class CreatureRec
     {
         public string Name;

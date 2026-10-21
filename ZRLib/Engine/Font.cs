@@ -35,11 +35,11 @@ namespace ZRLib.Engine
 
         private int fColor;
         private BaseImage fImage;
-        private BaseScreen fScreen;
-        private TGEFontChar[] fChars;
+        private readonly BaseScreen fScreen;
+        private readonly TGEFontChar[] fChars;
         private int fCharColor;
         private string fImageFile;
-        private Encoding fEncoding;
+        private readonly Encoding fEncoding;
 
         public int Height;
         public string Name;
@@ -64,9 +64,7 @@ namespace ZRLib.Engine
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                if (fImage != null) {
-                    fImage.Dispose();
-                }
+                fImage?.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -157,9 +155,7 @@ namespace ZRLib.Engine
 
                     fColor = Colors.White;
                 } finally {
-                    if (parser != null) {
-                        parser.Dispose();
-                    }
+                    parser?.Dispose();
                 }
             } catch (Exception ex) {
                 Logger.Write("Font.loadFromFile(): " + ex.Message);

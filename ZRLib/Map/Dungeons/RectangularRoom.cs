@@ -59,8 +59,8 @@ namespace ZRLib.Map.Dungeons
         public override bool IsIntersectWithArea(DungeonArea anArea)
         {
             bool result;
-            if (anArea is RectangularRoom) {
-                result = DimensionRect.IsIntersect(((RectangularRoom)anArea).DimensionRect);
+            if (anArea is RectangularRoom rectRoom) {
+                result = DimensionRect.IsIntersect(rectRoom.DimensionRect);
             } else {
                 result = anArea.IsIntersectWithArea(this);
             }
@@ -143,7 +143,7 @@ namespace ZRLib.Map.Dungeons
                 FlushMarksList();
             } catch (Exception ex) {
                 Logger.Write("RectangularRoom.flushToMap(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

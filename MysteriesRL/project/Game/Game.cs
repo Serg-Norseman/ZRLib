@@ -16,7 +16,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using BSLib;
 using MysteriesRL.Creatures;
@@ -28,6 +27,19 @@ using ZRLib.Engine;
 
 namespace MysteriesRL.Game
 {
+    public class TextMessage
+    {
+        public readonly string Text;
+        public readonly int Color;
+
+        public TextMessage(string text, int color)
+        {
+            Text = text;
+            Color = color;
+        }
+    }
+
+
     public sealed class MRLGame : GameSpace, IEventListener
     {
         private Realm fCurrentRealm;

@@ -16,11 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using BSLib;
 using MysteriesRL.Game;
-using MysteriesRL.Generators;
-using MysteriesRL.Maps;
 using ZRLib.Core;
 using ZRLib.Map;
 
@@ -102,10 +99,8 @@ namespace MysteriesRL.Maps
 
         public void UpdatePortals()
         {
-            IMap map = fPlainMap;
-            for (int i = 0; i < map.Features.Count; i++) {
-                var portal = map.Features[i] as Portal;
-                if (portal != null) {
+            for (int i = 0; i < fPlainMap.Features.Count; i++) {
+                if (fPlainMap.Features[i] is Portal portal) {
                     portal.DoTurn();
                 }
             }

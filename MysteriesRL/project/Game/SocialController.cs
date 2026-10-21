@@ -44,28 +44,27 @@ namespace MysteriesRL.Game
 
         public void OnEvent(Event evt)
         {
-            if (evt is NPCReportCrimeEvent) {
-                if (fCrimeplaces.Contains(((NPCReportCrimeEvent)evt).Location)) {
+            if (evt is NPCReportCrimeEvent crimeEvent) {
+                if (fCrimeplaces.Contains(crimeEvent.Location)) {
                     return;
                 }
-                AddCrimeplace(((NPCReportCrimeEvent)evt).Location);
+                AddCrimeplace(crimeEvent.Location);
             }
 
-            if (evt is SuspiciousSoundEvent) {
+            if (evt is SuspiciousSoundEvent suspiciousSound) {
                 MRLGame space = (MRLGame)GameSpace.Instance;
 
-                IList<GameEntity> list = space.GetEntities(((SuspiciousSoundEvent)evt).Location, ((SuspiciousSoundEvent)evt).Radius);
+                var list = space.GetEntities(suspiciousSound.Location, suspiciousSound.Radius);
                 foreach (GameEntity ent in list) {
-                    if (ent is IEventListener) {
-                        ((IEventListener)ent).OnEvent(evt);
+                    if (ent is IEventListener listener) {
+                        listener.OnEvent(evt);
                     }
                 }
             }
 
-            if (evt is VandalismEvent) {
-                VandalismEvent vandalism = (VandalismEvent)evt;
-                if (vandalism.Criminal is Human) {
-                    ((Human)vandalism.Criminal).AddCrimeRecord(new CrimeRecord(CrimeType.ct_Vandalism));
+            if (evt is VandalismEvent vandalism) {
+                if (vandalism.Criminal is Human vandal) {
+                    vandal.AddCrimeRecord(new CrimeRecord(CrimeType.ct_Vandalism));
                 }
             }
         }

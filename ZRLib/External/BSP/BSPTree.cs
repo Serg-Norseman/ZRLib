@@ -147,9 +147,7 @@ namespace ZRLib.External.BSP
             }
 
             int splitWidth = 0;
-            if (fNodeSplitHandler != null) {
-                fNodeSplitHandler(node, ref splitWidth);
-            }
+            fNodeSplitHandler?.Invoke(node, ref splitWidth);
 
             // check to see if we have enough space to split
             int max = (splitH ? nH : nW) - fMinNodeSize - splitWidth;
@@ -188,9 +186,7 @@ namespace ZRLib.External.BSP
 
         private void ProcessSplit(int x1, int y1, int x2, int y2)
         {
-            if (fSplitProc != null) {
-                fSplitProc(x1, y1, x2, y2);
-            }
+            fSplitProc?.Invoke(x1, y1, x2, y2);
         }
 
         private bool HasPoint(BSPNode node, int ax, int ay)

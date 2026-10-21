@@ -62,14 +62,7 @@ namespace MysteriesRL.Maps.Buildings
         public string Address
         {
             get {
-                string res = "";
-
-                if (fStreet != null) {
-                    res = Convert.ToString(fStreet.Num) + " street, " + Convert.ToString(Num);
-                } else {
-                    res = "unknown address";
-                }
-
+                string res = (fStreet != null) ? string.Format("{0} street, {1}", fStreet.Num, Num) : "unknown address";
                 return res;
             }
         }
@@ -104,12 +97,7 @@ namespace MysteriesRL.Maps.Buildings
         {
             get {
                 Room room = GetRandomRoom();
-                if (room == null) {
-                    return ExtPoint.Empty;
-                } else {
-                    ExtRect area = room.InnerArea;
-                    return GetFreeTile(area);
-                }
+                return room == null ? ExtPoint.Empty : GetFreeTile(room.InnerArea);
             }
         }
 
@@ -420,8 +408,7 @@ namespace MysteriesRL.Maps.Buildings
         public Room FindRoom(int x, int y)
         {
             foreach (Room room in fRooms) {
-                ExtRect area = room.InnerArea;
-                if (area.Contains(x, y)) {
+                if (room.InnerArea.Contains(x, y)) {
                     return room;
                 }
             }

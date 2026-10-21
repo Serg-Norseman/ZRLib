@@ -95,7 +95,7 @@ namespace ZRLib.Map.Dungeons
                 }
             } catch (Exception ex) {
                 Logger.Write("DungeonArea.flushMarksList(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -115,7 +115,7 @@ namespace ZRLib.Map.Dungeons
                 bool result = BuildArea();
                 bool kill = false;
 
-                ParentMark.RetriesLeft = ParentMark.RetriesLeft - 1;
+                ParentMark.RetriesLeft--;
 
                 if (result) {
                     kill = (ParentMark != null && ParentMark.PointsToOtherArea);
@@ -147,7 +147,7 @@ namespace ZRLib.Map.Dungeons
                 return result;
             } catch (Exception ex) {
                 Logger.Write("DungeonArea.tryApplyThisArea(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

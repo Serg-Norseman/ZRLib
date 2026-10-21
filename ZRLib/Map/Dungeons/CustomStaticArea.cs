@@ -125,7 +125,7 @@ namespace ZRLib.Map.Dungeons
                 }
             } catch (Exception ex) {
                 Logger.Write("CustomStaticArea.buildArea(): " + ex.Message);
-                throw ex;
+                throw;
             }
 
             return result;
@@ -141,7 +141,7 @@ namespace ZRLib.Map.Dungeons
                 }
             } catch (Exception ex) {
                 Logger.Write("CustomStaticArea.generateMarksList(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

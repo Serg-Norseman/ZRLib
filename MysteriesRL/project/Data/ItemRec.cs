@@ -16,11 +16,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using MysteriesRL.Game.Types;
-
 namespace MysteriesRL.Data
 {
+    public enum BodyPart
+    {
+        None,
+        Hands,
+        Head,
+        Body
+    }
+
+
     public sealed class ItemRec
     {
         public string Name;

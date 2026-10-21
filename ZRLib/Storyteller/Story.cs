@@ -29,9 +29,9 @@ namespace ZRLib.Storyteller
         private string fAnswersIdent;
         private int fAnswerIndex;
         private string fLocale;
-        private Personality fPersonality;
+        private readonly Personality fPersonality;
         private int fPhaseIndex;
-        private Random fRandom;
+        private readonly Random fRandom;
         private Scene fScene;
         private IStoryView fView;
 

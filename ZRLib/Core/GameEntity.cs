@@ -105,9 +105,7 @@ namespace ZRLib.Core
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                if (GameSpace.Instance != null) {
-                    GameSpace.Instance.DeleteEntity(this);
-                }
+                GameSpace.Instance?.DeleteEntity(this);
             }
             base.Dispose(disposing);
         }

@@ -28,7 +28,7 @@ namespace MysteriesRL.Views
     {
         private const int SV_COL = 0x008080;
 
-        private List<string> fTitle;
+        private readonly List<string> fTitle;
         private readonly ChoicesArea fChoicesArea;
         private bool fMenuMode;
         private int fGenStages = 50;

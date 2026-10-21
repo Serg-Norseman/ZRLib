@@ -42,7 +42,7 @@ namespace MysteriesRL.Views
             Human player = gameSpace.PlayerController.Player;
             NPCStats stats = player.Stats;
             HumanBody body = (HumanBody)player.Body;
-            Layer layer = (Layer)gameSpace.CurrentRealm.PlainMap;
+            Layer layer = gameSpace.CurrentRealm.PlainMap;
 
             fTerminal.TextForeground = Colors.LightGray;
             fTerminal.DrawBox(2, 2, 50, 50, false, "Player");

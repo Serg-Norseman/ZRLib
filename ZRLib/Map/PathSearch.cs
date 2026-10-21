@@ -75,9 +75,7 @@ namespace ZRLib.Map
                     ExtPoint prv = map.GetTile(dst.X, dst.Y).PathPrev;
                     while (prv.X != src.X || prv.Y != src.Y) {
                         len++;
-                        if (path != null) {
-                            path.Insert(0, prv);
-                        }
+                        path?.Insert(0, prv);
 
                         BaseTile m_tile = map.GetTile(prv.X, prv.Y);
                         m_tile.PathStatus = PathSearch.tps_Path;

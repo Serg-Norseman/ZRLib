@@ -89,11 +89,7 @@ namespace MysteriesRL.Maps
         public virtual char GetMetaTile(int x, int y)
         {
             BaseTile baseTile = GetTile(x, y);
-            if (baseTile != null) {
-                return (char)baseTile.Background;
-            } else {
-                return ' ';
-            }
+            return baseTile != null ? (char)baseTile.Background : ' ';
         }
     }
 }

@@ -16,7 +16,6 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
 using MysteriesRL.Game;
 using ZRLib.Core;
@@ -27,8 +26,8 @@ namespace MysteriesRL.Maps
 {
     public class Portal : MapFeature
     {
-        private Realm fOldRealm;
-        private Realm fNewRealm;
+        private readonly Realm fOldRealm;
+        private readonly Realm fNewRealm;
         private int fStage;
 
         public Realm OldRealm
@@ -111,7 +110,7 @@ namespace MysteriesRL.Maps
 
             public override void Execute(object invoker)
             {
-                MRLGame game = this.Space as MRLGame;
+                var game = Space;
                 game.CurrentRealm = (Owner as Portal).NewRealm;
                 game.PlayerController.Player.Map = game.CurrentRealm.PlainMap;
             }

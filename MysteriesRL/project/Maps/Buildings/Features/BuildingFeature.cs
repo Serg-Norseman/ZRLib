@@ -26,7 +26,7 @@ namespace MysteriesRL.Maps.Buildings.Features
         public IMap Map
         {
             get {
-                return (Owner is IMap) ? (IMap)Owner : ((Building)Owner).Map;
+                return (Owner is IMap map) ? map : ((Building)Owner).Map;
             }
         }
 

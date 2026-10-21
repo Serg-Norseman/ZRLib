@@ -314,8 +314,8 @@ namespace MysteriesRL.Generators
             }
 
             CityRegion region = fCity.FindRegion(strPt.X, strPt.Y);
-            if (region != null && region is Street) {
-                result = (Street)region;
+            if (region != null && region is Street street) {
+                result = street;
                 bld.SetStreet(result, bSide.Side);
             } else {
                 bSide = RandomHelper.GetRandomItem(sides);

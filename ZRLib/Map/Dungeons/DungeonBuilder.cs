@@ -360,7 +360,7 @@ namespace ZRLib.Map.Dungeons
                 }
             } catch (Exception ex) {
                 Logger.Write("DungeonBuilder.processArea(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -377,7 +377,7 @@ namespace ZRLib.Map.Dungeons
                 }
             } catch (Exception ex) {
                 Logger.Write("DungeonBuilder.processMark(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 
@@ -427,7 +427,7 @@ namespace ZRLib.Map.Dungeons
                 }
             } catch (Exception ex) {
                 Logger.Write("DungeonBuilder.build(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

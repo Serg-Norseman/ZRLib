@@ -142,12 +142,12 @@ namespace ZRLib.Core
                         fList.Add(item);
                     } catch (Exception ex) {
                         Logger.Write("EntityList.LoadFromStream(" + Convert.ToString(kind) + "): " + ex.StackTrace.ToString());
-                        throw ex;
+                        throw;
                     }
                 }
             } catch (Exception ex) {
                 Logger.Write("EntityList.LoadFromStream(): " + ex.StackTrace.ToString());
-                throw ex;
+                throw;
             }
         }
 
@@ -175,7 +175,7 @@ namespace ZRLib.Core
                 }
             } catch (Exception ex) {
                 Logger.Write("EntityList.SaveToStream(): " + ex.StackTrace.ToString());
-                throw ex;
+                throw;
             }
         }
     }

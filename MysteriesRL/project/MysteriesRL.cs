@@ -22,7 +22,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Timers;
-using MysteriesRL.Data;
 using MysteriesRL.Game;
 using MysteriesRL.Views;
 using ZRLib.Core;
@@ -45,9 +44,9 @@ namespace MysteriesRL
 {
     public sealed class MRLWin : Terminal
     {
-        private Locale fLocale;
-        private MainView fMainView;
-        private System.Timers.Timer fTimer;
+        private readonly Locale fLocale;
+        private readonly MainView fMainView;
+        private readonly System.Timers.Timer fTimer;
 
         public MRLWin()
             : base(160, 80, GetAppPath() + "resources\\cp866_8x8.bmp", 32, 8, 8)

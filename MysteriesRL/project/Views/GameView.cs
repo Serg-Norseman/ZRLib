@@ -111,7 +111,7 @@ namespace MysteriesRL.Views
             int lb = Math.Max(0, hb - 6);
 
             for (int i = lb; i <= hb; i++) {
-                TextMessage msg = messages[i];
+                var msg = messages[i];
                 int yy = top + (i - lb);
                 fTerminal.Write(1, yy, msg.Text, msg.Color);
             }

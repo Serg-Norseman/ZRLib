@@ -48,7 +48,7 @@ namespace ZRLib.Engine
         private readonly TermChar[] fTermBuffer;
         private readonly int fTermHeight;
         private readonly int fTermWidth;
-        private int fSize;
+        private readonly int fSize;
         private BaseSystem fSystem;
         private int fTermCursor = 0;
 

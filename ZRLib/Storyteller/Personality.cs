@@ -204,11 +204,11 @@ namespace ZRLib.Storyteller
 
                 switch (op) {
                     case '+':
-                        varValue = varValue + val;
+                        varValue += val;
                         isCalculation = true;
                         break;
                     case '-':
-                        varValue = varValue - val;
+                        varValue -= val;
                         isCalculation = true;
                         break;
                     case '=':

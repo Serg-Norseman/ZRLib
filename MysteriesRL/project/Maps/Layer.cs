@@ -29,7 +29,7 @@ namespace MysteriesRL.Maps
     public class Layer : BaseMap
     {
         private readonly LocatedEntityList<Creature> fCreatures;
-        private string fId;
+        private readonly string fId;
 
         public LocatedEntityList<Creature> Creatures
         {

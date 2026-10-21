@@ -48,9 +48,7 @@ namespace ZRLib.Engine
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                if (fScreen != null) {
-                    fScreen.Dispose();
-                }
+                fScreen?.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -88,9 +86,7 @@ namespace ZRLib.Engine
 
         public void Resize(int width, int height)
         {
-            if (fScreen != null) {
-                fScreen.SetSize(width, height);
-            }
+            fScreen?.SetSize(width, height);
         }
 
         public void Quit()

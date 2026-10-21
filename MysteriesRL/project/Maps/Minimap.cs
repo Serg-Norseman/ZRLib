@@ -41,8 +41,8 @@ namespace MysteriesRL.Maps
 
         public void MakePlane(IMap source)
         {
-            IDictionary<int, int> bgMap = new Dictionary<int, int>();
-            IDictionary<int, int> fgMap = new Dictionary<int, int>();
+            var bgMap = new Dictionary<int, int>();
+            var fgMap = new Dictionary<int, int>();
 
             for (int y = 0; y < Height; y++) {
                 for (int x = 0; x < Width; x++) {
@@ -93,8 +93,8 @@ namespace MysteriesRL.Maps
                     }
 
                     int maxFID = -1;
-                    int maxF = 0;
-                    /*for (Map.Entry<Integer, Integer> entry : fgMap.entrySet()) {
+                    /*int maxF = 0;
+                    for (Map.Entry<Integer, Integer> entry : fgMap.entrySet()) {
                         TileID tid = TileID.forValue(entry.getKey());
                         
                         if (entry.getKey() == TileID.tid_Road.Value) {
@@ -122,14 +122,14 @@ namespace MysteriesRL.Maps
         public void MakeCity(IMap source, City city)
         {
             foreach (Street street in city.Streets) {
-                ExtRect srcRect = (ExtRect)street.Area;
+                ExtRect srcRect = street.Area;
                 ExtRect dstRect = ExtRect.Create(srcRect.Left / 10, srcRect.Top / 10, srcRect.Right / 10, srcRect.Bottom / 10);
 
                 FillArea(dstRect.Left, dstRect.Top, dstRect.Right, dstRect.Bottom, (int)TileID.tid_Road, false);
             }
 
             foreach (Building bld in city.Buildings) {
-                ExtRect srcRect = (ExtRect)bld.Area;
+                ExtRect srcRect = bld.Area;
                 ExtRect dstRect = ExtRect.Create(srcRect.Left / 10, srcRect.Top / 10, srcRect.Right / 10, srcRect.Bottom / 10);
 
                 for (int yy = dstRect.Top; yy <= dstRect.Bottom; yy++) {

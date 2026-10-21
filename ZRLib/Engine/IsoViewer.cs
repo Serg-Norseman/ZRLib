@@ -61,9 +61,7 @@ namespace ZRLib.Engine
         {
             screen.InitClip(ExtRect.Create(destX, destY, destX + Width, destY + Height));
 
-            if (OnBeforePaint != null) {
-                OnBeforePaint(this, screen);
-            }
+            OnBeforePaint?.Invoke(this, screen);
 
             screen.FillRect(ExtRect.Create(destX, destY, destX + Width, destY + Height), Colors.Black);
 
@@ -98,9 +96,7 @@ namespace ZRLib.Engine
                     }
                 }
 
-                if (OnAfterPaint != null) {
-                    OnAfterPaint(this, screen);
-                }
+                OnAfterPaint?.Invoke(this, screen);
 
                 screen.DoneClip();
             }

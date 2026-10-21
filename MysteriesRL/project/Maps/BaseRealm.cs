@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using BSLib;
 using MysteriesRL.Game;
 using MysteriesRL.Generators;
-using MysteriesRL.Maps;
 using MysteriesRL.Maps.Buildings;
 using MysteriesRL.Maps.Buildings.Features;
 using ZRLib.Core;
@@ -51,10 +50,10 @@ namespace MysteriesRL.Maps
             if (region != null) {
                 result = fCity.Name;
 
-                if (region is Street) {
-                    result += ", " + Convert.ToString(((Street)region).Num) + " street";
-                } else if (region is District) {
-                    result += ", " + Convert.ToString(((District)region).Num) + " district";
+                if (region is Street street) {
+                    result += ", " + Convert.ToString(street.Num) + " street";
+                } else if (region is District district) {
+                    result += ", " + Convert.ToString(district.Num) + " district";
 
                     Building bld = fCity.FindBuilding(px, py);
                     if (bld != null) {
@@ -122,9 +121,7 @@ namespace MysteriesRL.Maps
             for (int i = 0; i < feats.Count; i++) {
                 GameEntity entity = feats[i];
 
-                if (entity is MapFeature) {
-                    MapFeature mf = (MapFeature)entity;
-
+                if (entity is MapFeature mf) {
                     fPlainMap.GetTile(mf.PosX, mf.PosY).Foreground = (ushort)mf.TileID;
                 }
             }

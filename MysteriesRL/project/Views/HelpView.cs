@@ -24,7 +24,7 @@ namespace MysteriesRL.Views
 {
     public sealed class HelpView : SubView
     {
-        private List<string> fText;
+        private readonly List<string> fText;
 
         public HelpView(BaseView ownerView, Terminal terminal)
             : base(ownerView, terminal)

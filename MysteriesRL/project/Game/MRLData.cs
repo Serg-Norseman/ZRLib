@@ -1,5 +1,11 @@
-﻿
-using System;
+﻿/*
+ *  "MysteriesRL", roguelike game.
+ *  Copyright (C) 2015, 2017, 2020 by Serg V. Zhdanovskih.
+ *  
+ *  Licensed under the GNU General Public License (GPL) v3.
+ *  See LICENSE file in the project root for full license information.
+ */
+
 using System.Collections.Generic;
 using BSLib;
 using MysteriesRL.Items;
@@ -8,13 +14,13 @@ using ZRLib.Engine;
 
 namespace MysteriesRL.Game
 {
-    public struct BodypartRec
+    public readonly struct BodypartRec
     {
-        public readonly String Name;
+        public readonly string Name;
         public readonly float DmgMultiply;
         public readonly EquipmentType Equipment;
 
-        public BodypartRec(String name, float dmgMultiply, EquipmentType equipment)
+        public BodypartRec(string name, float dmgMultiply, EquipmentType equipment)
         {
             Name = name;
             DmgMultiply = dmgMultiply;
@@ -22,7 +28,7 @@ namespace MysteriesRL.Game
         }
     }
 
-    public struct ItemTypeRec
+    public readonly struct ItemTypeRec
     {
         public readonly int Value;
         public readonly char Sym;
@@ -45,17 +51,17 @@ namespace MysteriesRL.Game
         }
     }
 
-    public struct HouseStatusRec
+    public readonly struct HouseStatusRec
     {
-        public readonly String Name;
+        public readonly string Name;
 
-        public HouseStatusRec(String name)
+        public HouseStatusRec(string name)
         {
             Name = name;
         }
     }
 
-    public struct TileRec
+    public readonly struct TileRec
     {
         public readonly int Value;
         public readonly char Sym;
@@ -77,7 +83,7 @@ namespace MysteriesRL.Game
         }
     }
 
-    public struct ProsperityRec
+    public readonly struct ProsperityRec
     {
         public readonly int Value;
         public readonly int MinRoomSize;

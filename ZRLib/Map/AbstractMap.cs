@@ -130,9 +130,7 @@ namespace ZRLib.Map
         public virtual void SetSeen(int x, int y)
         {
             BaseTile tile = GetTile(x, y);
-            if (tile != null) {
-                tile.IncludeStates(BaseTile.TS_SEEN, BaseTile.TS_VISITED);
-            }
+            tile?.IncludeStates(BaseTile.TS_SEEN, BaseTile.TS_VISITED);
         }
 
         public virtual bool IsBlockLOS(int x, int y)

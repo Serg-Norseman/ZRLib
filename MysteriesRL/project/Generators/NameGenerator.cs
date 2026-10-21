@@ -93,7 +93,7 @@ namespace MysteriesRL.Generators
 
         public string GenerateName(bool isMale)
         {
-            string name = "";
+            string name;
             if (isMale) {
                 name = fMaleNames[fRandom.Next(fMaleNames.Count)];
             } else {

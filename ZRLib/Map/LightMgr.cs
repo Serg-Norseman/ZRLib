@@ -38,9 +38,8 @@ namespace ZRLib.Map
             var features = map.Features;
             var lights = new List<ILightSource>();
             for (int i = 0; i < features.Count; i++) {
-                var feat = features[i] as ILightSource;
-                if (feat != null && feat.InRect(viewport) && (feat.Power > 0.0f)) {
-                    lights.Add(feat);
+                if (features[i] is ILightSource lightSource && lightSource.InRect(viewport) && (lightSource.Power > 0.0f)) {
+                    lights.Add(lightSource);
                 }
             }
 

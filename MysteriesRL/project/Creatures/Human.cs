@@ -265,9 +265,7 @@ namespace MysteriesRL.Creatures
                 return fBody;
             }
             set {
-                if (fBody != null) {
-                    fBody.Dispose();
-                }
+                fBody?.Dispose();
                 fBody = value;
             }
         }
@@ -427,9 +425,7 @@ namespace MysteriesRL.Creatures
             Space.AddMessage(Name + " took " + damage.Value + " damage", Colors.Fuchsia);
 
             HumanBody body = (HumanBody)Body;
-            if (body != null) {
-                body.TakeDamage(damage);
-            }
+            body?.TakeDamage(damage);
 
             if (!Alive) {
                 Creature inflictor = damage.Inflictor;

@@ -44,7 +44,7 @@ namespace ZRLib.Core
         public const char сptFloat = (char)4;
 
         private readonly char[] fBuffer = new char[4096];
-        private Encoding fEncoding;
+        private readonly Encoding fEncoding;
         private readonly BinaryReader fStream;
 
         private int fBufPos;

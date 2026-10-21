@@ -106,7 +106,7 @@ namespace ZRLib.External.MarkovChains
         /// <summary>
         /// Table of prefixes to possible suffixes
         /// </summary>
-        private IDictionary<ChainKey, SuffixInfo> Chain = new Dictionary<ChainKey, SuffixInfo>();
+        private readonly IDictionary<ChainKey, SuffixInfo> Chain = new Dictionary<ChainKey, SuffixInfo>();
 
         public MarkovChain(int order, T emptyItem)
         {

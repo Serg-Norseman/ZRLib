@@ -105,7 +105,7 @@ namespace ZRLib.Map.Dungeons
                 FlushMarksList();
             } catch (Exception ex) {
                 Logger.Write("StaticArea.flushToMap(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 

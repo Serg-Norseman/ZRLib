@@ -45,8 +45,8 @@ namespace ZRLib.Map.Dungeons
         {
             bool result;
 
-            if (anArea is RectangularRoom) {
-                ExtRect rectArea = ((RectangularRoom)anArea).DimensionRect;
+            if (anArea is RectangularRoom rectRoom) {
+                ExtRect rectArea = rectRoom.DimensionRect;
 
                 if (!MathHelper.IsValueBetween(fCenterY, rectArea.Top, rectArea.Bottom, true) && !MathHelper.IsValueBetween(fCenterX, rectArea.Left, rectArea.Right, true)) {
                     result = (fRadius > Math.Min(Math.Abs(rectArea.Top - fCenterY), Math.Abs(rectArea.Bottom - fCenterY)) && fRadius > Math.Min(Math.Abs(rectArea.Left - fCenterX), Math.Abs(rectArea.Right - fCenterX)));
@@ -58,8 +58,7 @@ namespace ZRLib.Map.Dungeons
                     }
                 }
             } else {
-                if (anArea is CylindricityRoom) {
-                    CylindricityRoom cylArea = ((CylindricityRoom)anArea);
+                if (anArea is CylindricityRoom cylArea) {
                     try {
                         int dX = fCenterX - cylArea.fCenterX;
                         int dY = fCenterY - cylArea.fCenterY;
@@ -152,7 +151,7 @@ namespace ZRLib.Map.Dungeons
                 FlushMarksList();
             } catch (Exception ex) {
                 Logger.Write("CylindricityRoom.flushToMap(): " + ex.Message);
-                throw ex;
+                throw;
             }
         }
 
