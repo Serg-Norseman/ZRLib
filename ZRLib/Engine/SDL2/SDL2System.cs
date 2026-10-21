@@ -20,7 +20,6 @@ using System;
 using System.Text;
 using SDL2;
 using ZRLib.Core;
-using ZRLib.Engine;
 
 namespace ZRLib.Engine.sdl2
 {
@@ -35,7 +34,12 @@ namespace ZRLib.Engine.sdl2
             fFrameDuration = 50;
 
             SDL.SDL_Init(SDL.SDL_INIT_VIDEO /*| SDL.SDL_INIT_EVENTS*/);
-            fWinPtr = SDL.SDL_CreateWindow("Win", SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED, width, height, 0);
+
+            SDL.SDL_WindowFlags flags = SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI;
+            if (fullScreen) {
+                flags |= SDL.SDL_WindowFlags.SDL_WINDOW_FULLSCREEN;
+            }
+            fWinPtr = SDL.SDL_CreateWindow("Win", SDL.SDL_WINDOWPOS_CENTERED, SDL.SDL_WINDOWPOS_CENTERED, width, height, flags);
 
             SDL.SDL_StartTextInput();
 
